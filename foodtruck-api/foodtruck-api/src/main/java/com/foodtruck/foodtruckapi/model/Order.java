@@ -26,10 +26,10 @@ public class Order {
     @Column(name = "OrderID")
     Integer orderId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ProcessedByUserId")
-    @Column(name = "ProcessedByUserId")
-    Integer processedByUserId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UserId")
+    //@Column(name = "ProcessedByUserId")
+    User processedByUserId;
 
     @Column(name = "CustomerName", nullable = false, length = 100)
     String customerName;
