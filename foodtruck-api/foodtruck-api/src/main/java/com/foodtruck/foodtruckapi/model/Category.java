@@ -3,6 +3,7 @@ package com.foodtruck.foodtruckapi.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -15,12 +16,13 @@ import java.time.LocalDateTime;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "CategoryID")
+    @Column(name = "CategoryID")
     Integer categoryId;
 
-    //@Column(name = "Name", nullable = false, length = 100)
+    @Column(name = "Name", nullable = false, length = 100)
     String name;
 
-    //@Column(name = "CreatedAt")
+    @Column(name = "CreatedAt")
+    @CreationTimestamp
     LocalDateTime createdAt;
 }
