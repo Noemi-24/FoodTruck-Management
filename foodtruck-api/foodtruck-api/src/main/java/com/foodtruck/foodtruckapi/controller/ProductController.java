@@ -22,7 +22,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
         return productRepository.findById(id)
-                .map(ResponseEntity::ok)                    // 200 OK con producto
+                .map(ResponseEntity::ok)                    // 200 OK
                 .orElse(ResponseEntity.notFound().build()); // 404 Not Found
     }
 
