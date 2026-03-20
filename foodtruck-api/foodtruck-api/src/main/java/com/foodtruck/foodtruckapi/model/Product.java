@@ -1,6 +1,7 @@
 package com.foodtruck.foodtruckapi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,12 +29,18 @@ public class Product {
     @JoinColumn(name = "CategoryID", nullable = false)
     Category category;
 
+    @NotBlank(message = "Name is required")
+    @Size(min = 2, max = 100, message = "Name must be 2-100 chars")
     @Column(name = "Name", nullable = false, length = 100)
     String name;
 
+    @Size(min = 2, max = 255, message = "Description must be 2-255 chars")
     @Column(name = "Description")
     String description;
 
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.01", message = "Price must be greater than 0")
+    @DecimalMax(value = "9999.99", message = "Price is too high")
     @Column(name = "Price", nullable = false, precision = 12, scale = 2)
     BigDecimal price;
 

@@ -1,6 +1,8 @@
 package com.foodtruck.foodtruckapi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,6 +21,8 @@ public class Category {
     @Column(name = "CategoryID")
     Integer categoryId;
 
+    @NotBlank(message = "Name is required")
+    @Size(min = 2, max = 100, message = "Name must be 2-100 chars")
     @Column(name = "Name", nullable = false, length = 100)
     String name;
 
