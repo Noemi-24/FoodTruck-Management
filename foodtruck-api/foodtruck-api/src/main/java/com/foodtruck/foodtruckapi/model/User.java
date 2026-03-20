@@ -21,8 +21,8 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ProcessedByUser")
-    Integer processedByUser;
+    @Column(name = "UserID")
+    Integer UserId;
 
     @Column(name = "Name", nullable = false, length = 100)
     String name;

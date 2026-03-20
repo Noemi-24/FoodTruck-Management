@@ -33,13 +33,13 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
-        user.setProcessedByUser(id);
+        user.setUserId(id);
         User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
         if(!userRepository.existsById(id)){
             return ResponseEntity.notFound().build();
         }

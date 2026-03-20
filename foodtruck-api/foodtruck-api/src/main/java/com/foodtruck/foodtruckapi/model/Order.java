@@ -27,8 +27,7 @@ public class Order {
     Integer orderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserId")
-    //@Column(name = "ProcessedByUserId")
+    @JoinColumn(name = "ProcessedByUserId")
     User processedByUserId;
 
     @Column(name = "CustomerName", nullable = false, length = 100)
@@ -37,7 +36,7 @@ public class Order {
     @Column(name = "CustomerPhone", nullable = false, length = 20)
     String customerPhone;
 
-    @Column(name = "CustomerEmail", nullable = false, length = 100)
+    @Column(name = "CustomerEmail", length = 100)
     String customerEmail;
 
     @Column(name = "Total", nullable = false, precision = 12, scale = 2)
@@ -47,7 +46,7 @@ public class Order {
     @Column(name = "Status")
     OrderStatus status;
 
-   @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Column(name = "PaymentMethod")
     PaymentMethod paymentMethod;
 
