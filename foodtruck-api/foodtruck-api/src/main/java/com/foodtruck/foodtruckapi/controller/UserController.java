@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
         if(!userRepository.existsById(id)){
             return ResponseEntity.notFound().build();
         }

@@ -1,8 +1,6 @@
 package com.foodtruck.foodtruckapi.enums;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
-public enum Category {
+public enum ExpenseCategory {
     ingredients,
     fuel,
     maintenance,

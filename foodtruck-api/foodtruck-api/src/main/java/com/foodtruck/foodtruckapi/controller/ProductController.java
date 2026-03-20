@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> deleteProduct(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
         if (!productRepository.existsById(id)) {
             return ResponseEntity.notFound().build();  // 404
         }

@@ -28,7 +28,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProcessedByUserId")
-    User processedByUserId;
+    User processedByUser;
 
     @Column(name = "CustomerName", nullable = false, length = 100)
     String customerName;

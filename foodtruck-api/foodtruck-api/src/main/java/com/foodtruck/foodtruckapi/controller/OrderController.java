@@ -39,7 +39,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Order> deleteOrder(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteOrder(@PathVariable Integer id) {
         if (!orderRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
