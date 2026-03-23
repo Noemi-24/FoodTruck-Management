@@ -1,5 +1,6 @@
 package com.foodtruck.foodtruckapi.service.impl;
 
+import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.model.Product;
 import com.foodtruck.foodtruckapi.repository.ProductRepository;
 import com.foodtruck.foodtruckapi.service.ProductService;
@@ -21,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(Integer id) {
         return productRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Not Found: " + id));
+                .orElseThrow(()-> new ResourceNotFoundException("Product", "id", id));
     }
 
     @Override
@@ -32,15 +33,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product updateProduct(Integer id, Product product) {
         if(!productRepository.existsById(id)){
-            throw new RuntimeException("Not Found: " + id);
+            throw new ResourceNotFoundException("Product", "id", id);
         }
+        product.setProductId(id);
         return productRepository.save(product);
     }
 
     @Override
     public void deleteProduct(Integer id) {
         if(!productRepository.existsById(id)){
-            throw new RuntimeException("Not Found: " + id);
+            throw new ResourceNotFoundException("Product", "id", id);
         }
         productRepository.deleteById(id);
     }

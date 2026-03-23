@@ -1,5 +1,6 @@
 package com.foodtruck.foodtruckapi.service.impl;
 
+import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.model.Expense;
 import com.foodtruck.foodtruckapi.repository.ExpenseRepository;
 import com.foodtruck.foodtruckapi.service.ExpenseService;
@@ -21,7 +22,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public Expense getExpenseById(Integer id) {
         return expenseRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Expense not found: " + id));
+                .orElseThrow(()-> new ResourceNotFoundException("Expense", "id", id));
     }
 
     @Override
@@ -32,15 +33,16 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public Expense updateExpense(Integer id, Expense expense) {
         if(!expenseRepository.existsById(id)) {
-            throw new RuntimeException("Expense not found: " + id);
+            throw new ResourceNotFoundException("Expense", "id", id);
         }
+        expense.setExpenseId(id);
         return expenseRepository.save(expense);
     }
 
     @Override
     public void deleteExpense(Integer id) {
         if(!expenseRepository.existsById(id)) {
-            throw new RuntimeException("Expense not found: " + id);
+            throw new ResourceNotFoundException("Expense", "id", id);
         }
         expenseRepository.deleteById(id);
     }

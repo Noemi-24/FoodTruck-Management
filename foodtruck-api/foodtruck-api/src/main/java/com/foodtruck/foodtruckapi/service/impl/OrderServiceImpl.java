@@ -1,5 +1,6 @@
 package com.foodtruck.foodtruckapi.service.impl;
 
+import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.model.Order;
 import com.foodtruck.foodtruckapi.repository.OrderRepository;
 import com.foodtruck.foodtruckapi.service.OrderService;
@@ -21,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getOrderById(Integer id) {
         return orderRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Order not found: " + id));
+                .orElseThrow(()-> new ResourceNotFoundException("Order", "id", id));
     }
 
     @Override
@@ -32,15 +33,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order updateOrder(Integer id, Order order) {
         if(!orderRepository.existsById(id)){
-            throw new RuntimeException("Order not found: " + id);
+            throw new ResourceNotFoundException("Order", "id", id);
         }
+        order.setOrderId(id);
         return orderRepository.save(order);
     }
 
     @Override
     public void deleteOrder(Integer id) {
         if(!orderRepository.existsById(id)){
-            throw new RuntimeException("Order not found: " + id);
+            throw new ResourceNotFoundException("Order", "id", id);
         }
         orderRepository.deleteById(id);
     }

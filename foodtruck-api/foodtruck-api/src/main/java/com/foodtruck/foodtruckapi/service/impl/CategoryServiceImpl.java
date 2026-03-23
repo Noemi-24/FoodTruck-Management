@@ -1,5 +1,6 @@
 package com.foodtruck.foodtruckapi.service.impl;
 
+import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.model.Category;
 import com.foodtruck.foodtruckapi.repository.CategoryRepository;
 import com.foodtruck.foodtruckapi.service.CategoryService;
@@ -21,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryById(Integer id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "id", id));
     }
 
     @Override
@@ -32,15 +33,16 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category updateCategory(Integer id, Category category) {
         if (!categoryRepository.existsById(id)) {
-            throw new RuntimeException("Category not found: " + id);
+            throw new ResourceNotFoundException("Category", "id", id);
         }
+        category.setCategoryId(id);
         return categoryRepository.save(category);
     }
 
     @Override
     public void deleteCategory(Integer id) {
         if (!categoryRepository.existsById(id)) {
-            throw new RuntimeException("Category not found: " + id);
+            throw new ResourceNotFoundException("Category", "id", id);
         }
         categoryRepository.deleteById(id);
     }
