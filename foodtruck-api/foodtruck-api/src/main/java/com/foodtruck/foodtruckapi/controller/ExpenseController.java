@@ -1,7 +1,7 @@
 package com.foodtruck.foodtruckapi.controller;
 
 import com.foodtruck.foodtruckapi.model.Expense;
-import com.foodtruck.foodtruckapi.repository.ExpenseRepository;
+import com.foodtruck.foodtruckapi.service.ExpenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,38 +13,34 @@ import java.util.List;
 @RequestMapping("/api/expenses")
 @RequiredArgsConstructor
 public class ExpenseController {
-    private final ExpenseRepository expenseRepository;
+    private final ExpenseService expenseService;
 
     @GetMapping
     public List<Expense> getAllExpenses(){
-        return expenseRepository.findAll();
+        return expenseService.getAllExpenses();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Expense> getExpenseById(@PathVariable Integer id){
-        return expenseRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+       Expense expense = expenseService.getExpenseById(id);
+       return ResponseEntity.ok().body(expense);
     }
 
     @PostMapping
     public Expense createExpense(@Valid @RequestBody Expense expense){
-        return expenseRepository.save(expense);
+        return expenseService.createExpense(expense);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Expense> updateExpense(@PathVariable Integer id, @Valid @RequestBody Expense expense){
         expense.setExpenseId(id);
-        Expense updatedExpense = expenseRepository.save(expense);
+        Expense updatedExpense = expenseService.updateExpense(id, expense);
         return ResponseEntity.ok(updatedExpense);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExpense(@PathVariable Integer id){
-        if (!expenseRepository.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }
-        expenseRepository.deleteById(id);
+        expenseService.deleteExpense(id);
         return ResponseEntity.noContent().build();
     }
 }

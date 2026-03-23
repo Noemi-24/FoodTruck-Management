@@ -1,7 +1,7 @@
 package com.foodtruck.foodtruckapi.controller;
 
 import com.foodtruck.foodtruckapi.model.User;
-import com.foodtruck.foodtruckapi.repository.UserRepository;
+import com.foodtruck.foodtruckapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,38 +12,34 @@ import java.util.List;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Integer id) {
-        return userRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok().body(user);
     }
 
     @PostMapping
     public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userService.createUser(user);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
         user.setUserId(id);
-        User updatedUser = userRepository.save(user);
+        User updatedUser = userService.updateUser(id, user);
         return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
-        if(!userRepository.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }
-        userRepository.deleteById(id);
+        userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -2,6 +2,7 @@ package com.foodtruck.foodtruckapi.controller;
 
 import com.foodtruck.foodtruckapi.model.Order;
 import com.foodtruck.foodtruckapi.repository.OrderRepository;
+import com.foodtruck.foodtruckapi.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,38 +13,34 @@ import java.util.List;
 @RequestMapping("/api/orders")
 @RequiredArgsConstructor
 public class OrderController {
-    private final OrderRepository orderRepository;
+    private final OrderService orderService;
 
     @GetMapping
     public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+        return orderService.getAllOrders();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Integer id) {
-        return orderRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+       Order order = orderService.getOrderById(id);
+       return ResponseEntity.ok().body(order);
     }
 
     @PostMapping
     public Order createOrder(@RequestBody Order order) {
-        return orderRepository.save(order);
+        return orderService.createOrder(order);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody Order order) {
         order.setOrderId(id);
-        Order updatedOrder = orderRepository.save(order);
+        Order updatedOrder = orderService.updateOrder(id,order);
         return ResponseEntity.ok(updatedOrder);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Integer id) {
-        if (!orderRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        orderRepository.deleteById(id);
+        orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
 }

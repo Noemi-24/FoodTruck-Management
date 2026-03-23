@@ -1,7 +1,7 @@
 package com.foodtruck.foodtruckapi.controller;
 
 import com.foodtruck.foodtruckapi.model.Product;
-import com.foodtruck.foodtruckapi.repository.ProductRepository;
+import com.foodtruck.foodtruckapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,38 +12,34 @@ import java.util.List;
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
 public class ProductController {
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
     @GetMapping
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productService.getAllProducts();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
-        return productRepository.findById(id)
-                .map(ResponseEntity::ok)                    // 200 OK
-                .orElse(ResponseEntity.notFound().build()); // 404 Not Found
+        Product product = productService.getProductById(id);
+        return ResponseEntity.ok().body(product);
     }
 
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
-        return productRepository.save(product);
+        return productService.createProduct(product);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestBody Product product) {
         product.setProductId(id);
-        Product updatedProduct = productRepository.save(product);
+        Product updatedProduct = productService.updateProduct(id, product);
         return ResponseEntity.ok(updatedProduct);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
-        if (!productRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();  // 404
-        }
-        productRepository.deleteById(id);
+        productService.deleteProduct(id);
         return ResponseEntity.noContent().build();  // 204
     }
 }

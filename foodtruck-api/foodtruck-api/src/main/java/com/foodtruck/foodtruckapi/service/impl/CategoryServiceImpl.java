@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryById(Integer id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Not Found: " + id));
+                .orElseThrow(() -> new RuntimeException("Category not found: " + id));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category updateCategory(Integer id, Category category) {
         if (!categoryRepository.existsById(id)) {
-            throw new RuntimeException("Category not found: " + category.getCategoryId());
+            throw new RuntimeException("Category not found: " + id);
         }
         return categoryRepository.save(category);
     }
