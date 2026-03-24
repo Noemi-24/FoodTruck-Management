@@ -14,6 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -73,4 +74,7 @@ public class Order {
     @Column(name = "UpdatedAt")
     @UpdateTimestamp
     LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<OrderItem> orderItems;
 }
