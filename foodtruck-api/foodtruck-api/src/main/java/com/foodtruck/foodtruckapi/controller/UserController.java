@@ -1,8 +1,13 @@
 package com.foodtruck.foodtruckapi.controller;
 
+import com.foodtruck.foodtruckapi.dto.request.CreateUserRequest;
+import com.foodtruck.foodtruckapi.dto.request.UpdateUserRequest;
+import com.foodtruck.foodtruckapi.dto.response.UserResponse;
 import com.foodtruck.foodtruckapi.model.User;
 import com.foodtruck.foodtruckapi.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,26 +20,25 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserResponse> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer id) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok().body(user);
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Integer id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest userRequest) {
+        UserResponse response = userService.createUser(userRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
-        user.setUserId(id);
-        User updatedUser = userService.updateUser(id, user);
-        return ResponseEntity.ok(updatedUser);
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Integer id, @Valid @RequestBody UpdateUserRequest userRequest) {
+        UserResponse response = userService.updateUser(id, userRequest);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")

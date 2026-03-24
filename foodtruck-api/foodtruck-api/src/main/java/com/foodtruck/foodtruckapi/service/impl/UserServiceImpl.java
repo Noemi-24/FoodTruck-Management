@@ -1,6 +1,10 @@
 package com.foodtruck.foodtruckapi.service.impl;
 
+import com.foodtruck.foodtruckapi.dto.request.CreateUserRequest;
+import com.foodtruck.foodtruckapi.dto.request.UpdateUserRequest;
+import com.foodtruck.foodtruckapi.dto.response.UserResponse;
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
+import com.foodtruck.foodtruckapi.mapper.UserMapper;
 import com.foodtruck.foodtruckapi.model.User;
 import com.foodtruck.foodtruckapi.repository.UserRepository;
 import com.foodtruck.foodtruckapi.service.UserService;
@@ -13,30 +17,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::toUserResponse)
+                .toList();
     }
 
     @Override
-    public User getUserById(Integer id) {
-        return userRepository.findById(id)
+    public UserResponse getUserById(Integer id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("User", "id", id));
+        return userMapper.toUserResponse(user);
     }
 
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserResponse createUser(CreateUserRequest userRequest) {
+        return null;
     }
 
     @Override
-    public User updateUser(Integer id, User user) {
+    public UserResponse updateUser(Integer id, UpdateUserRequest userRequest) {
         if (!userRepository.existsById(id)){
             throw new ResourceNotFoundException("User", "id", id);
         }
-        user.setUserId(id);
-        return userRepository.save(user);
+        return null;
     }
 
     @Override
