@@ -1,33 +1,47 @@
 package com.foodtruck.foodtruckapi.service.impl;
 
+import com.foodtruck.foodtruckapi.dto.request.CreateOrderRequest;
+import com.foodtruck.foodtruckapi.dto.request.OrderItemRequest;
+import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
+import com.foodtruck.foodtruckapi.exception.BadRequestException;
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
+import com.foodtruck.foodtruckapi.mapper.OrderMapper;
 import com.foodtruck.foodtruckapi.model.Order;
+import com.foodtruck.foodtruckapi.model.OrderItem;
+import com.foodtruck.foodtruckapi.model.Product;
+import com.foodtruck.foodtruckapi.repository.OrderItemRepository;
 import com.foodtruck.foodtruckapi.repository.OrderRepository;
+import com.foodtruck.foodtruckapi.repository.ProductRepository;
 import com.foodtruck.foodtruckapi.service.OrderService;
+import com.foodtruck.foodtruckapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final ProductService productService;
+    private final OrderMapper orderMapper;
 
     @Override
-    public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+    public List<OrderResponse> getAllOrders() {
+        return orderRepository.findAll()
+                .stream()
+                .map(orderMapper::toOrderResponse)
+                .toList();
     }
 
     @Override
-    public Order getOrderById(Integer id) {
-        return orderRepository.findById(id)
+    public OrderResponse getOrderById(Integer id) {
+        Order order = orderRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Order", "id", id));
-    }
-
-    @Override
-    public Order createOrder(Order order) {
-        return orderRepository.save(order);
+        return orderMapper.toOrderResponse(order);
     }
 
     @Override
@@ -45,5 +59,59 @@ public class OrderServiceImpl implements OrderService {
             throw new ResourceNotFoundException("Order", "id", id);
         }
         orderRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public OrderResponse createOrder(CreateOrderRequest orderRequest) {
+        Order order = new Order();
+
+        // Create order entity
+        order.setCustomerName(orderRequest.getCustomerName());
+        order.setCustomerPhone(orderRequest.getCustomerPhone());
+        order.setCustomerEmail(orderRequest.getCustomerEmail());
+        order.setStatus(orderRequest.getStatus());
+        order.setPaymentMethod(orderRequest.getPaymentMethod());
+        order.setNotes(orderRequest.getNotes());
+
+        // Process items and calculates total
+        List<OrderItem> orderItems = new ArrayList<>();
+        BigDecimal totalAmount = BigDecimal.ZERO;
+
+        for (OrderItemRequest itemRequest: orderRequest.getItems()){
+            // Find product
+            Product product = productService.getProductById(itemRequest.getProductId());
+
+            // Validate product availability
+            if (!product.getAvailable()) {
+                throw new BadRequestException("Product " + product.getName() + " is not available");
+            }
+            // Create OrderItem
+            OrderItem orderItem = new OrderItem();
+            orderItem.setProduct(product);
+            orderItem.setQuantity(itemRequest.getQuantity());
+            orderItem.setPriceAtOrder(product.getPrice());
+
+            // Calculate subtotal
+            BigDecimal subtotal = product.getPrice().multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
+            orderItem.setSubtotal(subtotal);
+            orderItem.setNotes(itemRequest.getNotes());
+            orderItem.setOrder(order);
+
+            orderItems.add(orderItem);
+            totalAmount = totalAmount.add(subtotal);
+        }
+
+        // Set total and add items to order
+        order.setTotal(totalAmount);
+        order.setOrderItems(orderItems);
+
+        // Save order
+        Order savedOrder = orderRepository.save(order);
+
+        // Convert to a Response
+        OrderResponse orderResponse = orderMapper.toOrderResponse(savedOrder);
+
+        return orderResponse;
     }
 }

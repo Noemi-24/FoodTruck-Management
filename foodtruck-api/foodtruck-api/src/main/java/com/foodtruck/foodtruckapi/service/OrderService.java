@@ -1,13 +1,16 @@
 package com.foodtruck.foodtruckapi.service;
 
+import com.foodtruck.foodtruckapi.dto.request.CreateOrderRequest;
+import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
 import com.foodtruck.foodtruckapi.model.Order;
 
 import java.util.List;
 
 public interface OrderService {
-    List<Order> getAllOrders();
-    Order getOrderById(Integer id);
-    Order createOrder(Order order);
+    List<OrderResponse> getAllOrders();
+    OrderResponse getOrderById(Integer id);
     Order updateOrder(Integer id, Order order);
     void deleteOrder(Integer id);
+
+    OrderResponse createOrder(CreateOrderRequest orderRequest);
 }

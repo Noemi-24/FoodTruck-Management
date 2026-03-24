@@ -22,7 +22,7 @@ public class OrderMapper {
         orderResponse.setStatus(order.getStatus());
         orderResponse.setPaymentMethod(order.getPaymentMethod());
         orderResponse.setOrderDate(order.getOrderDate());
-        orderResponse.setUpdateAt(order.getUpdatedAt());
+        orderResponse.setUpdatedAt(order.getUpdatedAt());
 
         // Setting items in order
         List<OrderItemResponse> itemsResponse = order.getOrderItems()

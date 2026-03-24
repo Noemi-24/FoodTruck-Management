@@ -1,5 +1,6 @@
 package com.foodtruck.foodtruckapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -28,6 +29,7 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OrderID", nullable = false)
+    @JsonIgnore
     Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)

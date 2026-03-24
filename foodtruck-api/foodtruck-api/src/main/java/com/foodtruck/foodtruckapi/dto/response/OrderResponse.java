@@ -21,7 +21,7 @@ public class OrderResponse {
     PaymentMethod paymentMethod;
     LocalDateTime orderDate;
     List<OrderItemResponse> items;
-    LocalDateTime updateAt;
+    LocalDateTime updatedAt;
 
     //Processed by user info
     Integer processedByUserId;
