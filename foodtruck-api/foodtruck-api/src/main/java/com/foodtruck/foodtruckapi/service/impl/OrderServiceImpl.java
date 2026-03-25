@@ -9,9 +9,7 @@ import com.foodtruck.foodtruckapi.mapper.OrderMapper;
 import com.foodtruck.foodtruckapi.model.Order;
 import com.foodtruck.foodtruckapi.model.OrderItem;
 import com.foodtruck.foodtruckapi.model.Product;
-import com.foodtruck.foodtruckapi.repository.OrderItemRepository;
 import com.foodtruck.foodtruckapi.repository.OrderRepository;
-import com.foodtruck.foodtruckapi.repository.ProductRepository;
 import com.foodtruck.foodtruckapi.service.OrderService;
 import com.foodtruck.foodtruckapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -64,9 +62,8 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public OrderResponse createOrder(CreateOrderRequest orderRequest) {
-        Order order = new Order();
-
         // Create order entity
+        Order order = new Order();
         order.setCustomerName(orderRequest.getCustomerName());
         order.setCustomerPhone(orderRequest.getCustomerPhone());
         order.setCustomerEmail(orderRequest.getCustomerEmail());
@@ -110,8 +107,6 @@ public class OrderServiceImpl implements OrderService {
         Order savedOrder = orderRepository.save(order);
 
         // Convert to a Response
-        OrderResponse orderResponse = orderMapper.toOrderResponse(savedOrder);
-
-        return orderResponse;
+        return orderMapper.toOrderResponse(savedOrder);
     }
 }

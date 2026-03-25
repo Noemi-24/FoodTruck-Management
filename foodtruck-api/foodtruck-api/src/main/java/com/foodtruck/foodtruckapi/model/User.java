@@ -39,7 +39,6 @@ public class User {
     @Column(name = "Password", nullable = false)
     String password;
 
-    @NotBlank(message = "Phone is required")
     @Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$", message = "Format: 000-000-0000")
     @Column(name = "Phone", length = 20)
     String phone;
