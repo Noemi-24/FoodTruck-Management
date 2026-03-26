@@ -11,9 +11,9 @@ USE FoodTruckDB;
 -- Password for all accounts: "password123" 
 -- (In production, these would be properly hashed with BCrypt)
 INSERT INTO Users (Name, Email, Password, Phone, Role) VALUES
-('Admin User', 'admin@foodtruck.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu', '555-0100', 'admin'),
-('John Smith', 'john.smith@foodtruck.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu', '555-0101', 'employee'),
-('Jane Doe', 'jane.doe@foodtruck.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu', '555-0102', 'employee');
+('Admin User', 'admin@foodtruck.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu', '555-0100', 'ADMIN'),
+('John Smith', 'john.smith@foodtruck.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu', '555-0101', 'EMPLOYEE'),
+('Jane Doe', 'jane.doe@foodtruck.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu', '555-0102', 'EMPLOYEE');
 
 -- ============================================
 -- CATEGORIES
@@ -59,10 +59,10 @@ INSERT INTO Products (CategoryID, Name, Description, Price, ImageUrl, Available,
 -- SAMPLE ORDERS
 -- ============================================
 INSERT INTO Orders (ProcessedByUserID, CustomerName, CustomerPhone, CustomerEmail, Total, Status, PaymentMethod, Notes) VALUES
-(1, 'Alice Johnson', '555-1234', 'alice.j@email.com', 42.46, 'delivered', 'stripe', 'Extra sauce on the side'),
-(2, 'Bob Martinez', '555-5678', 'bob.m@email.com', 21.98, 'ready', 'cash', NULL),
-(3, 'Carol White', '555-9012', 'carol.w@email.com', 13.99, 'in_preparation', 'stripe', 'No onions please'),
-(1, 'David Chen', '555-3456', NULL, 8.99, 'pending', 'cash', NULL);
+(1, 'Alice Johnson', '555-1234', 'alice.j@email.com', 42.46, 'DELIVERED', 'STRIPE', 'Extra sauce on the side'),
+(2, 'Bob Martinez', '555-5678', 'bob.m@email.com', 21.98, 'READY', 'CASH', NULL),
+(3, 'Carol White', '555-9012', 'carol.w@email.com', 13.99, 'IN_PREPARATION', 'STRIPE', 'No onions please'),
+(1, 'David Chen', '555-3456', NULL, 8.99, 'PENDING', 'CASH', NULL);
 
 -- ============================================
 -- ORDER ITEMS (Line items for each order)
@@ -95,13 +95,13 @@ INSERT INTO OrderItems (OrderID, ProductID, Quantity, PriceAtOrder, Subtotal, No
 -- SAMPLE EXPENSES
 -- ============================================
 INSERT INTO Expenses (RecordedByUserID, Date, Amount, Category, Description, ReceiptUrl) VALUES
-(1, '2026-03-10', 350.00, 'ingredients', 'Weekly food supplies from restaurant supplier', NULL),
-(1, '2026-03-10', 60.00, 'fuel', 'Propane tank refill', NULL),
-(1, '2026-03-11', 120.00, 'ingredients', 'Fresh produce from local market', NULL),
-(1, '2026-03-11', 45.00, 'supplies', 'Disposable plates, cups, and napkins', NULL),
-(1, '2026-03-12', 200.00, 'permits', 'Monthly health permit renewal', NULL),
-(2, '2026-03-12', 75.00, 'maintenance', 'Equipment repair and maintenance', NULL),
-(1, '2026-03-13', 50.00, 'marketing', 'Social media advertising budget', NULL);
+(1, '2026-03-10', 350.00, 'INGREDIENTS', 'Weekly food supplies from restaurant supplier', NULL),
+(1, '2026-03-10', 60.00, 'FUEL', 'Propane tank refill', NULL),
+(1, '2026-03-11', 120.00, 'INGREDIENTS', 'Fresh produce from local market', NULL),
+(1, '2026-03-11', 45.00, 'SUPPLIES', 'Disposable plates, cups, and napkins', NULL),
+(1, '2026-03-12', 200.00, 'PERMITS', 'Monthly health permit renewal', NULL),
+(2, '2026-03-12', 75.00, 'MAINTENANCE', 'Equipment repair and maintenance', NULL),
+(1, '2026-03-13', 50.00, 'MARKETING', 'Social media advertising budget', NULL);
 
 -- ============================================
 -- VERIFICATION QUERIES

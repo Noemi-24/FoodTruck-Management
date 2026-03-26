@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Users (
     Email VARCHAR(100) UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL,
     Phone VARCHAR(20),
-    Role ENUM('admin', 'employee') NOT NULL,
+    Role ENUM('ADMIN', 'EMPLOYEE') NOT NULL,
     Active BOOLEAN DEFAULT TRUE,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS Orders (
     CustomerPhone VARCHAR(20) NOT NULL,
     CustomerEmail VARCHAR(100),
     Total DECIMAL(10,2) NOT NULL,
-    Status ENUM('pending', 'in_preparation', 'ready', 'delivered', 'cancelled') DEFAULT 'pending',
-    PaymentMethod ENUM('cash', 'stripe') DEFAULT 'cash',
+    Status ENUM('PENDING', 'IN_PREPARATION', 'READY', 'DELIVERED', 'CANCELLED') DEFAULT 'PENDING',
+	PaymentMethod ENUM('CASH', 'STRIPE') DEFAULT 'CASH',
     Notes TEXT,
     OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS Expenses (
     RecordedByUserID INT NOT NULL,
     Date DATE NOT NULL,
     Amount DECIMAL(10,2) NOT NULL,
-    Category ENUM('ingredients', 'fuel', 'maintenance', 'permits', 'salaries', 'marketing', 'supplies', 'other') NOT NULL,
+    Category ENUM('INGREDIENTS', 'FUEL', 'MAINTENANCE', 'PERMITS', 'SALARIES', 'MARKETING', 'SUPPLIES', 'OTHER') NOT NULL,
     Description TEXT NOT NULL,
     ReceiptUrl VARCHAR(255),
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -130,7 +130,7 @@ SELECT
     COUNT(*) as total_orders,
     SUM(Total) as total_revenue
 FROM Orders
-WHERE Status != 'cancelled'
+WHERE Status != 'CANCELLED'
 GROUP BY DATE(OrderDate);
 
 -- Popular menu items
@@ -145,7 +145,7 @@ FROM Products p
 JOIN Categories c ON p.CategoryID = c.CategoryID
 JOIN OrderItems oi ON p.ProductID = oi.ProductID
 JOIN Orders o ON oi.OrderID = o.OrderID
-WHERE o.Status != 'cancelled'
+WHERE o.Status != 'CANCELLED'
 GROUP BY p.ProductID, p.Name, c.Name
 ORDER BY times_ordered DESC;
 

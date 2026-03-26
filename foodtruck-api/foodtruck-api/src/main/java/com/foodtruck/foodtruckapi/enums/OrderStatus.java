@@ -1,9 +1,9 @@
 package com.foodtruck.foodtruckapi.enums;
 
 public enum OrderStatus {
-    pending,
-    in_preparation,
-    ready,
-    delivered,
-    cancelled
+    PENDING,
+    IN_PREPARATION,
+    READY,
+    DELIVERED,
+    CANCELLED
 }
