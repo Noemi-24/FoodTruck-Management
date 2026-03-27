@@ -1,7 +1,7 @@
 package com.foodtruck.foodtruckapi.mapper;
 
 import com.foodtruck.foodtruckapi.dto.response.UserResponse;
-import com.foodtruck.foodtruckapi.model.User;
+import com.foodtruck.foodtruckapi.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

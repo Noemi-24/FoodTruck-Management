@@ -1,6 +1,6 @@
 package com.foodtruck.foodtruckapi.controller;
 
-import com.foodtruck.foodtruckapi.model.Category;
+import com.foodtruck.foodtruckapi.entity.Category;
 import com.foodtruck.foodtruckapi.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

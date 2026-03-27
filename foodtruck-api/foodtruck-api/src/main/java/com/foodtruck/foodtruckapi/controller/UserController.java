@@ -3,7 +3,6 @@ package com.foodtruck.foodtruckapi.controller;
 import com.foodtruck.foodtruckapi.dto.request.CreateUserRequest;
 import com.foodtruck.foodtruckapi.dto.request.UpdateUserRequest;
 import com.foodtruck.foodtruckapi.dto.response.UserResponse;
-import com.foodtruck.foodtruckapi.model.User;
 import com.foodtruck.foodtruckapi.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

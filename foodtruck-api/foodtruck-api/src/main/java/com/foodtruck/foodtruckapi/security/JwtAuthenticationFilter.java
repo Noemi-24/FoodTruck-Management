@@ -1,6 +1,6 @@
 package com.foodtruck.foodtruckapi.security;
 
-import com.foodtruck.foodtruckapi.model.User;
+import com.foodtruck.foodtruckapi.entity.User;
 import com.foodtruck.foodtruckapi.repository.UserRepository;
 import com.foodtruck.foodtruckapi.util.JwtUtil;
 import jakarta.servlet.FilterChain;
@@ -8,7 +8,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

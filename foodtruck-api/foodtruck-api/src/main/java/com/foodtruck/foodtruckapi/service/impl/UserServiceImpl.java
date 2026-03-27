@@ -6,7 +6,7 @@ import com.foodtruck.foodtruckapi.dto.response.UserResponse;
 import com.foodtruck.foodtruckapi.exception.ConflictException;
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.mapper.UserMapper;
-import com.foodtruck.foodtruckapi.model.User;
+import com.foodtruck.foodtruckapi.entity.User;
 import com.foodtruck.foodtruckapi.repository.UserRepository;
 import com.foodtruck.foodtruckapi.service.UserService;
 import lombok.RequiredArgsConstructor;

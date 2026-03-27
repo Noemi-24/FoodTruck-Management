@@ -1,7 +1,7 @@
 package com.foodtruck.foodtruckapi.service.impl;
 
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
-import com.foodtruck.foodtruckapi.model.Expense;
+import com.foodtruck.foodtruckapi.entity.Expense;
 import com.foodtruck.foodtruckapi.repository.ExpenseRepository;
 import com.foodtruck.foodtruckapi.service.ExpenseService;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.foodtruck.foodtruckapi.model;
+package com.foodtruck.foodtruckapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

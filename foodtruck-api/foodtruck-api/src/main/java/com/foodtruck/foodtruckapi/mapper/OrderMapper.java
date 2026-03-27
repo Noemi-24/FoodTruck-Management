@@ -2,8 +2,8 @@ package com.foodtruck.foodtruckapi.mapper;
 
 import com.foodtruck.foodtruckapi.dto.response.OrderItemResponse;
 import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
-import com.foodtruck.foodtruckapi.model.Order;
-import com.foodtruck.foodtruckapi.model.OrderItem;
+import com.foodtruck.foodtruckapi.entity.Order;
+import com.foodtruck.foodtruckapi.entity.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.List;

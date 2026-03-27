@@ -1,4 +1,4 @@
-package com.foodtruck.foodtruckapi.model;
+package com.foodtruck.foodtruckapi.entity;
 
 import com.foodtruck.foodtruckapi.enums.UserRole;
 import jakarta.persistence.*;

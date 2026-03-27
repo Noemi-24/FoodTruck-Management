@@ -1,4 +1,4 @@
-package com.foodtruck.foodtruckapi.model;
+package com.foodtruck.foodtruckapi.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

@@ -1,6 +1,6 @@
 package com.foodtruck.foodtruckapi.controller;
 
-import com.foodtruck.foodtruckapi.model.Expense;
+import com.foodtruck.foodtruckapi.entity.Expense;
 import com.foodtruck.foodtruckapi.service.ExpenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

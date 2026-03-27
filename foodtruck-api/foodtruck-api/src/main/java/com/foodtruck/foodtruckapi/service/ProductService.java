@@ -1,6 +1,6 @@
 package com.foodtruck.foodtruckapi.service;
 
-import com.foodtruck.foodtruckapi.model.Product;
+import com.foodtruck.foodtruckapi.entity.Product;
 
 import java.util.List;
 

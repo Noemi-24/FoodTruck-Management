@@ -5,7 +5,7 @@ import com.foodtruck.foodtruckapi.dto.response.LoginResponse;
 import com.foodtruck.foodtruckapi.dto.response.UserResponse;
 import com.foodtruck.foodtruckapi.exception.BadRequestException;
 import com.foodtruck.foodtruckapi.mapper.UserMapper;
-import com.foodtruck.foodtruckapi.model.User;
+import com.foodtruck.foodtruckapi.entity.User;
 import com.foodtruck.foodtruckapi.repository.UserRepository;
 import com.foodtruck.foodtruckapi.util.JwtUtil;
 import jakarta.validation.Valid;

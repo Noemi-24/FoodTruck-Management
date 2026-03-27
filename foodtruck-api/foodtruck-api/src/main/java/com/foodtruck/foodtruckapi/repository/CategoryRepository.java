@@ -1,6 +1,6 @@
 package com.foodtruck.foodtruckapi.repository;
 
-import com.foodtruck.foodtruckapi.model.Category;
+import com.foodtruck.foodtruckapi.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

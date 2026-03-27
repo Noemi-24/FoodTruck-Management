@@ -2,8 +2,7 @@ package com.foodtruck.foodtruckapi.controller;
 
 import com.foodtruck.foodtruckapi.dto.request.CreateOrderRequest;
 import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
-import com.foodtruck.foodtruckapi.model.Order;
-import com.foodtruck.foodtruckapi.repository.OrderRepository;
+import com.foodtruck.foodtruckapi.entity.Order;
 import com.foodtruck.foodtruckapi.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

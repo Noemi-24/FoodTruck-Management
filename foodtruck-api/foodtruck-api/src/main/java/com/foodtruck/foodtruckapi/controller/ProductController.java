@@ -1,6 +1,6 @@
 package com.foodtruck.foodtruckapi.controller;
 
-import com.foodtruck.foodtruckapi.model.Product;
+import com.foodtruck.foodtruckapi.entity.Product;
 import com.foodtruck.foodtruckapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
