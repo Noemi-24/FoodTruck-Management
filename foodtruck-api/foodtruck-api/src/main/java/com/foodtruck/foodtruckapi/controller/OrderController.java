@@ -3,6 +3,7 @@ package com.foodtruck.foodtruckapi.controller;
 import com.foodtruck.foodtruckapi.dto.request.CreateOrderRequest;
 import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
 import com.foodtruck.foodtruckapi.entity.Order;
+import com.foodtruck.foodtruckapi.enums.OrderStatus;
 import com.foodtruck.foodtruckapi.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,16 +37,13 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody Order order) {
-        order.setOrderId(id);
-        Order updatedOrder = orderService.updateOrder(id,order);
-        return ResponseEntity.ok(updatedOrder);
+    @PutMapping("/{id}/status")
+    public ResponseEntity<OrderResponse> updateOrderStatus(
+            @PathVariable Integer id,
+            @RequestParam OrderStatus status
+    ) {
+        OrderResponse response = orderService.updateOrderStatus(id, status);
+        return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Integer id) {
-        orderService.deleteOrder(id);
-        return ResponseEntity.noContent().build();
-    }
 }

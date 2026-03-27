@@ -3,6 +3,7 @@ package com.foodtruck.foodtruckapi.service.impl;
 import com.foodtruck.foodtruckapi.dto.request.CreateOrderRequest;
 import com.foodtruck.foodtruckapi.dto.request.OrderItemRequest;
 import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
+import com.foodtruck.foodtruckapi.enums.OrderStatus;
 import com.foodtruck.foodtruckapi.exception.BadRequestException;
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.mapper.OrderMapper;
@@ -43,20 +44,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order updateOrder(Integer id, Order order) {
-        if(!orderRepository.existsById(id)){
-            throw new ResourceNotFoundException("Order", "id", id);
-        }
-        order.setOrderId(id);
-        return orderRepository.save(order);
-    }
+    public OrderResponse updateOrderStatus(Integer id, OrderStatus status) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order", "id", id));
 
-    @Override
-    public void deleteOrder(Integer id) {
-        if(!orderRepository.existsById(id)){
-            throw new ResourceNotFoundException("Order", "id", id);
-        }
-        orderRepository.deleteById(id);
+        order.setStatus(status);
+        Order updatedOrder = orderRepository.save(order);
+        return orderMapper.toOrderResponse(updatedOrder);
     }
 
     @Transactional
