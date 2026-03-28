@@ -173,16 +173,39 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void testDeleteUser_Success(){
+    void testDeactivateUser_Success() {
         // ARRANGE
-        when(userRepository.existsById(1)).thenReturn(true);
+        User user = new User();
+        user.setUserId(1);
+        user.setName("test");
+        user.setEmail("test@test.com");
+        user.setRole(EMPLOYEE);
+        user.setActive(true);
+
+        User deactivatedUser = new User();
+        deactivatedUser.setUserId(1);
+        deactivatedUser.setName("test");
+        deactivatedUser.setEmail("test@test.com");
+        deactivatedUser.setRole(EMPLOYEE);
+        deactivatedUser.setActive(false);
+
+        UserResponse userResponse = new UserResponse();
+        userResponse.setUserId(1);
+        userResponse.setName("test");
+        userResponse.setEmail("test@test.com");
+        userResponse.setRole(EMPLOYEE);
+
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+        when(userRepository.save(any(User.class))).thenReturn(deactivatedUser);
+        when(userMapper.toUserResponse(deactivatedUser)).thenReturn(userResponse);
 
         // ACT
-        userService.deleteUser(1);
+        UserResponse result = userService.deactivateUser(1);
 
         // ASSERT
-        verify(userRepository).existsById(1);
-        verify(userRepository).deleteById(1);
+        assertNotNull(result);
+        verify(userRepository).findById(1);
+        verify(userRepository).save(any(User.class));
     }
 
     @Test

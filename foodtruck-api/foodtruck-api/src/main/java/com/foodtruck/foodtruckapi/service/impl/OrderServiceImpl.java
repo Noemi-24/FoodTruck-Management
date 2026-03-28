@@ -71,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderItemRequest itemRequest: orderRequest.getItems()){
             // Find product
-            Product product = productService.getProductById(itemRequest.getProductId());
+            Product product = productService.getProductEntityById(itemRequest.getProductId());
 
             // Validate product availability
             if (!product.getAvailable()) {

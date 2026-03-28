@@ -4,9 +4,7 @@ import com.foodtruck.foodtruckapi.dto.request.CreateOrderRequest;
 import com.foodtruck.foodtruckapi.dto.request.OrderItemRequest;
 import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
 import com.foodtruck.foodtruckapi.entity.Order;
-import com.foodtruck.foodtruckapi.entity.OrderItem;
 import com.foodtruck.foodtruckapi.entity.Product;
-import com.foodtruck.foodtruckapi.enums.OrderStatus;
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.mapper.OrderMapper;
 import com.foodtruck.foodtruckapi.repository.OrderItemRepository;
@@ -103,8 +101,8 @@ public class OrderServiceImplTest {
        orderResponse.setPaymentMethod(CASH);
        orderResponse.setTotal(BigDecimal.valueOf(35.00));
 
-        when(productService.getProductById(1)).thenReturn(product1);
-        when(productService.getProductById(2)).thenReturn(product2);
+        when(productService.getProductEntityById(1)).thenReturn(product1);
+        when(productService.getProductEntityById(2)).thenReturn(product2);
         when(orderRepository.save(any(Order.class))).thenReturn(savedOrder);
         when(orderMapper.toOrderResponse(savedOrder)).thenReturn(orderResponse);
 
@@ -114,7 +112,7 @@ public class OrderServiceImplTest {
         // ASSERT
         assertNotNull(result);
         assertEquals(BigDecimal.valueOf(35.00), result.getTotal());
-        verify(productService, times(2)).getProductById(anyInt());
+        verify(productService, times(2)).getProductEntityById(anyInt());
         verify(orderRepository).save(any(Order.class));
     }
 

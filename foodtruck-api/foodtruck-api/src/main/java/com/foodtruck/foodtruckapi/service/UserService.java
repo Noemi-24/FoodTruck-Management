@@ -11,5 +11,5 @@ public interface UserService {
     UserResponse updateUser(Integer id, UpdateUserRequest userRequest);
     List<UserResponse> getAllUsers();
     UserResponse getUserById(Integer id);
-    void deleteUser(Integer id);
+    UserResponse deactivateUser(Integer id);
 }

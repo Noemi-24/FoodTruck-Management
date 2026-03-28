@@ -1,8 +1,12 @@
 package com.foodtruck.foodtruckapi.controller;
 
-import com.foodtruck.foodtruckapi.entity.Product;
+import com.foodtruck.foodtruckapi.dto.request.CreateProductRequest;
+import com.foodtruck.foodtruckapi.dto.request.UpdateProductRequest;
+import com.foodtruck.foodtruckapi.dto.response.ProductResponse;
 import com.foodtruck.foodtruckapi.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -17,35 +21,42 @@ public class ProductController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<ProductResponse>> getAllProducts() {
+        List<ProductResponse> products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
-        Product product = productService.getProductById(id);
-        return ResponseEntity.ok().body(product);
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Integer id) {
+        ProductResponse product = productService.getProductById(id);
+        return ResponseEntity.ok(product);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public Product createProduct(@RequestBody Product product) {
-        return productService.createProduct(product);
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody CreateProductRequest request) {
+        ProductResponse product = productService.createProduct(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestBody Product product) {
-        product.setProductId(id);
-        Product updatedProduct = productService.updateProduct(id, product);
-        return ResponseEntity.ok(updatedProduct);
+    public ResponseEntity<ProductResponse> updateProduct(
+            @PathVariable Integer id,
+            @Valid @RequestBody UpdateProductRequest request
+    ) {
+        ProductResponse product = productService.updateProduct(id, request);
+        return ResponseEntity.ok(product);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/availability")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
-        productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();  // 204
+    public ResponseEntity<ProductResponse> updateProductAvailability(
+            @PathVariable Integer id,
+            @RequestParam boolean available
+    ) {
+        ProductResponse response = productService.updateProductAvailability(id, available);
+        return ResponseEntity.ok(response);
     }
 }

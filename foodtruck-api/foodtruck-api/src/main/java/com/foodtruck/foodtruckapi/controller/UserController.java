@@ -45,10 +45,10 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id}")
+    @PutMapping("/{id}/deactivate")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<UserResponse> deactivateUser(@PathVariable Integer id) {
+        UserResponse response = userService.deactivateUser(id);
+        return ResponseEntity.ok(response);
     }
 }

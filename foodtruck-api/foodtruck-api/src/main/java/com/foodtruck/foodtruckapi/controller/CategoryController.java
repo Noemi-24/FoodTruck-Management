@@ -1,9 +1,13 @@
 package com.foodtruck.foodtruckapi.controller;
 
+import com.foodtruck.foodtruckapi.dto.request.CreateCategoryRequest;
+import com.foodtruck.foodtruckapi.dto.request.UpdateCategoryRequest;
+import com.foodtruck.foodtruckapi.dto.response.CategoryResponse;
 import com.foodtruck.foodtruckapi.entity.Category;
 import com.foodtruck.foodtruckapi.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,29 +22,33 @@ public class CategoryController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public List<Category> getAllCategories(){
-        return categoryService.getAllCategories();
+    public ResponseEntity<List<CategoryResponse>> getAllCategories() {
+        List<CategoryResponse> categories = categoryService.getAllCategories();
+        return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Integer id){
-       Category category = categoryService.getCategoryById(id);
-       return ResponseEntity.ok().body(category);
+    public ResponseEntity<CategoryResponse> getCategoryById(@PathVariable Integer id) {
+        CategoryResponse category = categoryService.getCategoryById(id);
+        return ResponseEntity.ok(category);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public Category createCategory(@Valid @RequestBody Category category){
-        return categoryService.createCategory(category);
+    public ResponseEntity<CategoryResponse> createCategory(@Valid @RequestBody CreateCategoryRequest request) {
+        CategoryResponse category = categoryService.createCategory(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(category);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Category> updateCategory(@PathVariable Integer id, @Valid @RequestBody Category category){
-        category.setCategoryId(id);
-        Category updatedCategory = categoryService.updateCategory(id,category);
-        return ResponseEntity.ok(updatedCategory);
+    public ResponseEntity<CategoryResponse> updateCategory(
+            @PathVariable Integer id,
+            @Valid @RequestBody UpdateCategoryRequest request
+    ) {
+        CategoryResponse category = categoryService.updateCategory(id, request);
+        return ResponseEntity.ok(category);
     }
 
     @DeleteMapping("/{id}")
