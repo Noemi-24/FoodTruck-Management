@@ -5,6 +5,7 @@ import com.foodtruck.foodtruckapi.dto.request.OrderItemRequest;
 import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
 import com.foodtruck.foodtruckapi.entity.Order;
 import com.foodtruck.foodtruckapi.entity.Product;
+import com.foodtruck.foodtruckapi.exception.BadRequestException;
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.mapper.OrderMapper;
 import com.foodtruck.foodtruckapi.repository.OrderItemRepository;
@@ -251,5 +252,37 @@ public class OrderServiceImplTest {
         assertEquals(READY, result.getStatus());
         verify(orderRepository).findById(1);
         verify(orderRepository).save(any(Order.class));
+    }
+
+    @Test
+    void testCreateOrder_ProductNotAvailable_ThrowsException() {
+        // ARRANGE
+        OrderItemRequest item1 = new OrderItemRequest();
+        item1.setProductId(1);
+        item1.setQuantity(2);
+
+        CreateOrderRequest request = new CreateOrderRequest();
+        request.setCustomerName("test");
+        request.setCustomerPhone("111-222-3333");
+        request.setCustomerEmail("test@test.com");
+        request.setStatus(IN_PREPARATION);
+        request.setPaymentMethod(CASH);
+        request.setItems(Arrays.asList(item1));
+
+        Product product1 = new Product();
+        product1.setProductId(1);
+        product1.setPrice(BigDecimal.valueOf(10.00));
+        product1.setAvailable(false);
+
+        when(productService.getProductEntityById(1)).thenReturn(product1);
+
+        // ACT & ASSERT
+        assertThrows(BadRequestException.class, () -> {
+            orderService.createOrder(request);
+        });
+
+        // VERIFY
+        verify(productService).getProductEntityById(1);
+        verify(orderRepository, never()).save(any(Order.class));
     }
 }

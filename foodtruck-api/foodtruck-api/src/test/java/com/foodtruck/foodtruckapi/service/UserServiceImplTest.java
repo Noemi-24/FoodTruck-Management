@@ -255,4 +255,26 @@ public class UserServiceImplTest {
         verify(userRepository).findAll();
 
     }
+
+    @Test
+    void testCreateUser_EmailAlreadyExists_ThrowsException() {
+        // ARRANGE
+        CreateUserRequest request = new CreateUserRequest();
+        request.setName("test");
+        request.setEmail("existing@test.com");
+        request.setPassword("password123");
+        request.setRole(EMPLOYEE);
+
+        when(userRepository.existsByEmail("existing@test.com")).thenReturn(true);
+
+        // ACT & ASSERT
+        assertThrows(ConflictException.class, () -> {
+            userService.createUser(request);
+        });
+
+        // VERIFY
+        verify(userRepository).existsByEmail("existing@test.com");
+        verify(passwordEncoder, never()).encode(anyString());
+        verify(userRepository, never()).save(any(User.class));
+    }
 }

@@ -22,8 +22,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceImplTest {
@@ -317,7 +316,6 @@ public class ProductServiceImplTest {
         ProductResponse result = productService.updateProduct(3, request);
 
         // ASSERT & VERIFY
-        // ASSERT
         assertNotNull(result);
         assertEquals("test product5", result.getName());
         assertEquals(BigDecimal.valueOf(12.99), result.getPrice());
@@ -325,4 +323,166 @@ public class ProductServiceImplTest {
         verify(productRepository).save(any(Product.class));
     }
 
+    @Test
+    void testCreateProduct_CategoryNotFound_ThrowsException() {
+        // ARRANGE
+        CreateProductRequest request = new CreateProductRequest();
+        request.setCategoryId(999);
+        request.setName("test product");
+        request.setPrice(BigDecimal.valueOf(10.99));
+
+        when(categoryRepository.findById(999)).thenReturn(Optional.empty());
+
+        // ACT & ASSERT
+        assertThrows(ResourceNotFoundException.class, () -> {
+            productService.createProduct(request);
+        });
+
+        // VERIFY
+        verify(categoryRepository).findById(999);
+        verify(productRepository, never()).save(any(Product.class));
+    }
+
+    @Test
+    void testUpdateProduct_ProductNotFound_ThrowsException() {
+        // ARRANGE
+        UpdateProductRequest request = new UpdateProductRequest();
+        request.setName("updated name");
+
+        when(productRepository.findById(999)).thenReturn(Optional.empty());
+
+        // ACT & ASSERT
+        assertThrows(ResourceNotFoundException.class, () -> {
+            productService.updateProduct(999, request);
+        });
+
+        // VERIFY
+        verify(productRepository).findById(999);
+        verify(productRepository, never()).save(any(Product.class));
+    }
+
+    @Test
+    void testUpdateProductAvailability_ProductNotFound_ThrowsException() {
+        // ARRANGE
+        when(productRepository.findById(999)).thenReturn(Optional.empty());
+
+        // ACT & ASSERT
+        assertThrows(ResourceNotFoundException.class, () -> {
+            productService.updateProductAvailability(999, false);
+        });
+
+        // VERIFY
+        verify(productRepository).findById(999);
+        verify(productRepository, never()).save(any(Product.class));
+    }
+
+    @Test
+    void testUpdateProduct_AllFields_Success() {
+        // ARRANGE
+        Category oldCategory = new Category();
+        oldCategory.setCategoryId(1);
+        oldCategory.setName("old category");
+
+        Category newCategory = new Category();
+        newCategory.setCategoryId(2);
+        newCategory.setName("new category");
+
+        Product product = new Product();
+        product.setProductId(1);
+        product.setCategory(oldCategory);
+        product.setName("old name");
+        product.setDescription("old description");
+        product.setPrice(BigDecimal.valueOf(10.00));
+        product.setImageUrl("old-url.jpg");
+        product.setIsSpecial(false);
+        product.setAvailable(true);
+
+        UpdateProductRequest request = new UpdateProductRequest();
+        request.setCategoryId(2);
+        request.setName("new name");
+        request.setDescription("new description");
+        request.setPrice(BigDecimal.valueOf(20.00));
+        request.setImageUrl("new-url.jpg");
+        request.setIsSpecial(true);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId(1);
+        updatedProduct.setCategory(newCategory);
+        updatedProduct.setName("new name");
+        updatedProduct.setDescription("new description");
+        updatedProduct.setPrice(BigDecimal.valueOf(20.00));
+        updatedProduct.setImageUrl("new-url.jpg");
+        updatedProduct.setIsSpecial(true);
+        updatedProduct.setAvailable(true);
+
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setProductId(1);
+        productResponse.setCategoryId(2);
+        productResponse.setCategoryName("new category");
+        productResponse.setName("new name");
+        productResponse.setDescription("new description");
+        productResponse.setPrice(BigDecimal.valueOf(20.00));
+        productResponse.setImageUrl("new-url.jpg");
+        productResponse.setIsSpecial(true);
+        productResponse.setAvailable(true);
+
+        when(productRepository.findById(1)).thenReturn(Optional.of(product));
+        when(categoryRepository.findById(2)).thenReturn(Optional.of(newCategory));
+        when(productRepository.save(any(Product.class))).thenReturn(updatedProduct);
+        when(productMapper.toProductResponse(updatedProduct)).thenReturn(productResponse);
+
+        // ACT
+        ProductResponse result = productService.updateProduct(1, request);
+
+        // ASSERT
+        assertNotNull(result);
+        assertEquals("new name", result.getName());
+        assertEquals("new description", result.getDescription());
+        assertEquals(BigDecimal.valueOf(20.00), result.getPrice());
+        assertEquals("new-url.jpg", result.getImageUrl());
+        assertEquals(true, result.getIsSpecial());
+        verify(productRepository).findById(1);
+        verify(categoryRepository).findById(2);
+        verify(productRepository).save(any(Product.class));
+    }
+
+    @Test
+    void testGetProductEntityById_Success() {
+        // ARRANGE
+        Category category = new Category();
+        category.setCategoryId(1);
+        category.setName("test category");
+
+        Product product = new Product();
+        product.setProductId(1);
+        product.setCategory(category);
+        product.setName("test product");
+        product.setPrice(BigDecimal.valueOf(10.99));
+        product.setAvailable(true);
+
+        when(productRepository.findById(1)).thenReturn(Optional.of(product));
+
+        // ACT
+        Product result = productService.getProductEntityById(1);
+
+        // ASSERT
+        assertNotNull(result);
+        assertEquals(1, result.getProductId());
+        assertEquals("test product", result.getName());
+        verify(productRepository).findById(1);
+    }
+
+    @Test
+    void testGetProductEntityById_NotFound_ThrowsException() {
+        // ARRANGE
+        when(productRepository.findById(999)).thenReturn(Optional.empty());
+
+        // ACT & ASSERT
+        assertThrows(ResourceNotFoundException.class, () -> {
+            productService.getProductEntityById(999);
+        });
+
+        // VERIFY
+        verify(productRepository).findById(999);
+    }
 }
