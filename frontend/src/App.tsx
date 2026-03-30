@@ -1,12 +1,20 @@
+import { ThemeProvider } from "./context/ThemeContext"
+import ThemeToggle from "./components/ThemeToggle"
+
 function App() {
   return (
-    <>
-      <div className="min-h-screen bg-blue-500 flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-white">
-          Food Truck Management System 🌮 - TypeScript
-        </h1>
-      </div>      
-    </>
+    <ThemeProvider>
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+        <div className="p-8">
+          <div className="flex justify-between items-center">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+              Food Truck Management System 🌮 - TypeScript
+            </h1>
+            <ThemeToggle />
+          </div>
+        </div>
+      </div>
+    </ThemeProvider>
   )
 }
 
