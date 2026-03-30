@@ -74,6 +74,12 @@ Expenses      OrderItems ← Orders
 - OrderItems belong to Orders (Many-to-One)
 - Expenses are recorded by Users (Many-to-One)
 
+## 💳 Payment Integration (v1.0)
+- Stripe payment processing
+- Secure card payments
+- Payment confirmation
+- Transaction history
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -599,7 +605,6 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
     - Waste management
 
 - [ ] **Payment Integration**
-    - Stripe payment processing
     - PayPal integration
     - Digital wallet support (Apple Pay, Google Pay)
     - Split payment options
