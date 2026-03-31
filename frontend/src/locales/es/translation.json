@@ -1,0 +1,10 @@
+{
+    "app":{
+    },
+    "login": {
+        "welcome": "¡Bienvenido de nuevo!",
+        "email": "correo electrónico",
+        "password": "contraseña"
+        
+    }
+}
