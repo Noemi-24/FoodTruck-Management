@@ -2,9 +2,14 @@
     "app":{
     },
     "login": {
-        "welcome": "¡Bienvenido de nuevo!",
+        "title": "Iniciar Sesión",
+        "subtitle": "Ingresa tus credenciales para acceder a tu cuenta",
         "email": "correo electrónico",
-        "password": "contraseña"
-        
+        "emailPlaceholder": "tu@correo.com",
+        "password": "contraseña",
+        "passwordPlaceholder": "Ingresa tu contraseña",
+        "loginButton": "Iniciar Sesión",
+        "error": "Correo electrónico o contraseña inválidos",
+        "loading": "Iniciando sesión..."        
     }
 }

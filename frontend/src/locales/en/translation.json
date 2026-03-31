@@ -2,9 +2,15 @@
     "app":{
     },
     "login": {
-        "welcome": "Welcome back!",
+        "title": "Sing In",
+        "subtitle": "Enter your credentials to access your account",
         "email": "email",
-        "password": "password"
-        
+        "emailPlaceholder": "your@email.com",
+        "password": "password",
+        "passwordPlaceholder": "Enter your password",
+        "loginButton": "Sign In",
+        "error": "Invalid email or password",
+        "loading": "Signing in..."
+
     }
 }
