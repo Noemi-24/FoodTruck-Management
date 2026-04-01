@@ -2,11 +2,10 @@ import { ThemeProvider } from "./context/ThemeContext"
 import ThemeToggle from "./components/ThemeToggle"
 import LanguageToggle from "./components/LanguageToggle"
 import { LanguageProvider } from "./context/LanguageContext"
-import { useTranslation } from "react-i18next"
 
-function AppContent() {
-  const { t } = useTranslation();
+function App() {
   return (
+    <LanguageProvider>
     <ThemeProvider>
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
         <div className="p-8">
@@ -21,22 +20,9 @@ function AppContent() {
             </div>           
           </div>
 
-          <div className="text-gray-900 dark:text-white space-y-4">
-            <p className="text-xl">{t('login.welcome')}</p>
-            <p>{t('login.email')}: test@example.com</p>
-            <p>{t('login.password')}: ********</p>
-          </div>
-
         </div>
       </div>
     </ThemeProvider>
-  )
-}
-
-function App() {
-  return (
-    <LanguageProvider>
-      <AppContent />
     </LanguageProvider>
   )
 }

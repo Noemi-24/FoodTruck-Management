@@ -11,5 +11,13 @@
         "loginButton": "Iniciar Sesión",
         "error": "Correo electrónico o contraseña inválidos",
         "loading": "Iniciando sesión..."        
+    },
+    "dashboard": {
+        "welcome": "Bienvenido",
+        "role": "{{role}}",
+        "admin": "Administrador",
+        "employee": "Empleado",
+        "logout": "Cerrar Sesión"
     }
+
 }

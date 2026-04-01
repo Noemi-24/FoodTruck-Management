@@ -11,6 +11,12 @@
         "loginButton": "Sign In",
         "error": "Invalid email or password",
         "loading": "Signing in..."
-
+    },
+    "dashboard": {
+        "welcome": "Welcome",
+        "role": "{{role}}",
+        "admin": "Administrator",
+        "employee": "Employee",
+        "logout": "Sing Out"
     }
 }
