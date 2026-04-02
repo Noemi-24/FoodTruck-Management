@@ -18,5 +18,14 @@
         "admin": "Administrator",
         "employee": "Employee",
         "logout": "Sing Out"
+    },
+    "navbar": {
+        "dashboard": "Dashboard",
+        "orders": "Orders",
+        "expenses": "Expenses",
+        "products": "Products",
+        "reports": "Reports",
+        "logout": "Sing Out"
     }
+
 }

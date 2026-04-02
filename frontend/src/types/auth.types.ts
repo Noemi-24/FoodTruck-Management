@@ -14,9 +14,8 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   token: string;
-  userId: number;
-  email: string;
-    role: UserRole;
+  type: string;
+  user: User;
 }
 
 export interface AuthContextType {

@@ -18,6 +18,15 @@
         "admin": "Administrador",
         "employee": "Empleado",
         "logout": "Cerrar Sesión"
+    },
+    "navbar": {
+        "dashborad": "Tablero",
+        "orders": "Ordenes",
+        "expences": "Gastos",
+        "products": "Productos",
+        "reports": "Reporte",
+        "logout": "Cerrar Sesión"
     }
+
 
 }
