@@ -3,10 +3,7 @@
     },
     "login": {
         "title": "Iniciar Sesión",
-        "subtitle": "Ingresa tus credenciales para acceder a tu cuenta",
-        "email": "correo electrónico",
-        "emailPlaceholder": "tu@correo.com",
-        "password": "contraseña",
+        "emailPlaceholder": "Ingresa tu correo electrónico",
         "passwordPlaceholder": "Ingresa tu contraseña",
         "loginButton": "Iniciar Sesión",
         "error": "Correo electrónico o contraseña inválidos",

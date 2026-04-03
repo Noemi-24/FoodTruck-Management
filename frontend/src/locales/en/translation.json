@@ -3,10 +3,7 @@
     },
     "login": {
         "title": "Sing In",
-        "subtitle": "Enter your credentials to access your account",
-        "email": "email",
-        "emailPlaceholder": "your@email.com",
-        "password": "password",
+        "emailPlaceholder": "Enter your email",
         "passwordPlaceholder": "Enter your password",
         "loginButton": "Sign In",
         "error": "Invalid email or password",
