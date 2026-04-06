@@ -10,11 +10,10 @@
         "loading": "Signing in..."
     },
     "dashboard": {
-        "welcome": "Welcome",
+        "welcome": "Welcome back",
         "role": "{{role}}",
         "admin": "Administrator",
-        "employee": "Employee",
-        "logout": "Sing Out"
+        "employee": "Employee"
     },
     "navbar": {
         "dashboard": "Dashboard",
@@ -22,7 +21,7 @@
         "expenses": "Expenses",
         "products": "Products",
         "reports": "Reports",
-        "logout": "Sing Out"
+        "logout": "Sign Out"
     }
 
 }

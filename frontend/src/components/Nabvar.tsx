@@ -18,32 +18,32 @@ function Navbar() {
 
     return(   
         <nav>
-            <div className="flex justify-between items-center">
-                {/* Left: Logo + Links (if logged in) */}
-                <div className="flex items-center gap-6">
+            <div className="flex justify-between items-center bg-blue-700 dark:bg-blue-900 border-b border-blue-800">
+                {/* Left: Logo + Links */}
+                <div className="flex items-center gap-6 p-4">
                     <div className="flex items-center gap-2">
-                        <div className="w-1 h-8 bg-blue-600"></div> 
-                        <span className="text-xl font-bold text-blue-600 dark:text-white">
+                        <div className="w-1 h-8 bg-white"></div> 
+                        <span className="text-xl text-white font-bold">
                             FTMS
                         </span>
                     </div>
                     
                     {user && (
                         <div className="flex gap-4">
-                            <Link to="/dashboard">{t('navbar.dashboard')}</Link>
-                            <Link to="/orders">{t('navbar.orders')}</Link>
-                            <Link to="/expenses">{t('navbar.expenses')}</Link>
-                            <Link to="/products">{t('navbar.products')}</Link>
-                            {isAdmin && <Link to="/reports">{t('navbar.reports')}</Link>}
+                            <Link to="/dashboard" className="text-white hover:text-sky-300">{t('navbar.dashboard')}</Link>
+                            <Link to="/orders" className="text-white hover:text-sky-300">{t('navbar.orders')}</Link>
+                            <Link to="/expenses" className="text-white hover:text-sky-300">{t('navbar.expenses')}</Link>
+                            <Link to="/products" className="text-white hover:text-sky-300">{t('navbar.products')}</Link>
+                            {isAdmin && <Link to="/reports" className="text-white hover:text-sky-300">{t('navbar.reports')}</Link>}
                         </div>
                     )}
                 </div>
                 
                 {/* Right: Toggles + Logout Button */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 p-4">
                     <ThemeToggle />
                     <LanguageToggle />
-                    {user && <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded">{t('dashboard.logout')}</button>}
+                    {user && <button onClick={handleLogout} className="bg-white text-blue-700 hover:bg-blue-50 hover:shadow-lg focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 focus:ring-offset-blue-700 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">{t('navbar.logout')}</button>}
                 </div>
             </div>
         </nav>

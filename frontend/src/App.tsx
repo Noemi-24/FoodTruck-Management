@@ -11,18 +11,20 @@ function App() {
   return (
     <LanguageProvider>
       <ThemeProvider>
-        <AuthProvider>
+        <AuthProvider>          
           <BrowserRouter> 
-            
+          <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">  
             <Nabvar/>
-         
-            <Routes>
-              <Route path="/" element={<Navigate to = "/dashboard" replace/>}/>
-              <Route path="/login" element={<Login />} />
-              <Route path="/dashboard" element={ <ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            </Routes>            
-
-          </BrowserRouter>
+            {/* Main Content */}
+            <main className="flex-1 flex items-center justify-center">
+              <Routes>
+                <Route path="/" element={<Navigate to = "/dashboard" replace/>}/>
+                <Route path="/login" element={<Login />} />
+                <Route path="/dashboard" element={ <ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              </Routes>  
+            </main>
+          </div>
+          </BrowserRouter>          
         </AuthProvider>
       </ThemeProvider>
     </LanguageProvider>

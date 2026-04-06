@@ -10,11 +10,10 @@
         "loading": "Iniciando sesión..."        
     },
     "dashboard": {
-        "welcome": "Bienvenido",
+        "welcome": "Bienvenido denuevo",
         "role": "{{role}}",
         "admin": "Administrador",
-        "employee": "Empleado",
-        "logout": "Cerrar Sesión"
+        "employee": "Empleado"
     },
     "navbar": {
         "dashborad": "Tablero",

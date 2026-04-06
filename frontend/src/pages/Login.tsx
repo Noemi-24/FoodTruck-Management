@@ -37,7 +37,7 @@ function Login(){
     }
 
     return (
-        <div className="bg-white flex items-center justify-center md:h-screen p-4 dark:bg-gray-900"> 
+        <div className="w-full max-w-6xl px-4 "> 
             <div className="[box-shadow:rgba(149,157,165,0.3)_0px_4px_18px] max-w-6xl max-md:max-w-lg rounded-md p-6">
                 
                 <div className="grid md:grid-cols-2 items-center gap-8">
@@ -52,11 +52,11 @@ function Login(){
                     <form className="md:max-w-md w-full mx-auto" onSubmit={handleSubmit}>
                         {/*title*/}
                         <div className="mb-12">
-                            <h1 className="text-4xl font-bold text-blue-600 dark:text-white">{t('login.title')}</h1>
+                            <h1 className="text-4xl font-bold text-blue-700 dark:text-white">{t('login.title')}</h1>
                         </div>
                         <div>
                             <div className="relative flex items-center">
-                                <input className="w-full text-sm border-b border-gray-300 focus:border-blue-600 pr-8 px-2 py-3 outline-none dark:bg-gray-700" name="email" type="email" required placeholder={t('login.emailPlaceholder')} id="email" value={email} onChange={handleEmailChange}/>
+                                <input className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500" name="email" type="email" required placeholder={t('login.emailPlaceholder')} id="email" value={email} onChange={handleEmailChange}/>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
                                     <defs>
                                         <clipPath id="a" clipPathUnits="userSpaceOnUse">
@@ -73,7 +73,7 @@ function Login(){
 
                         <div className="mt-8">
                             <div className="relative flex items-center">
-                            <input className="w-full text-sm border-b border-gray-300 focus:border-blue-600 pr-8 px-2 py-3 outline-none dark:bg-gray-700" name="password" type="password" required placeholder={t('login.passwordPlaceholder')} id="password" value={password} onChange={handlePasswordChange}/>
+                            <input className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500" name="password" type="password" required placeholder={t('login.passwordPlaceholder')} id="password" value={password} onChange={handlePasswordChange}/>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2 cursor-pointer" viewBox="0 0 128 128">
                                     <path d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z" data-original="#000000"></path>
                                 </svg>
@@ -81,17 +81,32 @@ function Login(){
                         </div>
 
                         <div className="mt-12">
-                            <button type="submit" className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-600 hover:bg-blue-700 focus:outline-none dark:bg-blue-500" disabled={loading}>
+                            <button type="submit" className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700" disabled={loading}>
                                 {loading ? t('login.loading') : t('login.loginButton')}
                             </button>                           
                         </div>
                         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
                     </form>
-                </div>
+                </div> 
+
+                {/* Demo Credentials */}
+                <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 text-center mb-2 font-semibold">
+                        DEMO CREDENTIALS
+                    </p>
+                    <div className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                        <p>
+                            <span className="font-semibold text-blue-700 dark:text-sky-400">Admin:</span> 
+                            {' '}john.smith@foodtruck.com / password123
+                        </p>
+                        <p>
+                            <span className="font-semibold text-blue-700 dark:text-sky-400">Employee:</span> 
+                            {' '}jane.doe@foodtruck.com / password123
+                        </p>
+                    </div>
+                </div>       
                 
-                
-   
-            </div>
+            </div>            
         </div>
         
     )
