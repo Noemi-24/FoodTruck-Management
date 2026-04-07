@@ -2,7 +2,7 @@ import{ useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect} from 'react';
 import { getDashboardStats } from '../services/dashboardService';
-import Card from '../components/Card';
+import Card from '../components/StatsCard';
 import { type DashboardStatsResponse } from '../types/dashboard.types';
 import { ShoppingCart, DollarSign, Clock, Wallet } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -18,17 +18,16 @@ function Dashboard(){
 
     useEffect (() => {
         const fetchStats = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const result = await getDashboardStats();
-            setStats(result);
-        } catch (error) {
-            setError(error instanceof Error ? error.message: "An unknown error occurred");
-        }finally{
-            setLoading(false);
-        }
-        
+            setLoading(true);
+            setError(null);
+            try {
+                const result = await getDashboardStats();
+                setStats(result);
+            } catch (error) {
+                setError(error instanceof Error ? error.message: "An unknown error occurred");
+            }finally{
+                setLoading(false);
+            }        
         }
         fetchStats();
     }, []);
