@@ -2,7 +2,7 @@
     "app":{
     },
     "login": {
-        "title": "Sing In",
+        "title": "Sign In",
         "emailPlaceholder": "Enter your email",
         "passwordPlaceholder": "Enter your password",
         "loginButton": "Sign In",
@@ -17,7 +17,10 @@
         "totalOrders": "Total Orders",
         "revenue": "Revenue Today",
         "pending": "Pending Orders",
-        "expensesToday": "Expenses Today"
+        "expensesToday": "Expenses Today",
+        "newOrderButton": "+ New Order",
+        "addExpenseButton": "+ Add Expense",
+        "recentOrderTitle": "Recente Orders"
     },
     "navbar": {
         "dashboard": "Dashboard",

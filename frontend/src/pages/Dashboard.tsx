@@ -1,7 +1,7 @@
 import{ useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect} from 'react';
-import { getDashboardStats } from '../services/dashboardServices';
+import { getDashboardStats } from '../services/dashboardService';
 import Card from '../components/Card';
 import { type DashboardStatsResponse } from '../types/dashboard.types';
 import { ShoppingCart, DollarSign, Clock, Wallet } from 'lucide-react';
@@ -58,7 +58,7 @@ function Dashboard(){
                     ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' 
                     : 'grid-cols-1 sm:grid-cols-2'
                 }`}>
-                    
+
                 <Card title={t('dashboard.totalOrders')} value={stats?.ordersToday ?? 0} icon={ShoppingCart} />
                 {isAdmin && ( 
                     <Card title={t('dashboard.expensesToday')} value={stats?.expensesToday ?? 0} icon={Wallet}/>
@@ -71,16 +71,16 @@ function Dashboard(){
 
             <div className="flex gap-4 mb-8">
                 <button onClick={() => navigate('/orders/new')} className='bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95'>
-                    + New Order
+                    {t('dashboard.newOrderButton')}
                 </button>
                 {isAdmin && (
                     <button onClick={() => navigate('/expenses/new')} className='bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95'>
-                    + Add Expense
+                    {t('dashboard.addExpenseButton')}
                     </button>
                 )}
             </div> 
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <h2>Recent Orders</h2>
+                <h2>{t('dashboard.recentOrderTitle')}</h2>
             </div>
             {/* <div>
                 <table className="w-full text-sm text-left text-gray-500">

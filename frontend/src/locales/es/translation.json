@@ -10,14 +10,17 @@
         "loading": "Iniciando sesión..."        
     },
     "dashboard": {
-        "welcome": "Bienvenido denuevo",
+        "welcome": "Bienvenido de nuevo",
         "role": "{{role}}",
         "admin": "Administrador",
         "employee": "Empleado",
         "totalOrders": "Total de Órdenes",
         "revenue": "Ingresos de Hoy",
         "pending": "Órdenes Pendientes",
-        "expensesToday": "Gastos de Hoy"
+        "expensesToday": "Gastos de Hoy",
+        "newOrderButton": "+ Nueva Orden",
+        "addExpenseButton": "+ Añadir Gasto",
+        "recentOrderTitle": "Órdenes Recientes"
     },
     "navbar": {
         "dashborad": "Tablero",

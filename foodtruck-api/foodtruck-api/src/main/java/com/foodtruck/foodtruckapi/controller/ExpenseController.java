@@ -17,32 +17,29 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/expenses")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('ADMIN')")
 public class ExpenseController {
     private final ExpenseService expenseService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<List<ExpenseResponse>> getAllExpenses() {
         List<ExpenseResponse> expenses = expenseService.getAllExpenses();
         return ResponseEntity.ok(expenses);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<ExpenseResponse> getExpenseById(@PathVariable Integer id) {
         ExpenseResponse expense = expenseService.getExpenseById(id);
         return ResponseEntity.ok(expense);
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<ExpenseResponse> createExpense(@Valid @RequestBody CreateExpenseRequest request) {
         ExpenseResponse expense = expenseService.createExpense(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(expense);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ExpenseResponse> updateExpense(
             @PathVariable Integer id,
             @Valid @RequestBody UpdateExpenseRequest request
@@ -52,7 +49,6 @@ public class ExpenseController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteExpense(@PathVariable Integer id){
         expenseService.deleteExpense(id);
         return ResponseEntity.noContent().build();
