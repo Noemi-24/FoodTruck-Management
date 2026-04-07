@@ -13,12 +13,16 @@
         "welcome": "Bienvenido denuevo",
         "role": "{{role}}",
         "admin": "Administrador",
-        "employee": "Empleado"
+        "employee": "Empleado",
+        "totalOrders": "Total de Órdenes",
+        "revenue": "Ingresos de Hoy",
+        "pending": "Órdenes Pendientes",
+        "expensesToday": "Gastos de Hoy"
     },
     "navbar": {
         "dashborad": "Tablero",
-        "orders": "Ordenes",
-        "expences": "Gastos",
+        "orders": "Órdenes",
+        "expenses": "Gastos",
         "products": "Productos",
         "reports": "Reporte",
         "logout": "Cerrar Sesión"

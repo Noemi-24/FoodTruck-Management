@@ -32,7 +32,7 @@ function Navbar() {
                         <div className="flex gap-4">
                             <Link to="/dashboard" className="text-white hover:text-sky-300">{t('navbar.dashboard')}</Link>
                             <Link to="/orders" className="text-white hover:text-sky-300">{t('navbar.orders')}</Link>
-                            <Link to="/expenses" className="text-white hover:text-sky-300">{t('navbar.expenses')}</Link>
+                            {isAdmin &&  <Link to="/expenses" className="text-white hover:text-sky-300">{t('navbar.expenses')}</Link>}
                             <Link to="/products" className="text-white hover:text-sky-300">{t('navbar.products')}</Link>
                             {isAdmin && <Link to="/reports" className="text-white hover:text-sky-300">{t('navbar.reports')}</Link>}
                         </div>

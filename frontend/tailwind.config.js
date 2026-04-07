@@ -6,15 +6,16 @@ export default {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
-    colors: {
-      // Brand colors 
-      primary: {
-        DEFAULT: '#1d4ed8',  // blue-700
-        dark: '#1e40af',     // blue-800
-        light: '#3b82f6',    // blue-600
+    extend: {
+      colors: {
+        // Brand colors 
+        primary: {
+          DEFAULT: '#1d4ed8',  // blue-700
+          dark: '#1e40af',     // blue-800
+          light: '#3b82f6',    // blue-600
+        },
       },
-    },
+    },    
   },
   plugins: [],
 }

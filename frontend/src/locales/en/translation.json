@@ -13,7 +13,11 @@
         "welcome": "Welcome back",
         "role": "{{role}}",
         "admin": "Administrator",
-        "employee": "Employee"
+        "employee": "Employee",
+        "totalOrders": "Total Orders",
+        "revenue": "Revenue Today",
+        "pending": "Pending Orders",
+        "expensesToday": "Expenses Today"
     },
     "navbar": {
         "dashboard": "Dashboard",
