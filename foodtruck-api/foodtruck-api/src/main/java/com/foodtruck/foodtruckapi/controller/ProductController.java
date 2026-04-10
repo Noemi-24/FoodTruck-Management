@@ -50,7 +50,7 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
-    @DeleteMapping("/{id}/availability")
+    @PutMapping("/{id}/availability")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> updateProductAvailability(
             @PathVariable Integer id,

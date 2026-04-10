@@ -69,11 +69,11 @@ function Dashboard(){
             </div>  
 
             <div className="flex gap-4 mb-8">
-                <button onClick={() => navigate('/orders/new')} className='bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95'>
+                <button onClick={() => navigate('/orders/new')} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
                     {t('dashboard.newOrderButton')}
                 </button>
                 {isAdmin && (
-                    <button onClick={() => navigate('/expenses/new')} className='bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95'>
+                    <button onClick={() => navigate('/expenses/new')} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
                     {t('dashboard.addExpenseButton')}
                     </button>
                 )}

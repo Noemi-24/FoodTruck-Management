@@ -15,7 +15,7 @@ export const Table = <T,>({ data, columns, rowKey }: TableProps<T>) => {
     return (
         <div className="overflow-x-auto rounded-lg shadow">
         <table className="w-full text-sm text-left">
-            <thead className="bg-blue-700 text-white">
+            <thead className="bg-sky-600 text-white">
                 <tr>
                     {columns.map((col, index) => (
                     <th key={index} className="px-6 py-3 font-semibold" >{col.header}</th>

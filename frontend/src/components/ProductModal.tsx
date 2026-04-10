@@ -88,20 +88,21 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
     };
 
     return (
-        <div>
-            <div>
-                <h2>Edit Product</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Edit Product</h2>
 
                 {error && <p>{error}</p>}
 
                 <form onSubmit={handleSubmit}>
-                
+            
                 <input
                     type="text"
                     name="name"
                     placeholder="Name"
                     value={form.name}
                     onChange={handleChange}
+                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-8"
                 />
 
                 <textarea
@@ -109,14 +110,17 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                     placeholder="Description"
                     value={form.description}
                     onChange={handleChange}
+                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
                 />
 
                 <input
                     type="number"
                     name="price"
+                    step="0.01"
                     placeholder="Price"
                     value={form.price ?? ""}
                     onChange={handleChange}
+                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
                 />
 
                 <input
@@ -125,6 +129,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                     placeholder="Image URL"
                     value={form.imageUrl}
                     onChange={handleChange}
+                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
                 />
 
                 <input
@@ -133,24 +138,26 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                     placeholder="Category ID"
                     value={form.categoryId ?? ""}
                     onChange={handleChange}
+                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
                 />
 
-                <label>
+                <label className="dark:text-white text-gray-700 text-sm mt-5">
                     <input
                         type="checkbox"
                         name="isSpecial"
                         checked={form.isSpecial}
                         onChange={handleChange}
+                        className="dark:text-white text-gray-700 text-sm mt-5 mr-2"
                     />
                     Special Product
                 </label>
 
-                <div style={{ marginTop: "10px" }}>
-                    <button type="submit" disabled={loading}>
+                <div className="mt-6 flex justify-end gap-3">
+                    <button type="submit" disabled={loading} className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
                         {loading ? "Saving..." : "Save"}
                     </button>
 
-                    <button type="button" onClick={onClose}>
+                    <button type="button" onClick={onClose} className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
                         Cancel
                     </button>
                 </div>

@@ -3,6 +3,7 @@ import { type ProductResponse } from '../types/product.types';
 import { getAllProducts, updateProductAvailability } from '../services/productService';
 import { Table, type Column } from '../components/Table';
 import ProductModal from '../components/ProductModal';
+import { useNavigate } from "react-router-dom";
 
 function Products(){
     const [products, setProducts] = useState<ProductResponse[]>([]);
@@ -10,6 +11,7 @@ function Products(){
     const [error, setError] = useState<string | null>("");
     const [selectedProduct, setSelectedProduct] = useState<ProductResponse | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const fetchProducts = async () => {
         setLoading(true);
@@ -66,9 +68,10 @@ function Products(){
         header: "Actions", 
         render: (product) => (
         <div className="flex gap-2">
-            <button onClick={() => handleEditProduct(product)}>Edit</button>
-            <button onClick={() => handleToggleAvailability(product.productId, !product.available)}>
-                {product.available ? 'Disable' : 'Enable'}
+            <button onClick={() => handleEditProduct(product)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">Edit</button>
+            <button onClick={() => handleToggleAvailability(product.productId, !product.available)} className={`${product.available ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95`}>
+                {product.available ? 'Disable' : 'Enable'} 
             </button>
         </div>)
         },
@@ -103,9 +106,10 @@ function Products(){
     );
 
     return(
-        <div>
-            <div>
-                <h1>Products</h1>
+        <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-8">
+            <div className="m-12 flex justify-between">
+                <h1 className="text-4xl font-bold text-blue-700 dark:text-white">Products</h1>
+                <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => navigate('/products/new')}>New Product</button>
             </div>
             <div>
                 <Table data={products} columns={columns} rowKey={(product) => product.productId}/>
@@ -115,7 +119,8 @@ function Products(){
                     product={selectedProduct}
                     onSuccess={() => {setIsModalOpen(false); setSelectedProduct(null); fetchProducts();}}
                 />
-            </div>            
+            </div>  
+                      
         </div>
     )
 }

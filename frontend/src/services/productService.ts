@@ -22,6 +22,6 @@ export const updateProduct = async (id:number, data: UpdateProductRequest): Prom
 }
 
 export const updateProductAvailability = async (id:number, available:boolean): Promise<Product> => {
-    const response = await api.put<Product>(`/products/${id}/availability`, available);
+    const response = await api.put<Product>(`/products/${id}/availability?available=${available}`);
     return response.data;
 }
