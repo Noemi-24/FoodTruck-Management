@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ProductResponse, UpdateProductRequest } from "../types/product.types";
 import { updateProduct } from "../services/productService";
+import { useTranslation } from 'react-i18next';
 
 interface ModalProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
     const [form, setForm] = useState<UpdateProductRequest>(initialState);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const { t } = useTranslation();
 
     // cargar producto al abrir modal
     useEffect(() => {
@@ -61,7 +63,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
         if (!product) return;
 
         if (!form.name || !form.price) {
-        setError("Name and price are required");
+        setError(t('productModal.errorRequired'));
         return;
         }
 
@@ -81,7 +83,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
             onClose();
 
         } catch {
-            setError("Error updating product");
+            setError(t('productModal.error'));
         } finally {
             setLoading(false);
         }
@@ -90,7 +92,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
             <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Edit Product</h2>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('productModal.title')}</h2>
 
                 {error && <p>{error}</p>}
 
@@ -99,7 +101,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                 <input
                     type="text"
                     name="name"
-                    placeholder="Name"
+                    placeholder={t('productModal.placeholderName')}
                     value={form.name}
                     onChange={handleChange}
                     className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-8"
@@ -107,7 +109,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
 
                 <textarea
                     name="description"
-                    placeholder="Description"
+                    placeholder={t('productModal.placeholderDescription')}
                     value={form.description}
                     onChange={handleChange}
                     className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
@@ -117,7 +119,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                     type="number"
                     name="price"
                     step="0.01"
-                    placeholder="Price"
+                    placeholder={t('productModal.placeholderPrice')}
                     value={form.price ?? ""}
                     onChange={handleChange}
                     className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
@@ -126,7 +128,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                 <input
                     type="text"
                     name="imageUrl"
-                    placeholder="Image URL"
+                    placeholder={t('productModal.placeholderImageUrl')}
                     value={form.imageUrl}
                     onChange={handleChange}
                     className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
@@ -135,7 +137,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                 <input
                     type="number"
                     name="categoryId"
-                    placeholder="Category ID"
+                    placeholder={t('productModal.placeholderCategoryId')}
                     value={form.categoryId ?? ""}
                     onChange={handleChange}
                     className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
@@ -149,16 +151,16 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                         onChange={handleChange}
                         className="dark:text-white text-gray-700 text-sm mt-5 mr-2"
                     />
-                    Special Product
+                    {t('productModal.specialLabel')}
                 </label>
 
                 <div className="mt-6 flex justify-end gap-3">
                     <button type="submit" disabled={loading} className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
-                        {loading ? "Saving..." : "Save"}
+                        {loading ? t('productModal.loading') : t('productModal.saveButton')}
                     </button>
 
                     <button type="button" onClick={onClose} className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
-                        Cancel
+                        {t('productModal.cancelButton')}
                     </button>
                 </div>
 

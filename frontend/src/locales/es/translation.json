@@ -29,6 +29,38 @@
         "products": "Productos",
         "reports": "Reporte",
         "logout": "Cerrar Sesión"
+    },
+    "products":{
+        "title": "Productos",
+        "newProductButton": "Nuevo Producto",
+        "editButton": "Editar",
+        "enableButton": "Habilitar",
+        "disableButton": "Desabilitar",
+         "loading": "Cargando...",   
+         "tableHeaders":{
+            "name": "Nombre",
+            "category": "Categoría",
+            "description": "Descripción",
+            "price": "Precio",
+            "image": "Imagen",
+            "available": "Disponible",
+            "special": "Especial",
+            "actions": "Acciones"
+        }
+    },
+    "productModal":{
+        "title": "Editar Producto",
+        "placeholderName": "Nombre",
+        "placeholderDescription": "Descripción",
+        "placeholderPrice": "Precio",
+        "placeholderImageUrl": "URL de la imagen",
+        "placeholderCategoryId": "ID de categoría",
+        "specialLabel": "Producto especial",
+        "saveButton": "Guardar",
+        "loading": "Guardando...",
+        "cancelButton": "Cancelar",
+        "error": "Error al actualizar el producto",
+         "errorRequired": "El nombre y el precio son obligatorios"
     }
 
 
