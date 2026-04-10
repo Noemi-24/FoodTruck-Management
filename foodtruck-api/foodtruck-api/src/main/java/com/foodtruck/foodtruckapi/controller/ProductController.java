@@ -51,7 +51,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}/availability")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<ProductResponse> updateProductAvailability(
             @PathVariable Integer id,
             @RequestParam boolean available

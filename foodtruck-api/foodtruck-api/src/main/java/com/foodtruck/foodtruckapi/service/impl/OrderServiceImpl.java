@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(()-> new ResourceNotFoundException("Order", "id", id));
         return orderMapper.toOrderResponse(order);
     }
-
+    @Transactional
     @Override
     public OrderResponse updateOrderStatus(Integer id, OrderStatus status) {
         Order order = orderRepository.findById(id)

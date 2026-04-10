@@ -17,7 +17,7 @@ export const createOrder = async (data: CreateOrderRequest) :Promise<Order> => {
 }
 
 export const updateOrderStatus = async (id:number, data: OrderStatus): Promise<Order> => {
-    const response = await api.put<Order>(`/orders/${id}/status`, data);
+    const response = await api.put<Order>(`/orders/${id}/status?status=${data}`);
     return response.data;
 }
 

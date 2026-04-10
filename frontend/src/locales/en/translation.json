@@ -61,6 +61,39 @@
         "cancelButton": "Cancel",
         "error": "Error updating product",
         "errorRequired": "Name and price are required"
+    },
+    "common": {
+        "yes": "Yes",
+        "no": "No"
+    },
+     "orders":{
+        "title": "Orders",
+        "tableHeaders": {
+            "name": "Name",
+            "status": "Status",
+            "paymentMethod": "Payment Method",
+            "date": "Date",
+            "actions": "Actions"
+        },
+         "status":{
+            "pending": "Pending",
+            "inPreparation": "In preparation",
+            "ready": "Ready",
+            "delivered": "Delivered",
+            "cancelled": "Cancelled"
+        },
+        "processedBy": "Processed By",
+        "createdOn": "Created on",
+        "lastUpdated": "Last updated",
+        "phone": "Phone",
+        "email": "Email",
+        "product": "Product",
+        "qty": "QTY",
+        "price": "Price",
+        "error": "Failed to update status",
+        "orderId":"Order No.",
+        "customer": "Customer",
+        "viewDetailsButton": "View Details",
+        "closeButton": " Close"
     }
-
 }

@@ -27,7 +27,7 @@
         "orders": "Órdenes",
         "expenses": "Gastos",
         "products": "Productos",
-        "reports": "Reporte",
+        "reports": "Reportes",
         "logout": "Cerrar Sesión"
     },
     "products":{
@@ -36,8 +36,8 @@
         "editButton": "Editar",
         "enableButton": "Habilitar",
         "disableButton": "Desabilitar",
-         "loading": "Cargando...",   
-         "tableHeaders":{
+        "loading": "Cargando...",   
+        "tableHeaders":{
             "name": "Nombre",
             "category": "Categoría",
             "description": "Descripción",
@@ -61,6 +61,40 @@
         "cancelButton": "Cancelar",
         "error": "Error al actualizar el producto",
          "errorRequired": "El nombre y el precio son obligatorios"
+    },
+    "common": {
+        "yes": "Sí",
+        "no": "No"
+    },
+    "orders":{
+        "title": "Órdenes",
+        "tableHeaders":{
+            "name": "Nombre",
+            "status": "Estado",
+            "paymentMethod": "Método de pago",
+            "date": "Fecha",
+            "actions": "Acciones"
+        },
+        "status":{
+            "pending": "Pendiente",
+            "inPreparation": "En preparación",
+            "ready": "Lista",
+            "delivered": "Entregada",
+            "cancelled": "Cancelada"
+        },
+        "processedBy": "Procesado por",
+        "createdOn": "Creado el",
+        "lastUpdated": "Última actualización",
+        "phone": "Teléfono",
+        "email": "Correo electrónico",
+        "product": "Producto",
+        "qty": "Cant.",
+        "price": "Precio",
+        "error": "No se pudo actualizar el estado",
+        "orderId":"N.º de Orden",
+        "customer": "Cliente",
+        "viewDetailsButton": "Ver Detalles",
+        "closeButton": " Cerrar"
     }
 
 

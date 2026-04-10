@@ -25,7 +25,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
     const [error, setError] = useState<string | null>(null);
     const { t } = useTranslation();
 
-    // cargar producto al abrir modal
+    // Load product when open modal
     useEffect(() => {
         if (product) {
         setForm({

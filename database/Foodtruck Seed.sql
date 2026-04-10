@@ -59,10 +59,10 @@ INSERT INTO Products (CategoryID, Name, Description, Price, ImageUrl, Available,
 -- SAMPLE ORDERS
 -- ============================================
 INSERT INTO Orders (ProcessedByUserID, CustomerName, CustomerPhone, CustomerEmail, Total, Status, PaymentMethod, Notes) VALUES
-(1, 'Alice Johnson', '555-1234', 'alice.j@email.com', 42.46, 'DELIVERED', 'STRIPE', 'Extra sauce on the side'),
-(2, 'Bob Martinez', '555-5678', 'bob.m@email.com', 21.98, 'READY', 'CASH', NULL),
-(3, 'Carol White', '555-9012', 'carol.w@email.com', 13.99, 'IN_PREPARATION', 'STRIPE', 'No onions please'),
-(1, 'David Chen', '555-3456', NULL, 8.99, 'PENDING', 'CASH', NULL);
+(1, 'Alice Johnson', '614-555-1234', 'alice.j@email.com', 42.46, 'DELIVERED', 'STRIPE', 'Extra sauce on the side'),
+(2, 'Bob Martinez', '614-555-5678', 'bob.m@email.com', 21.98, 'READY', 'CASH', NULL),
+(3, 'Carol White', '614-555-9012', 'carol.w@email.com', 13.99, 'IN_PREPARATION', 'STRIPE', 'No onions please'),
+(1, 'David Chen', '614-555-3456', NULL, 8.99, 'PENDING', 'CASH', NULL);
 
 -- ============================================
 -- ORDER ITEMS (Line items for each order)

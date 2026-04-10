@@ -5,6 +5,7 @@ import { Table, type Column } from '../components/Table';
 import ProductModal from '../components/ProductModal';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import{ useAuth } from '../context/AuthContext';
 
 function Products(){
     const [products, setProducts] = useState<ProductResponse[]>([]);
@@ -14,6 +15,7 @@ function Products(){
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { isAdmin } = useAuth();
 
     const fetchProducts = async () => {
         setLoading(true);
@@ -35,48 +37,56 @@ function Products(){
 
     const columns: Column<ProductResponse>[] = [
         { 
-        header: "Id", 
-        render: (product) => `${product.productId}` 
+            header: "Id", 
+            render: (product) => `${product.productId}` 
         },
         { 
-        header: t('products.tableHeaders.name'), 
-        render: (product) => `${product.name}` 
+            header: t('products.tableHeaders.name'), 
+            render: (product) => `${product.name}` 
         },
         { 
-        header: t('products.tableHeaders.description'), 
-        render: (product) => `${product.description}` 
+            header: t('products.tableHeaders.description'), 
+            render: (product) => `${product.description}` 
         },
         { 
-        header: t('products.tableHeaders.category'), 
-        render: (product) => `${product.categoryName}` 
+            header: t('products.tableHeaders.category'), 
+            render: (product) => `${product.categoryName}` 
         },
         { 
-        header: t('products.tableHeaders.price'), 
-        render: (product) => `${product.price}` 
+            header: t('products.tableHeaders.price'), 
+            render: (product) => `${product.price}` 
         },
         { 
-        header:  t('products.tableHeaders.image'),  
-        render: (product) => `${product.imageUrl}` 
+            header:  t('products.tableHeaders.image'),  
+            render: (product) => (
+                <img
+                    src={product.imageUrl}
+                    alt={product.name}
+                    className='w-10 h-10 rounded object-cover'
+                />
+            ) 
         },
         { 
-        header:  t('products.tableHeaders.available'),  
-        render: (product) => `${product.available}` 
+            header:  t('products.tableHeaders.available'),  
+            render: (product) => product.available ? t('common.yes') : t('common.no')
         },
         { 
-        header:  t('products.tableHeaders.special'), 
-        render: (product) => `${product.isSpecial}` 
+            header:  t('products.tableHeaders.special'), 
+            render: (product) => product.isSpecial ? t('common.yes') : t('common.no')
         },
         { 
-        header:  t('products.tableHeaders.actions'),  
-        render: (product) => (
-        <div className="flex gap-2">
-            <button onClick={() => handleEditProduct(product)}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">{t('products.editButton')}</button>
-            <button onClick={() => handleToggleAvailability(product.productId, !product.available)} className={`${product.available ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95`}>
-                {product.available ? t('products.disableButton') :  t('products.enableButton')} 
-            </button>
-        </div>)
-        },
+            header:  t('products.tableHeaders.actions'),  
+            render: (product) => (
+            <div className="flex gap-2">
+                {isAdmin &&
+                    <button onClick={() => handleEditProduct(product)}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">{t('products.editButton')}</button>
+                }
+                <button onClick={() => handleToggleAvailability(product.productId, !product.available)} className={`${product.available ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95`}>
+                    {product.available ? t('products.disableButton') :  t('products.enableButton')} 
+                </button>
+            </div>)
+        }
     ];
 
     const handleEditProduct = (product: ProductResponse) => {
@@ -109,9 +119,9 @@ function Products(){
 
     return(
         <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
-            <div className="m-12 flex justify-between">
-                <h1 className="text-4xl font-bold text-blue-700 dark:text-white">{t('products.title')}</h1>
-                <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => navigate('/products/new')}>{t('products.newProductButton')}</button>
+            <div className="my-12 flex justify-between">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('products.title')}</h1>
+                {isAdmin && <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => navigate('/products/new')}>{t('products.newProductButton')}</button>}
             </div>
             <div>
                 <Table data={products} columns={columns} rowKey={(product) => product.productId}/>

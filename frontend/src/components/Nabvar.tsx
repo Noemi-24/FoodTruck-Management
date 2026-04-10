@@ -1,7 +1,7 @@
 import LanguageToggle from "./LanguageToggle";
 import ThemeToggle from "./ThemeToggle";
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ function Navbar() {
     return(   
         <nav>
             <div className="flex justify-between items-center bg-blue-700 dark:bg-blue-900 border-b border-blue-800">
-                {/* Left: Logo + Links */}
+                {/* Left: Logo + NavLinks */}
                 <div className="flex items-center gap-6 p-4">
                     <div className="flex items-center gap-2">
                         <div className="w-1 h-8 bg-white"></div> 
@@ -30,11 +30,11 @@ function Navbar() {
                     
                     {user && (
                         <div className="flex gap-4">
-                            <Link to="/dashboard" className="text-white hover:text-sky-300">{t('navbar.dashboard')}</Link>
-                            <Link to="/orders" className="text-white hover:text-sky-300">{t('navbar.orders')}</Link>
-                            {isAdmin &&  <Link to="/expenses" className="text-white hover:text-sky-300">{t('navbar.expenses')}</Link>}
-                            <Link to="/products" className="text-white hover:text-sky-300">{t('navbar.products')}</Link>
-                            {isAdmin && <Link to="/reports" className="text-white hover:text-sky-300">{t('navbar.reports')}</Link>}
+                            <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'underline decoration-2 underline-offset-4 text-white font-bold' : 'text-white hover:text-sky-300'}>{t('navbar.dashboard')}</NavLink>
+                            <NavLink to="/orders" className={({ isActive }) => isActive ? 'underline decoration-2 underline-offset-4 text-white font-bold' : 'text-white hover:text-sky-300'}>{t('navbar.orders')}</NavLink>
+                            {isAdmin &&  <NavLink to="/expenses" className={({ isActive }) => isActive ? 'underline decoration-2 underline-offset-4 text-white font-bold' : 'text-white hover:text-sky-300'}>{t('navbar.expenses')}</NavLink>}
+                            <NavLink to="/products" className={({ isActive }) => isActive ? 'underline decoration-2 underline-offset-4 text-white font-bold' : 'text-white hover:text-sky-300'}>{t('navbar.products')}</NavLink>
+                            {isAdmin && <NavLink to="/reports" className={({ isActive }) => isActive ? 'underline decoration-2 underline-offset-4 text-white font-bold' : 'text-white hover:text-sky-300'}>{t('navbar.reports')}</NavLink>}
                         </div>
                     )}
                 </div>

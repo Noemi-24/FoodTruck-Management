@@ -10,7 +10,7 @@ export interface Order{
     paymentMethod: PaymentMethod;
     orderDate: Date;
     updatedAt: Date;
-    orderItems: OrderItem[];
+    items: OrderItem[];
 }
 
 export type OrderStatus = 'PENDING' | 'IN_PREPARATION' | 'READY' | 'DELIVERED' | 'CANCELLED';
