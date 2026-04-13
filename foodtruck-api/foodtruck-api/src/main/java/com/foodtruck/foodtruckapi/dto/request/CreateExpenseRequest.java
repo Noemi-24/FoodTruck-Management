@@ -11,9 +11,6 @@ import java.time.LocalDate;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateExpenseRequest {
-    @NotNull(message = "User ID is required")
-    Integer recordedByUserId;
-
     @NotNull(message = "Date is required")
     LocalDate date;
 

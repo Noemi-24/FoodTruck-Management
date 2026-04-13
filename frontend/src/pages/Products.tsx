@@ -3,7 +3,6 @@ import { type ProductResponse } from '../types/product.types';
 import { getAllProducts, updateProductAvailability } from '../services/productService';
 import { Table, type Column } from '../components/Table';
 import ProductModal from '../components/ProductModal';
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import{ useAuth } from '../context/AuthContext';
 
@@ -13,7 +12,6 @@ function Products(){
     const [error, setError] = useState<string | null>("");
     const [selectedProduct, setSelectedProduct] = useState<ProductResponse | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const navigate = useNavigate();
     const { t } = useTranslation();
     const { isAdmin } = useAuth();
 
@@ -24,7 +22,7 @@ function Products(){
             const result = await getAllProducts();
             setProducts(result);
         } catch (error) {
-            setError(error instanceof Error ? error.message: "An unknown error occurred");
+            setError(error instanceof Error ? error.message: "Failed to load products");
             
         }finally{
             setLoading(false);
@@ -54,7 +52,7 @@ function Products(){
         },
         { 
             header: t('products.tableHeaders.price'), 
-            render: (product) => `${product.price}` 
+            render: (product) => `$${product.price.toFixed(2)}` 
         },
         { 
             header:  t('products.tableHeaders.image'),  
@@ -106,6 +104,11 @@ function Products(){
         }
     };
 
+    const handleCreateProduct = () => {
+        setSelectedProduct(null);
+        setIsModalOpen(true);
+    };
+
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen">
             <p className="text-gray-600 dark:text-gray-400">{t('products.loading')}</p>
@@ -121,7 +124,7 @@ function Products(){
         <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
             <div className="my-12 flex justify-between">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('products.title')}</h1>
-                {isAdmin && <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => navigate('/products/new')}>{t('products.newProductButton')}</button>}
+                {isAdmin && <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => handleCreateProduct()}>{t('products.newProductButton')}</button>}
             </div>
             <div>
                 <Table data={products} columns={columns} rowKey={(product) => product.productId}/>

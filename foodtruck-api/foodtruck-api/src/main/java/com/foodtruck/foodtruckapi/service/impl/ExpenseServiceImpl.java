@@ -11,6 +11,8 @@ import com.foodtruck.foodtruckapi.repository.ExpenseRepository;
 import com.foodtruck.foodtruckapi.repository.UserRepository;
 import com.foodtruck.foodtruckapi.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,8 +41,13 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public ExpenseResponse createExpense(CreateExpenseRequest request) {
-        User user = userRepository.findById(request.getRecordedByUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", request.getRecordedByUserId()));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new ResourceNotFoundException("User", "auth", "not authenticated");
+        }
+        String email = auth.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
 
         Expense expense = expenseMapper.toExpense(request, user);
         Expense savedExpense = expenseRepository.save(expense);

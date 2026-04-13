@@ -24,13 +24,13 @@ function Dashboard(){
                 const result = await getDashboardStats();
                 setStats(result);
             } catch (error) {
-                setError(error instanceof Error ? error.message:  t('dashboard.error'));
+                setError(error instanceof Error ? error.message:  "An unknown error occurred");
             }finally{
                 setLoading(false);
             }        
         }
         fetchStats();
-    }, [t]);
+    }, []);
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen">

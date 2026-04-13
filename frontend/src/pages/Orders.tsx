@@ -23,7 +23,7 @@ function Orders(){
             const result = await getAllOrders();
             setOrders(result);
         } catch (error) {
-            setError(error instanceof Error ? error.message: "An unknown error occurred");
+            setError(error instanceof Error ? error.message: "Failed to load orders");
             
         }finally{
             setLoading(false);
@@ -57,7 +57,7 @@ function Orders(){
         },
         {
             header: "Total",
-            render: (order) => `${order.total}`
+            render: (order) => `$${order.total.toFixed(2)}`
         },
         {
             header:  t('orders.tableHeaders.status'), 

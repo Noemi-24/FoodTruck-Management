@@ -20,8 +20,7 @@
         "expensesToday": "Gastos de Hoy",
         "newOrderButton": "+ Nueva Orden",
         "addExpenseButton": "+ Añadir Gasto",
-        "recentOrderTitle": "Órdenes Recientes",
-        "error": "Ocurrió un error desconocido"
+        "recentOrderTitle": "Órdenes Recientes"
     },
     "navbar": {
         "dashborad": "Tablero",
@@ -59,10 +58,12 @@
         "placeholderCategoryId": "ID de categoría",
         "specialLabel": "Producto especial",
         "saveButton": "Guardar",
+        "createButton": "Crear",
         "loading": "Guardando...",
         "cancelButton": "Cancelar",
-        "error": "Error al actualizar el producto",
-         "errorRequired": "El nombre y el precio son obligatorios"
+        "errorUpdate": "Error al actualizar el producto",
+        "errorCreate": "Error al crear el producto",
+        "errorRequired": "El nombre y el precio son obligatorios"
     },
     "common": {
         "yes": "Sí",
@@ -113,7 +114,45 @@
             "choose": "Elija un método de pago",
             "cash": "Efectivo"
         }
-    }      
+    }, 
+    "expenses":{
+        "title": "Gastos",
+        "newExpenseButton": "Nuevo Gasto",
+        "tableHeaders":{
+            "category": "Categoría",
+            "description": "Descripción",
+            "amount": "Monto",
+            "date": "Fecha",
+            "receiptUrl": "Recibo",
+            "actions": "Acciones",
+            "edit": "Editar"            
+        }
+    },
+    "expenseModal":{
+        "title":"Editar producto",
+        "createTitle":"Nuevo Gasto",
+        "category": {
+            "ingredients": "Ingredientes",
+            "maintenance": "Mantenimiento",
+            "salaries": "Salarios",
+            "supplies": "Suministros",
+            "fuel": "Combustible",
+            "marketing": "Marketing",
+            "permits": "Permisos",
+            "other": "Otros"
+        },
+        "errorRequired": "La categoría, la descripción y el monto son obligatorios",
+        "errorUpdate": "Error al actualizar el gasto",
+        "errorCreate": "Error al crear el gasto",
+        "placeholderDescription": "Descripción",
+        "placeholderAmount": "Monto",
+        "placeholderReceiptUrl": "URL del recibo",
+        "placeholderDate": "Fecha",
+        "saveButton": "Guardar",
+        "createButton": "Crear",
+        "loading": "Guardando...",
+        "cancelButton": "Cancelar"
+    }         
 
 
 }

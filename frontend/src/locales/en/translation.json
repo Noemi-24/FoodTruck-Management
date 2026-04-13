@@ -20,8 +20,7 @@
         "expensesToday": "Expenses Today",
         "newOrderButton": "+ New Order",
         "addExpenseButton": "+ Add Expense",
-        "recentOrderTitle": "Recente Orders",
-        "error": "An unknown error occurred"
+        "recentOrderTitle": "Recente Orders"
     },
     "navbar": {
         "dashboard": "Dashboard",
@@ -59,9 +58,11 @@
         "placeholderCategoryId": "Category ID",
         "specialLabel": "Special Product",
         "saveButton": "Save",
+        "createButton": "Create",
         "loading": "Saving...",
         "cancelButton": "Cancel",
-        "error": "Error updating product",
+        "errorUpdate": "Error updating product",
+        "errorCreate": "Error creating product",
         "errorRequired": "Name and price are required"
     },
     "common": {
@@ -113,6 +114,44 @@
             "choose": "Choose a payment method",
             "cash": "Cash"
         }
-    }      
+    }, 
+    "expenses":{
+        "title": "Expenses",
+        "newExpenseButton": "New Expense",
+        "tableHeaders":{
+            "category": "Category",
+            "description": "Description",
+            "amount": "Amount",
+            "date": "Date",
+            "receiptUrl": "Receipt",
+            "actions": "Actions",
+            "edit": "Edit"
+        }
+    },
+    "expenseModal":{
+        "editTitle":"Edit Product",
+        "createTitle":"New Expense",
+        "category": {
+            "ingredients": "Ingredients",
+            "maintenance": "Maintenance",
+            "salaries": "Salaries",
+            "supplies": "Supplies",
+            "fuel": "Fuel",
+            "marketing": "Marketing",
+            "permits": "Permits",
+            "other": "Other"
+        },
+        "errorRequired": "Category, description and amount are required",
+        "errorUpdate": "Error updating expense",
+        "errorCreate": "Error creating expense",
+        "placeholderDescription": "Description",
+        "placeholderAmount": "Amount",
+        "placeholderReceiptUrl": "Receipt URL",
+        "placeholderDate": "Date",
+        "saveButton": "Save",
+        "createButton": "Create",
+        "loading": "Saving...",
+        "cancelButton": "Cancel"
+    }   
     
 }

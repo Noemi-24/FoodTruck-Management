@@ -2,7 +2,7 @@ export interface ExpenseResponse{
     expenseId: number;
     recordedByUserId: number;
     recordedByUserName: string;
-    date: Date;
+    date: string;
     amount: number;
     category: ExpenseCategory;
     description: string;
@@ -12,8 +12,7 @@ export interface ExpenseResponse{
 export type ExpenseCategory = 'INGREDIENTS' | 'FUEL' | 'MAINTENANCE' | 'PERMITS' | 'SALARIES' | 'MARKETING' | 'SUPPLIES' | 'OTHER';
 
 export interface CreateExpenseRequest{
-    recordedByUserId: number;
-    date: Date;
+    date: string;
     amount: number;
     category: ExpenseCategory;
     description: string;
@@ -21,7 +20,7 @@ export interface CreateExpenseRequest{
 }
 
 export interface UpdateExpenseRequest{
-    date: Date;
+    date: string;
     amount: number;
     category: ExpenseCategory;
     description: string;
