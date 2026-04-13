@@ -19,75 +19,75 @@ const initialState: UpdateExpenseRequest = {
 }
 
 function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) { 
-     const [form, setForm] = useState<UpdateExpenseRequest>(initialState);
-        const [loading, setLoading] = useState(false);
-        const [error, setError] = useState<string | null>(null);
-        const { t } = useTranslation();
+    const [form, setForm] = useState<UpdateExpenseRequest>(initialState);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const { t } = useTranslation();
 
-        useEffect(() => {
-            if (expense) {
-            setForm({
-                category: expense.category,
-                date: expense.date,
-                amount: expense.amount,
-                description: expense.description,                    
-                receiptUrl: expense.receiptUrl
-            });
-            } else {
-            setForm(initialState);
-            }
-        }, [expense]);
+    useEffect(() => {
+        if (expense) {
+        setForm({
+            category: expense.category,
+            date: expense.date,
+            amount: expense.amount,
+            description: expense.description,                    
+            receiptUrl: expense.receiptUrl
+        });
+        } else {
+        setForm(initialState);
+        }
+    }, [expense]);
 
-        if (!isOpen) return null;
+    if (!isOpen) return null;
 
-        const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            const { name, value, type } = e.target;
+    const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value, type } = e.target;
 
-            setForm(prev => ({
-            ...prev,
-                [name]:
-                    type === "checkbox"
-                    ? (e.target as HTMLInputElement).checked
-                    : type === "number"
-                    ? value === "" ? null : Number(value)
-                    : value
-            }));
-        };
+        setForm(prev => ({
+        ...prev,
+            [name]:
+                type === "checkbox"
+                ? (e.target as HTMLInputElement).checked
+                : type === "number"
+                ? value === "" ? null : Number(value)
+                : value
+        }));
+    };
 
-        const handleSubmit = async (e: React.FormEvent) => {
-            e.preventDefault();
-        
-            if (!form.category || !form.amount || !form.description) {
-            setError(t('expenseModal.errorRequired'));
-            return;
-            }
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
     
-            setLoading(true);
-            setError(null);
-    
-            try {
-                if(!expense){
-                    const newExpense = await createExpense(form as CreateExpenseRequest);
-                    onSuccess(newExpense);
-                    onClose();
-                    return;
+        if (!form.category || !form.amount || !form.description) {
+        setError(t('expenseModal.errorRequired'));
+        return;
+        }
 
-                }else{
-                    const updatedexpense: ExpenseResponse = {
-                        ...expense,
-                        ...form
-                    };        
-                    // connecta API
-                    await updateExpense(expense.expenseId, form);        
-                    onSuccess(updatedexpense);
-                    onClose();
-                }
-            } catch {
-                setError(expense ? t('expenseModal.errorUpdate') : t('expenseModal.errorCreate'));
-            } finally {
-                setLoading(false);
+        setLoading(true);
+        setError(null);
+
+        try {
+            if(!expense){
+                const newExpense = await createExpense(form as CreateExpenseRequest);
+                onSuccess(newExpense);
+                onClose();
+                return;
+
+            }else{
+                const updatedexpense: ExpenseResponse = {
+                    ...expense,
+                    ...form
+                };        
+                // connecta API
+                await updateExpense(expense.expenseId, form);        
+                onSuccess(updatedexpense);
+                onClose();
             }
-        };     
+        } catch {
+            setError(expense ? t('expenseModal.errorUpdate') : t('expenseModal.errorCreate'));
+        } finally {
+            setLoading(false);
+        }
+    };     
         
         
     return (

@@ -12,4 +12,5 @@ public interface UserService {
     List<UserResponse> getAllUsers();
     UserResponse getUserById(Integer id);
     UserResponse deactivateUser(Integer id);
+    UserResponse reactivateUser(Integer id);
 }

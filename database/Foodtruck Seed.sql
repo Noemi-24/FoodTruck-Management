@@ -11,9 +11,9 @@ USE FoodTruckDB;
 -- Password for all accounts: "password123" 
 -- (In production, these would be properly hashed with BCrypt)
 INSERT INTO Users (Name, Email, Password, Phone, Role) VALUES
-('John Smith', 'john.smith@foodtruck.com', '$2a$10$iGKnWve1ETbBVYWHjebIoeM9o6W/O7V9YVJixLCBBF1NWdZLGzBpq', '555-0100', 'ADMIN'),
-('John Doe', 'john.doe@foodtruck.com', '$2a$10$iGKnWve1ETbBVYWHjebIoeM9o6W/O7V9YVJixLCBBF1NWdZLGzBpq', '555-0101', 'EMPLOYEE'),
-('Jane Doe', 'jane.doe@foodtruck.com', '$2a$10$iGKnWve1ETbBVYWHjebIoeM9o6W/O7V9YVJixLCBBF1NWdZLGzBpq', '555-0102', 'EMPLOYEE');
+('John Smith', 'john.smith@foodtruck.com', '$2a$10$iGKnWve1ETbBVYWHjebIoeM9o6W/O7V9YVJixLCBBF1NWdZLGzBpq', '614-555-0100', 'ADMIN'),
+('John Doe', 'john.doe@foodtruck.com', '$2a$10$iGKnWve1ETbBVYWHjebIoeM9o6W/O7V9YVJixLCBBF1NWdZLGzBpq', '614-555-0101', 'EMPLOYEE'),
+('Jane Doe', 'jane.doe@foodtruck.com', '$2a$10$iGKnWve1ETbBVYWHjebIoeM9o6W/O7V9YVJixLCBBF1NWdZLGzBpq', '614-555-0102', 'EMPLOYEE');
 
 -- ============================================
 -- CATEGORIES

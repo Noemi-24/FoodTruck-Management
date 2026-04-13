@@ -28,7 +28,8 @@
         "expenses": "Expenses",
         "products": "Products",
         "reports": "Reports",
-        "logout": "Sign Out"
+        "logout": "Sign Out",
+        "users": "Users"
     },
     "products":{
         "title": "Products",
@@ -152,6 +153,40 @@
         "createButton": "Create",
         "loading": "Saving...",
         "cancelButton": "Cancel"
-    }   
+    },
+    "users":{
+        "title": "Users",
+        "newUserButton": "New User",
+        "tableHeaders":{
+            "name": "Name",
+            "email": "Email",
+            "role": "Role",
+            "active": "Active",
+            "actions": "Actions"            
+        },
+        "edit": "Edit",
+        "enableButton": "Activate",
+        "disableButton": "Deactivate",  
+        "error": "Failed to update user status"
+    },
+    "userModal":{
+        "editTitle": "Edit User",
+        "createTitle": "New User",
+        "placeholderName": "Name",
+        "placeholderEmail": "Email",
+        "placeholderPhone": "Phone",
+        "placeholderPassword": "Password",
+        "role": {
+            "admin": "Administrator",
+            "employee": "Employee"
+        },
+        "saveButton": "Save",
+        "createButton": "Create",
+        "loading": "Saving...",
+        "cancelButton": "Cancel",
+        "errorUpdate": "Error updating user",
+        "errorCreate": "Error creating user",
+        "errorRequired": "Name, email, password and role are required"
+    }
     
 }

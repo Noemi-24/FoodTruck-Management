@@ -1,10 +1,9 @@
 import {useState, useReducer, useEffect, useMemo, useCallback} from 'react';
 import { type ProductResponse } from '../types/product.types';
-import { type PaymentMethod } from '../types/order.types';
+import type { PaymentMethod, CreateOrderRequest} from '../types/order.types';
 import { getAllProducts } from '../services/productService';
 import { cartReducer } from '../reducers/cartReducer';
 import { createOrder } from '../services/orderService';
-import { type CreateOrderRequest } from '../types/order.types';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import ProductoCard from '../components/ProductCard';

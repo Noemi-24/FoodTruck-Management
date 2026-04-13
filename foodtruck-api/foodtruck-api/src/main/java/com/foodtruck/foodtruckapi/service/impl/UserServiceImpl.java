@@ -99,5 +99,14 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUserResponse(deactivatedUser);
     }
 
+    @Override
+    public UserResponse reactivateUser(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        user.setActive(true);
+        User reactivatedUser = userRepository.save(user);
+        return userMapper.toUserResponse(reactivatedUser);
+    }
+
 
 }

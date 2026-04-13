@@ -28,7 +28,8 @@
         "expenses": "Gastos",
         "products": "Productos",
         "reports": "Reportes",
-        "logout": "Cerrar Sesión"
+        "logout": "Cerrar Sesión",
+        "users": "Usuarios"
     },
     "products":{
         "title": "Productos",
@@ -152,7 +153,41 @@
         "createButton": "Crear",
         "loading": "Guardando...",
         "cancelButton": "Cancelar"
-    }         
+    },
+    "users":{
+        "title": "Usuarios",
+        "newUserButton": "Nuevo Usuario",
+        "tableHeaders":{
+            "name": "Nombre",
+            "email": "Correo electrónico",
+            "role": "Rol",
+            "active": "Activo",
+            "actions": "Acciones"
+        },
+        "edit": "Editar",
+        "enableButton": "Activar",
+        "disableButton": "Desactivar",
+        "error": "No se pudo actualizar el estado"
+    },
+    "userModal":{
+        "titleEdit": "Editar Usuario",
+        "titleCreate": "Nuevo Usuario",
+        "placeholderName": "Nombre",
+        "placeholderEmail": "Correo electrónico",
+        "placeholderPhone": "Teléfono",
+        "placeholderPassword": "Contraseña",
+        "role": {
+            "admin": "Administrador",
+            "employee": "Empleado"
+        },
+        "saveButton": "Guardar",
+        "createButton": "Crear",
+        "loading": "Guardando...",
+        "cancelButton": "Cancelar",
+        "errorUpdate": "Error al actualizar el usuario",
+        "errorCreate": "Error al crear el usuario",
+        "errorRequired": "El nombre, el correo electrónico y el rol son obligatorios"
+    }
 
 
 }

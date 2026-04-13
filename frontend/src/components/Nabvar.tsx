@@ -35,6 +35,7 @@ function Navbar() {
                             {isAdmin &&  <NavLink to="/expenses" className={({ isActive }) => isActive ? 'underline decoration-2 underline-offset-4 text-white font-bold' : 'text-white hover:text-sky-300'}>{t('navbar.expenses')}</NavLink>}
                             <NavLink to="/products" className={({ isActive }) => isActive ? 'underline decoration-2 underline-offset-4 text-white font-bold' : 'text-white hover:text-sky-300'}>{t('navbar.products')}</NavLink>
                             {isAdmin && <NavLink to="/reports" className={({ isActive }) => isActive ? 'underline decoration-2 underline-offset-4 text-white font-bold' : 'text-white hover:text-sky-300'}>{t('navbar.reports')}</NavLink>}
+                            {isAdmin && <NavLink to="/users" className={({ isActive }) => isActive ? 'underline decoration-2 underline-offset-4 text-white font-bold' : 'text-white hover:text-sky-300'}>{t('navbar.users')}</NavLink>}
                         </div>
                     )}
                 </div>

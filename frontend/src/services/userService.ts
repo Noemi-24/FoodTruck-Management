@@ -25,3 +25,8 @@ export const deactivateUser = async (id:number) => {
     const response = await api.put<User>(`/users/${id}/deactivate`);
     return response.data;
 }
+
+export const reactivateUser = async (id:number) => {
+    const response = await api.put<User>(`/users/${id}/reactivate`);
+    return response.data;
+}
