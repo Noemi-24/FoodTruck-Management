@@ -20,7 +20,8 @@
         "expensesToday": "Gastos de Hoy",
         "newOrderButton": "+ Nueva Orden",
         "addExpenseButton": "+ Añadir Gasto",
-        "recentOrderTitle": "Órdenes Recientes"
+        "recentOrderTitle": "Órdenes Recientes",
+        "error": "Ocurrió un error desconocido"
     },
     "navbar": {
         "dashborad": "Tablero",
@@ -46,7 +47,8 @@
             "available": "Disponible",
             "special": "Especial",
             "actions": "Acciones"
-        }
+        },
+        "error": "No se pudo actualizar la disponibilidad"
     },
     "productModal":{
         "title": "Editar Producto",
@@ -94,8 +96,24 @@
         "orderId":"N.º de Orden",
         "customer": "Cliente",
         "viewDetailsButton": "Ver Detalles",
-        "closeButton": " Cerrar"
-    }
+        "closeButton": "Cerrar",
+        "newOrderButton": "Nueva Orden",
+        "successMessage":"Orden creado correctamente",
+        "errorCreate": "Error al crear orden"
+    },
+    "newOrder":{
+        "title": "Carrito",
+        "addButton": "+ Agregar",
+        "removeButton": "Eliminar",
+        "special": "Especial",
+        "orderTotal": "Total:",
+        "placeholderNote": "Escribe notas aquí...",
+        "placeOrderButton":"Realizar pedido",
+        "payment":{
+            "choose": "Elija un método de pago",
+            "cash": "Efectivo"
+        }
+    }      
 
 
 }

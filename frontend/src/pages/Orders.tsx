@@ -5,6 +5,7 @@ import { Table, type Column} from '../components/Table';
 import { useTranslation } from 'react-i18next';
 import { updateOrderStatus } from '../services/orderService';
 import OrderDetailModal from '../components/OrderDetailModal';
+import { useNavigate } from "react-router-dom";
 
 function Orders(){
     const [orders, setOrders] = useState<OrderResponse[]>([]);
@@ -13,6 +14,7 @@ function Orders(){
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState<OrderResponse | null>(null);
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const fetchOrders = async () => {
         setLoading(true);
@@ -79,7 +81,7 @@ function Orders(){
                     <select 
                         value={order.status}
                         onChange={(e) => handleUpdateStatus(order.orderId, e.target.value as OrderStatus)}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
+                        className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
                     >
                         <option value="PENDING">{t('orders.status.pending')}</option>
                         <option value="IN_PREPARATION">{t('orders.status.inPreparation')}</option>
@@ -118,6 +120,7 @@ function Orders(){
         <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
             <div className="my-12 flex justify-between">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('orders.title')}</h1>
+                <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => navigate('/orders/new')}>{t('orders.newOrderButton')}</button>
             </div>
             <div>
                 <Table data={orders} columns={columns} rowKey={(order) => order.orderId}/>
@@ -132,24 +135,3 @@ function Orders(){
 
 export default Orders;
 
-
-// {
-//     header: "Phone",
-//     render: (order) => `${order.customerPhone}`
-// },
-// {
-//     header: "Email",
-//     render: (order) => `${order.customerEmail}`
-// },
-// {
-//     header: "Items",
-//     render: (order) => `${order.orderItems.length}`
-// },
-// {
-//     header: "Processed by",
-//     render: (order) => `${order.processedByUserName} + " " +${order.processedByUser}`
-// },
-// {
-//     header: "Last Updated",
-//     render: (order) => `${order.updatedAt}`
-// }

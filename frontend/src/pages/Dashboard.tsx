@@ -2,7 +2,7 @@ import{ useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect} from 'react';
 import { getDashboardStats } from '../services/dashboardService';
-import Card from '../components/StatsCard';
+import StatCard from '../components/StatsCard';
 import { type DashboardStatsResponse } from '../types/dashboard.types';
 import { ShoppingCart, DollarSign, Clock, Wallet } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -24,13 +24,13 @@ function Dashboard(){
                 const result = await getDashboardStats();
                 setStats(result);
             } catch (error) {
-                setError(error instanceof Error ? error.message: "An unknown error occurred");
+                setError(error instanceof Error ? error.message:  t('dashboard.error'));
             }finally{
                 setLoading(false);
             }        
         }
         fetchStats();
-    }, []);
+    }, [t]);
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen">
@@ -58,14 +58,14 @@ function Dashboard(){
                     : 'grid-cols-1 sm:grid-cols-2'
                 }`}>
 
-                <Card title={t('dashboard.totalOrders')} value={stats?.ordersToday ?? 0} icon={ShoppingCart} />
+                <StatCard title={t('dashboard.totalOrders')} value={stats?.ordersToday ?? 0} icon={ShoppingCart} />
                 {isAdmin && ( 
-                    <Card title={t('dashboard.expensesToday')} value={stats?.expensesToday ?? 0} icon={Wallet}/>
+                    <StatCard title={t('dashboard.expensesToday')} value={stats?.expensesToday ?? 0} icon={Wallet}/>
                 )}
                 {isAdmin && (
-                        <Card title={t('dashboard.revenue')} value={stats?.revenueToday ?? 0} icon={DollarSign}/>
+                        <StatCard title={t('dashboard.revenue')} value={stats?.revenueToday ?? 0} icon={DollarSign}/>
                 )}
-                <Card title={t('dashboard.pending')} value={stats?.pendingOrders ?? 0} icon={Clock}/>
+                <StatCard title={t('dashboard.pending')} value={stats?.pendingOrders ?? 0} icon={Clock}/>
             </div>  
 
             <div className="flex gap-4 mb-8">

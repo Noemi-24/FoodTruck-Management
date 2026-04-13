@@ -100,7 +100,7 @@ function Products(){
             await updateProductAvailability(id, available);
             fetchProducts();
         } catch (error) {
-            setError(error instanceof Error ? error.message: "Failed to update availability"); 
+            setError(error instanceof Error ? error.message: t('products.error')); 
         } finally {
             setLoading(false);
         }

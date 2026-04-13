@@ -20,7 +20,8 @@
         "expensesToday": "Expenses Today",
         "newOrderButton": "+ New Order",
         "addExpenseButton": "+ Add Expense",
-        "recentOrderTitle": "Recente Orders"
+        "recentOrderTitle": "Recente Orders",
+        "error": "An unknown error occurred"
     },
     "navbar": {
         "dashboard": "Dashboard",
@@ -46,7 +47,8 @@
             "available": "Available",
             "special": "Special",
             "actions": "Actions"
-        }
+        },
+        "error": "Failed to update availability"
     },
     "productModal":{
         "title": "Edit Product",
@@ -94,6 +96,23 @@
         "orderId":"Order No.",
         "customer": "Customer",
         "viewDetailsButton": "View Details",
-        "closeButton": " Close"
-    }
+        "closeButton": "Close",
+        "newOrderButton": "New Order",
+        "successMessage":"Order created successfully",
+        "errorCreate": "Failed to create order"
+    },
+    "newOrder":{
+        "title": "Cart",
+        "addButton": "+ Add",
+        "removeButton": "Remove",
+        "special": "Special",
+        "orderTotal": "Order total:",
+        "placeholderNote": "Write notes here...",
+        "placeOrderButton":"Place Order",
+        "payment":{
+            "choose": "Choose a payment method",
+            "cash": "Cash"
+        }
+    }      
+    
 }

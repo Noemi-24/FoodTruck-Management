@@ -6,7 +6,7 @@ interface CardProps{
     icon?: LucideIcon;
 }
 
-function Card({title, value, icon:Icon }: CardProps){
+function StatCard({title, value, icon:Icon }: CardProps){
     return(
         
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
@@ -17,4 +17,4 @@ function Card({title, value, icon:Icon }: CardProps){
     )
 }
 
-export default Card
+export default StatCard

@@ -51,7 +51,7 @@ public class OrderItem {
     @Column(name = "Subtotal", nullable = false, precision = 12, scale = 2)
     BigDecimal subtotal;
 
-    @Size(min = 2, max = 255, message = "Notes must be 2-255 chars")
+    @Size(max = 255, message = "Notes must be 2-255 chars")
     @Column(name = "Notes")
     String notes;
 

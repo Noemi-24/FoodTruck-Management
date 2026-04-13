@@ -3,6 +3,7 @@ package com.foodtruck.foodtruckapi.service.impl;
 import com.foodtruck.foodtruckapi.dto.request.CreateOrderRequest;
 import com.foodtruck.foodtruckapi.dto.request.OrderItemRequest;
 import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
+import com.foodtruck.foodtruckapi.entity.User;
 import com.foodtruck.foodtruckapi.enums.OrderStatus;
 import com.foodtruck.foodtruckapi.exception.BadRequestException;
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
@@ -11,9 +12,12 @@ import com.foodtruck.foodtruckapi.entity.Order;
 import com.foodtruck.foodtruckapi.entity.OrderItem;
 import com.foodtruck.foodtruckapi.entity.Product;
 import com.foodtruck.foodtruckapi.repository.OrderRepository;
+import com.foodtruck.foodtruckapi.repository.UserRepository;
 import com.foodtruck.foodtruckapi.service.OrderService;
 import com.foodtruck.foodtruckapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
     private final OrderMapper orderMapper;
+    private final UserRepository userRepository;
 
     @Override
     public List<OrderResponse> getAllOrders() {
@@ -92,6 +97,15 @@ public class OrderServiceImpl implements OrderService {
             orderItems.add(orderItem);
             totalAmount = totalAmount.add(subtotal);
         }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new ResourceNotFoundException("User", "auth", "not authenticated");
+        }
+        String email = auth.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+        order.setProcessedByUser(user);
 
         // Set total and add items to order
         order.setTotal(totalAmount);
