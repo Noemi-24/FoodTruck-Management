@@ -14,7 +14,7 @@ function Dashboard(){
 
     const { user, isAdmin } = useAuth();
     const { t } = useTranslation();
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect (() => {
         const fetchStats = async () => {
@@ -44,7 +44,7 @@ function Dashboard(){
     );
 
     return (
-        <>
+        
         <div className="w-full max-w-7xl mx-auto p-8">            
             <div className='mb-8'>
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('dashboard.welcome')}, {user?.name}</h1>
@@ -100,9 +100,7 @@ function Dashboard(){
                 </table>
                 
             </div> */}
-        </div>
-        
-        </>   
+        </div>  
     )
 }
 

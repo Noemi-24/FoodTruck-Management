@@ -1,7 +1,9 @@
 package com.foodtruck.foodtruckapi.controller;
 
+import com.foodtruck.foodtruckapi.dto.response.DailySalesResponse;
 import com.foodtruck.foodtruckapi.dto.response.MonthlyExpenseResponse;
 import com.foodtruck.foodtruckapi.dto.response.PopularItemResponse;
+import com.foodtruck.foodtruckapi.service.DashboardStatsService;
 import com.foodtruck.foodtruckapi.service.ReportsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,5 +30,11 @@ public class ReportsController{
     @PreAuthorize("hasRole('ADMIN')")
     public List<PopularItemResponse> getPopularItems() {
         return reportsService.getPopularItems();
+    }
+
+    @GetMapping("/daily-sales")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<DailySalesResponse> getDailySales() {
+        return reportsService.getDailySales();
     }
 }

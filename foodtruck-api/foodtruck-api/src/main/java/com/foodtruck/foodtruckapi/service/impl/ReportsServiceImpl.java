@@ -1,7 +1,9 @@
 package com.foodtruck.foodtruckapi.service.impl;
 
+import com.foodtruck.foodtruckapi.dto.response.DailySalesResponse;
 import com.foodtruck.foodtruckapi.dto.response.MonthlyExpenseResponse;
 import com.foodtruck.foodtruckapi.dto.response.PopularItemResponse;
+import com.foodtruck.foodtruckapi.repository.DailySalesRepository;
 import com.foodtruck.foodtruckapi.repository.MonthlyExpensesRepository;
 import com.foodtruck.foodtruckapi.repository.PopularItemsRepository;
 import com.foodtruck.foodtruckapi.service.ReportsService;
@@ -9,11 +11,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+
 @Service
 @RequiredArgsConstructor
 public class ReportsServiceImpl implements ReportsService {
     private final MonthlyExpensesRepository monthlyExpensesRepository;
     private final PopularItemsRepository popularItemsRepository;
+    private final DailySalesRepository dailySalesRepository;
 
     public List<MonthlyExpenseResponse> getMonthlyExpenses() {
         return monthlyExpensesRepository.findAll()
@@ -37,6 +42,18 @@ public class ReportsServiceImpl implements ReportsService {
                         item.getCategoryName(),
                         item.getTimesOrdered(),
                         item.getTotalRevenue()
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<DailySalesResponse> getDailySales() {
+        return dailySalesRepository.findAll()
+                .stream()
+                .map(sale -> new DailySalesResponse(
+                        sale.getSaleDate(),
+                        sale.getTotalOrders(),
+                        sale.getTotalRevenue()
                 ))
                 .toList();
     }

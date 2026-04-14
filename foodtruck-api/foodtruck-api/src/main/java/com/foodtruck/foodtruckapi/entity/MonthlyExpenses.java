@@ -26,6 +26,7 @@ public class MonthlyExpenses {
 
     @Id
     @Column(name= "Category")
+    @Enumerated(EnumType.STRING)
     ExpenseCategory category;
 
     @Column(name= "expense_count")
