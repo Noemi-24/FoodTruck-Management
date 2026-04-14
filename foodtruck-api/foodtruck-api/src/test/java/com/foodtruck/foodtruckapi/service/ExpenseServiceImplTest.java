@@ -48,7 +48,6 @@ public class ExpenseServiceImplTest {
     void testCreateExpense_Success(){
         // ARRANGE
         CreateExpenseRequest request = new CreateExpenseRequest();
-        request.setRecordedByUserId(1);
         request.setDate(LocalDate.now());
         request.setAmount(BigDecimal.valueOf(100));
         request.setCategory(FUEL);
@@ -287,7 +286,6 @@ public class ExpenseServiceImplTest {
     void testCreateExpense_UserNotFound_ThrowsException() {
         // ARRANGE
         CreateExpenseRequest request = new CreateExpenseRequest();
-        request.setRecordedByUserId(999);
         request.setAmount(BigDecimal.valueOf(100));
         request.setCategory(FUEL);
         request.setDescription("Test");
