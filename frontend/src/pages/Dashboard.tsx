@@ -34,7 +34,7 @@ function Dashboard(){
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen">
-            <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+            <p className="text-gray-600 dark:text-gray-400">{t('dashboard.loading')}</p>
         </div>
     );
     if (error) return (
@@ -73,8 +73,14 @@ function Dashboard(){
                     {t('dashboard.newOrderButton')}
                 </button>
                 {isAdmin && (
-                    <button onClick={() => navigate('/expenses/new')} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                    <button onClick={() => navigate('/expenses')} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
                     {t('dashboard.addExpenseButton')}
+                    </button>
+                     
+                )}
+                {isAdmin && (
+                    <button onClick={() => navigate('/categories')} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                    {t('dashboard.addCategoryButton')}
                     </button>
                 )}
             </div> 

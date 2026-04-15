@@ -18,9 +18,11 @@
         "revenue": "Ingresos de Hoy",
         "pending": "Órdenes Pendientes",
         "expensesToday": "Gastos de Hoy",
-        "newOrderButton": "+ Nueva Orden",
-        "addExpenseButton": "+ Añadir Gasto",
-        "recentOrderTitle": "Órdenes Recientes"
+        "newOrderButton": "+ Orden",
+        "addExpenseButton": "+ Gasto",
+        "recentOrderTitle": "Órdenes Recientes",
+        "addCategoryButton": "+ Categoría",
+        "loading": "Cargando..."
     },
     "navbar": {
         "dashborad": "Tablero",
@@ -29,7 +31,8 @@
         "products": "Productos",
         "reports": "Reportes",
         "logout": "Cerrar Sesión",
-        "users": "Usuarios"
+        "users": "Usuarios",
+        "categories": "Categorías"
     },
     "products":{
         "title": "Productos",
@@ -187,7 +190,56 @@
         "errorUpdate": "Error al actualizar el usuario",
         "errorCreate": "Error al crear el usuario",
         "errorRequired": "El nombre, el correo electrónico y el rol son obligatorios"
+    },
+    "categories":{
+        "title": "Categorías",
+        "newCategoryButton": "Nueva Categoría",
+        "editButton": "Editar",
+        "loading": "Cargando..." ,  
+        "tableHeaders":{
+            "name": "Nombre",
+            "actions": "Acciones"
+        }
+    },
+    "categoryModal":{
+        "editTitle": "Editar Categoría",
+        "createTitle": "Crear Categoría",
+        "placeholderName": "Nombre",
+        "saveButton": "Guardar",
+        "createButton": "Crear",
+        "loading": "Guardando...",
+        "cancelButton": "Cancelar",
+        "errorUpdate": "Error al actualizar categoría",
+        "errorCreate": "Error al crear categoría",
+        "errorRequired": "El nombre es obligatorio"
+    },
+    "reports":{
+        "title": "Reportes",
+        "greeting": "Hola",
+        "role": "{{role}}",
+        "admin": "Administrador",
+        "loading": "Cargando...",
+        "monthlyExpensesTitle": "Gastos Mensuales",
+        "expensesByCategoryTitle": "Gastos por Categoría",
+        "salesTitle": "Ventas",
+        "popularDishesTitle": "Platillos Populares",
+        "categories": {
+            "INGREDIENTS": "Ingredientes",
+            "MAINTENANCE": "Mantenimiento",
+            "SALARIES": "Salarios",
+            "SUPPLIES": "Suministros",
+            "FUEL": "Combustible",
+            "MARKETING": "Marketing",
+            "PERMITS": "Permisos",
+            "OTHER": "Otros"
+        },
+        "sales":{
+            "Revenue": "Ingresos",
+            "Orders": "Órdenes",
+            "totalOrders": "Órdenes Totales"
+        }
     }
 
-
 }
+
+

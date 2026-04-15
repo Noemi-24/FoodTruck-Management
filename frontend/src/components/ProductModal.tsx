@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ProductResponse, UpdateProductRequest, CreateProductRequest } from "../types/product.types";
-import { updateProduct } from "../services/productService";
+import { updateProduct, createProduct } from "../services/productService";
 import { useTranslation } from 'react-i18next';
-import { createProduct } from "../services/productService";
 
 interface ModalProps {
     isOpen: boolean;
@@ -59,13 +58,11 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-       
+        e.preventDefault();       
 
         if (!form.name || !form.price) {
-        setError(t('productModal.errorRequired'));
-        return;
+            setError(t('productModal.errorRequired'));
+            return;
         }
 
         setLoading(true);

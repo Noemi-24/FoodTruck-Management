@@ -13,6 +13,7 @@ import AdminRoute from "./components/AdminRoute";
 import Users from "./pages/Users";
 import Expenses from "./pages/Expenses";
 import Reports from "./pages/Reports";
+import Categories from "./pages/Categories";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
                 <Route path="/orders/new" element={<ProtectedRoute><NewOrder /></ProtectedRoute>} />
                 <Route path="/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
+                <Route path="/categories" element={<AdminRoute><Categories /></AdminRoute>} />
                 <Route path="/expenses" element={<AdminRoute><Expenses /></AdminRoute>} />
                 <Route path="/users" element={<AdminRoute><Users /></AdminRoute>} />
                 <Route path="/reports" element={<AdminRoute><Reports /></AdminRoute>} />

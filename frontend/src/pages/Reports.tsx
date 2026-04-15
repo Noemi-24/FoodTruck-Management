@@ -3,6 +3,7 @@ import { getPopularItems, getMonthlyExpenses, getDailySales } from '../services/
 import type { PopularItemResponse, MonthlyExpenseResponse, DailySalesResponse } from '../types/reports.types';
 import{ useAuth } from '../context/AuthContext';
 import { ResponsiveContainer, BarChart, Bar, Tooltip, XAxis, YAxis, PieChart, Pie, Cell, LineChart, Line, Legend } from 'recharts';
+import { useTranslation } from 'react-i18next';
 
 function Reports(){
     const [loading, setLoading] = useState<boolean>(false);
@@ -11,6 +12,8 @@ function Reports(){
     const [monthlyExpenses, setMonthlyExpenses] = useState<MonthlyExpenseResponse[]>([]);
     const [dailySales, setDailySales] = useState<DailySalesResponse[]>([]);
     const { user } = useAuth();
+    const { t } = useTranslation();
+    const { i18n } = useTranslation();
     
     const fetchPopularItems = async () => {
         setLoading(true);
@@ -59,7 +62,7 @@ function Reports(){
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen">
-            <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+            <p className="text-gray-600 dark:text-gray-400">{t('reports.loading')}</p>
         </div>
     );
     if (error) return (
@@ -99,12 +102,12 @@ function Reports(){
     return(
         <div className="w-full max-w-7xl mx-auto p-8">
             <div className='mb-8'>
-                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Welcome back, {user?.name}</h1>
-                <p className="text-gray-600 dark:text-gray-400">Administrator</p>
+                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('reports.greeting')}, {user?.name}</h1>
+                <p className="text-gray-600 dark:text-gray-400">{t('reports.admin')}</p>
             </div>
             <div className=' grid grid-cols-1 mb-8'>
                 <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow'>
-                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>Monthly Expenses</h2>
+                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>{t('reports.monthlyExpensesTitle')}</h2>
                     <ResponsiveContainer width='100%' height={300} minWidth={400}>
                         <BarChart data={groupedExpenses} barSize={40} barGap={8} barCategoryGap='20%'>
                             <XAxis dataKey='month' tickFormatter={(value)=>{
@@ -112,10 +115,12 @@ function Reports(){
                                 return new Date(year, month-1).toLocaleString('en-US', {month:'long'});
                             }} stroke='#9ca3af'/>                            
                             <YAxis tickFormatter={(value)=> `$${value.toLocaleString()}`} stroke='#9ca3af'/>
-                            <Tooltip formatter={(value, name) => [`$${Number(value).toLocaleString()}`, name]}
+                            <Tooltip formatter={(value, name) => [`$${Number(value).toLocaleString()}`, t(`reports.categories.${name}`)]}
                                 labelFormatter={(label)=> {
-                                    const [year, month] = label.split('-');
-                                    return new Date(year, month-1).toLocaleString('en-US', {month:'long', year:'numeric'});
+                                    if(!label || typeof label !== 'string') return label;
+                                    const parts = label.split('-');
+                                    if(parts.length < 2) return label;
+                                    return new Date(Number(parts[0]), Number(parts[1]) - 1).toLocaleString(i18n.language === 'es' ? 'es-MX' : 'en-US', {month:'long', year:'numeric'});
                                 }}/>
                             <Bar dataKey='INGREDIENTS' fill='#84cc16'  activeBar={{ fill: '#86efac', stroke: 'black' }}/>
                             <Bar dataKey='FUEL' fill='#f97316' activeBar={{ fill: '#fdba74', stroke: 'black' }}/>
@@ -132,7 +137,7 @@ function Reports(){
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6 mb-8'>
                 <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow'>
-                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>Expenses by Category</h2>
+                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>{t('reports.expensesByCategoryTitle')}</h2>
                     <ResponsiveContainer width='100%' height={400} minWidth={400}>
                         <PieChart>
                             <Pie
@@ -154,13 +159,13 @@ function Reports(){
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                             </Pie>
-                            <Tooltip formatter={(value, name) => [`$${Number(value).toLocaleString()}`, name]}/>
+                            <Tooltip formatter={(value, name) => [`$${Number(value).toLocaleString()}`, t(`reports.categories.${name}`)]}/>
                         </PieChart>
                     </ResponsiveContainer>
                 </div>          
 
                 <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow'>
-                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>Sales</h2>
+                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>{t('reports.salesTitle')}</h2>
                     <ResponsiveContainer width='100%' height={400} minWidth={400}>
                         <LineChart data={dailySales} >
                             <XAxis dataKey="saleDate" tickFormatter={(value)=>
@@ -170,11 +175,13 @@ function Reports(){
                             <YAxis yAxisId='left' orientation='right'/>
                             <Tooltip formatter={(value, name) => name === 'Revenue' ? [`$${Number(value).toLocaleString()}`, name] : [value, name]}
                                 labelFormatter={(label)=> {
-                                    const [year, month] = label.split('-');
-                                    return new Date(year, month-1).toLocaleString('en-US', {month:'long', year:'numeric'});
+                                    if(!label || typeof label !== 'string') return label;
+                                    const parts = label.split('-');
+                                    if(parts.length < 2) return label;
+                                    return new Date(Number(parts[0]), Number(parts[1]) - 1).toLocaleString(i18n.language === 'es' ? 'es-MX' : 'en-US', {month:'long', year:'numeric'});
                                 }}/>
-                            <Line yAxisId='left' dataKey="totalRevenue" stroke='#1d4ed8' name='Revenue'/>
-                            <Line yAxisId='right' dataKey="totalOrders" stroke='#00C49F' name='Orders'/>
+                            <Line yAxisId='left' dataKey="totalRevenue" stroke='#1d4ed8' name= {t('reports.sales.Revenue')}/>
+                            <Line yAxisId='right' dataKey="totalOrders" stroke='#00C49F' name={t('reports.sales.Orders')}/>
                             <Legend/>
                         </LineChart>
                     </ResponsiveContainer>
@@ -183,13 +190,13 @@ function Reports(){
 
             <div className=' grid grid-cols-1 mb-8'>
                 <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow'>
-                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>Popular Dishes</h2>
+                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>{t('reports.popularDishesTitle')}</h2>
                     <ResponsiveContainer width='100%' height={400} minWidth={400}>
                         <BarChart data={popularItems} layout='vertical'>
                             <XAxis type='number' allowDecimals={false}/>
                             <YAxis type='category' dataKey='name' width={160}/>
                             <Tooltip/>
-                            <Bar dataKey='timesOrdered' name="Total Orders">
+                            <Bar dataKey='timesOrdered' name={t('reports.sales.totalOrders')}>
                                 {popularItems.map((_, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}

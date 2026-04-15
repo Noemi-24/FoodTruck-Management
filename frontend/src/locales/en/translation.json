@@ -18,9 +18,11 @@
         "revenue": "Revenue Today",
         "pending": "Pending Orders",
         "expensesToday": "Expenses Today",
-        "newOrderButton": "+ New Order",
-        "addExpenseButton": "+ Add Expense",
-        "recentOrderTitle": "Recente Orders"
+        "newOrderButton": "+ Order",
+        "addExpenseButton": "+ Expense",
+        "recentOrderTitle": "Recente Orders",
+        "addCategoryButton": "+ Category",
+        "loading": "Loading..."
     },
     "navbar": {
         "dashboard": "Dashboard",
@@ -29,7 +31,8 @@
         "products": "Products",
         "reports": "Reports",
         "logout": "Sign Out",
-        "users": "Users"
+        "users": "Users",
+        "categories": "Categories"
     },
     "products":{
         "title": "Products",
@@ -187,6 +190,54 @@
         "errorUpdate": "Error updating user",
         "errorCreate": "Error creating user",
         "errorRequired": "Name, email, password and role are required"
-    }
+    },
+     "categories":{
+        "title": "Categories",
+        "newCategoryButton": "New Category",
+        "editButton": "Edit",
+        "loading": "Loading..." ,  
+        "tableHeaders":{
+            "name": "Name",
+            "actions": "Actions"
+        }
+    },
+    "categoryModal":{
+        "editTitle": "Edit Category",
+        "createTitle": "Create Category",
+        "placeholderName": "Name",
+        "saveButton": "Save",
+        "createButton": "Create",
+        "loading": "Saving...",
+        "cancelButton": "Cancel",
+        "errorUpdate": "Error updating category",
+        "errorCreate": "Error creating category",
+        "errorRequired": "Name is required"
+    },
+     "reports":{
+        "title": "Reports",
+        "greeting": "Hello",
+        "role": "{{role}}",
+        "admin": "Administrator",
+        "loading": "Loading...",
+        "monthlyExpensesTitle": "Monthly Expenses",
+        "expensesByCategoryTitle": "Expenses By Category",
+        "salesTitle": "Saless",
+        "popularDishesTitle": "Popular Dishes",
+        "categories": {
+            "INGREDIENTS": "Ingredients",
+            "MAINTENANCE": "Maintenance",
+            "SALARIES": "Salaries",
+            "SUPPLIES": "Supplies",
+            "FUEL": "Fuel",
+            "MARKETING": "Marketing",
+            "PERMITS": "Permits",
+            "OTHER": "Other"
+        },
+        "sales":{
+            "Revenue": "Revenue",
+            "Orders": "Orders",
+            "totalOrders": "Total Orders"
+        }
+     }
     
 }
