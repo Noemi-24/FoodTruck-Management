@@ -3,10 +3,8 @@ package com.foodtruck.foodtruckapi.service;
 import com.foodtruck.foodtruckapi.dto.request.CreateExpenseRequest;
 import com.foodtruck.foodtruckapi.dto.request.UpdateExpenseRequest;
 import com.foodtruck.foodtruckapi.dto.response.ExpenseResponse;
-import com.foodtruck.foodtruckapi.entity.Category;
 import com.foodtruck.foodtruckapi.entity.Expense;
 import com.foodtruck.foodtruckapi.entity.User;
-import com.foodtruck.foodtruckapi.enums.ExpenseCategory;
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.mapper.ExpenseMapper;
 import com.foodtruck.foodtruckapi.repository.ExpenseRepository;
@@ -17,6 +15,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -56,6 +57,7 @@ public class ExpenseServiceImplTest {
         User user = new User();
         user.setUserId(1);
         user.setName("Test User");
+        user.setEmail("test@email.com");
 
         Expense expense = new Expense();
         expense.setAmount(BigDecimal.valueOf(100));
@@ -71,13 +73,20 @@ public class ExpenseServiceImplTest {
         savedExpense.setRecordedByUser(user);
 
         ExpenseResponse response = new ExpenseResponse();
-        response.setExpenseId(1);  // ← Agregar
+        response.setExpenseId(1);
         response.setRecordedByUserId(1);
         response.setAmount(BigDecimal.valueOf(100));
         response.setCategory(FUEL);
         response.setDescription("Test expense");
 
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+        Authentication auth = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(auth);
+        when(auth.getName()).thenReturn("test@email.com");
+        SecurityContextHolder.setContext(securityContext);
+
+        when(auth.isAuthenticated()).thenReturn(true);
+        when(userRepository.findByEmail("test@email.com")).thenReturn(Optional.of(user));
         when(expenseMapper.toExpense(request, user)).thenReturn(expense);  // ← expense, no savedExpense
         when(expenseRepository.save(any(Expense.class))).thenReturn(savedExpense);  // ← any()
         when(expenseMapper.toExpenseResponse(savedExpense)).thenReturn(response);  // ← savedExpense
@@ -93,7 +102,7 @@ public class ExpenseServiceImplTest {
         assertEquals("Test expense", result.getDescription());
 
         // VERIFY
-        verify(userRepository).findById(1);
+        verify(userRepository).findByEmail("test@email.com");
         verify(expenseMapper).toExpense(request, user);
         verify(expenseRepository).save(any(Expense.class));
     }
@@ -290,7 +299,14 @@ public class ExpenseServiceImplTest {
         request.setCategory(FUEL);
         request.setDescription("Test");
 
-        when(userRepository.findById(999)).thenReturn(Optional.empty());
+        Authentication auth = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(auth);
+        when(auth.getName()).thenReturn("test@email.com");
+        when(auth.isAuthenticated()).thenReturn(true);
+        SecurityContextHolder.setContext(securityContext);
+
+        when(userRepository.findByEmail("test@email.com")).thenReturn(Optional.empty());
 
         // ACT & ASSERT
         assertThrows(ResourceNotFoundException.class, () -> {
@@ -298,7 +314,7 @@ public class ExpenseServiceImplTest {
         });
 
         // VERIFY
-        verify(userRepository).findById(999);
+        verify(userRepository).findByEmail("test@email.com");
         verify(expenseRepository, never()).save(any(Expense.class));
     }
 
@@ -358,5 +374,18 @@ public class ExpenseServiceImplTest {
         assertEquals("new-url.jpg", result.getReceiptUrl());
         verify(expenseRepository).findById(1);
         verify(expenseRepository).save(any(Expense.class));
+    }
+
+    @Test
+    void testCreateExpense_NotAuthenticated_ThrowsException() {
+        Authentication auth = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(auth);
+        when(auth.isAuthenticated()).thenReturn(false);
+        SecurityContextHolder.setContext(securityContext);
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            expenseService.createExpense(new CreateExpenseRequest());
+        });
     }
 }

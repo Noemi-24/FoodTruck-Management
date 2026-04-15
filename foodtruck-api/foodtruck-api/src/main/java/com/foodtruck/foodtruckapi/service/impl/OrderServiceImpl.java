@@ -61,6 +61,10 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public OrderResponse createOrder(CreateOrderRequest orderRequest) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new ResourceNotFoundException("User", "auth", "not authenticated");
+        }
         // Create order entity
         Order order = new Order();
         order.setCustomerName(orderRequest.getCustomerName());
@@ -98,10 +102,6 @@ public class OrderServiceImpl implements OrderService {
             totalAmount = totalAmount.add(subtotal);
         }
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || !auth.isAuthenticated()) {
-            throw new ResourceNotFoundException("User", "auth", "not authenticated");
-        }
         String email = auth.getName();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));

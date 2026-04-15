@@ -2,12 +2,10 @@ package com.foodtruck.foodtruckapi.service.impl;
 
 import com.foodtruck.foodtruckapi.dto.response.DashboardStatsResponse;
 import com.foodtruck.foodtruckapi.entity.DailySales;
-import com.foodtruck.foodtruckapi.entity.User;
 import com.foodtruck.foodtruckapi.enums.OrderStatus;
 import com.foodtruck.foodtruckapi.repository.DailySalesRepository;
 import com.foodtruck.foodtruckapi.repository.ExpenseRepository;
 import com.foodtruck.foodtruckapi.repository.OrderRepository;
-import com.foodtruck.foodtruckapi.repository.UserRepository;
 import com.foodtruck.foodtruckapi.service.DashboardStatsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -24,7 +22,6 @@ public class DashboardStatsServiceImpl implements DashboardStatsService {
     private final DailySalesRepository dailySalesRepository;
     private final OrderRepository orderRepository;
     private final ExpenseRepository expenseRepository;
-    private final UserRepository userRepository;
 
     @Override
     public DashboardStatsResponse getDashboardStats() {

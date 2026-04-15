@@ -5,6 +5,7 @@ import com.foodtruck.foodtruckapi.dto.request.OrderItemRequest;
 import com.foodtruck.foodtruckapi.dto.response.OrderResponse;
 import com.foodtruck.foodtruckapi.entity.Order;
 import com.foodtruck.foodtruckapi.entity.Product;
+import com.foodtruck.foodtruckapi.entity.User;
 import com.foodtruck.foodtruckapi.exception.BadRequestException;
 import com.foodtruck.foodtruckapi.exception.ResourceNotFoundException;
 import com.foodtruck.foodtruckapi.mapper.OrderMapper;
@@ -18,6 +19,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -102,6 +106,19 @@ public class OrderServiceImplTest {
        orderResponse.setPaymentMethod(CASH);
        orderResponse.setTotal(BigDecimal.valueOf(35.00));
 
+        User user = new User();
+        user.setUserId(1);
+        user.setName("Test User");
+        user.setEmail("test@email.com");
+
+        Authentication auth = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(auth);
+        when(auth.getName()).thenReturn("test@email.com");
+        SecurityContextHolder.setContext(securityContext);
+
+        when(auth.isAuthenticated()).thenReturn(true);
+        when(userRepository.findByEmail("test@email.com")).thenReturn(Optional.of(user));
         when(productService.getProductEntityById(1)).thenReturn(product1);
         when(productService.getProductEntityById(2)).thenReturn(product2);
         when(orderRepository.save(any(Order.class))).thenReturn(savedOrder);
@@ -274,6 +291,15 @@ public class OrderServiceImplTest {
         product1.setPrice(BigDecimal.valueOf(10.00));
         product1.setAvailable(false);
 
+        Authentication auth = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(auth);
+        when(auth.isAuthenticated()).thenReturn(true);
+        SecurityContextHolder.setContext(securityContext);
+
+        User mockUser = new User();
+        mockUser.setEmail("test@email.com");
+
         when(productService.getProductEntityById(1)).thenReturn(product1);
 
         // ACT & ASSERT
@@ -284,5 +310,18 @@ public class OrderServiceImplTest {
         // VERIFY
         verify(productService).getProductEntityById(1);
         verify(orderRepository, never()).save(any(Order.class));
+    }
+
+    @Test
+    void testCreateOrder_NotAuthenticated_ThrowsException() {
+        Authentication auth = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(auth);
+        when(auth.isAuthenticated()).thenReturn(false);
+        SecurityContextHolder.setContext(securityContext);
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            orderService.createOrder(new CreateOrderRequest());
+        });
     }
 }

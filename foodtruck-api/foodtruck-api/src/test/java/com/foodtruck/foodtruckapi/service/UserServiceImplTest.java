@@ -277,4 +277,42 @@ public class UserServiceImplTest {
         verify(passwordEncoder, never()).encode(anyString());
         verify(userRepository, never()).save(any(User.class));
     }
+
+    @Test
+    void testReactivateUser_Success() {
+        // ARRANGE
+        User user = new User();
+        user.setUserId(1);
+        user.setName("test");
+        user.setEmail("test@test.com");
+        user.setRole(EMPLOYEE);
+        user.setActive(false);
+
+        User reactivatedUser = new User();
+        reactivatedUser.setUserId(1);
+        reactivatedUser.setName("test");
+        reactivatedUser.setEmail("test@test.com");
+        reactivatedUser.setRole(EMPLOYEE);
+        reactivatedUser.setActive(false);
+
+        UserResponse userResponse = new UserResponse();
+        userResponse.setUserId(1);
+        userResponse.setName("test");
+        userResponse.setEmail("test@test.com");
+        userResponse.setRole(EMPLOYEE);
+
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+        when(userRepository.save(any(User.class))).thenReturn(reactivatedUser);
+        when(userMapper.toUserResponse(reactivatedUser)).thenReturn(userResponse);
+
+        // ACT
+        UserResponse result = userService.reactivateUser(1);
+
+        // ASSERT
+        assertNotNull(result);
+        verify(userRepository).findById(1);
+        verify(userRepository).save(any(User.class));
+                
+        
+    }
 }
