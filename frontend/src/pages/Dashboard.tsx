@@ -78,7 +78,13 @@ function Dashboard(){
         },
         { 
             header: t('orders.tableHeaders.date'), 
-            render: (order) => `${order.orderDate}` 
+            render: (order) => new Date(order.orderDate).toLocaleString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            }) 
         }
     ];
 

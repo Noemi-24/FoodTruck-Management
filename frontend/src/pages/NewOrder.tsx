@@ -9,6 +9,10 @@ import { useTranslation } from 'react-i18next';
 import ProductoCard from '../components/ProductCard';
 import { type CartItem } from '../types/cart.types';
 import SearchBar from '../components/SearchBar';
+import { createPaymentIntent } from '../services/paymentService';
+import StripePaymentForm from '../components/StripePaymentForm';
+import { stripePromise } from '../lib/stripe';
+import { Elements } from '@stripe/react-stripe-js';
 
 function NewOrder(){
     const [state, dispatch] = useReducer(cartReducer, { items: [], total: 0 });
@@ -16,7 +20,8 @@ function NewOrder(){
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>("");
     const [success, setSuccess] = useState<string | null>(null);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");    
+    const [clientSecret, setClientSecret] = useState<string | null>(null);
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [customerForm, setCustomerForm] = useState({
@@ -73,6 +78,40 @@ function NewOrder(){
         });
     }, [dispatch]);
 
+    const handleCreateOrder = async () => {
+        const orderRequest: CreateOrderRequest = {
+            customerName: customerForm.customerName,
+            customerPhone: customerForm.customerPhone,
+            customerEmail: customerForm.customerEmail,
+            paymentMethod: customerForm.paymentMethod,            
+            status: 'PENDING',
+            note: customerForm.note,
+            items: state.items.map(item => ({
+                productId: item.productId,
+                quantity: item.quantity,
+                notes:item.notes
+            })),
+        };
+
+        await createOrder(orderRequest);
+
+        dispatch({ type: "CLEAR_CART" });
+        setSuccess(t('orders.successMessage'));
+        setTimeout(() => {
+            navigate('/orders');
+        }, 2000);
+
+        setClientSecret(null);
+
+        setCustomerForm({
+            customerName: "",
+            customerPhone: "",
+            customerEmail: "",
+            paymentMethod: "CASH",
+            note: ""
+            });
+    };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -93,34 +132,7 @@ function NewOrder(){
         }
 
         try {
-            const orderRequest: CreateOrderRequest = {
-            customerName: customerForm.customerName,
-            customerPhone: customerForm.customerPhone,
-            customerEmail: customerForm.customerEmail,
-            paymentMethod: customerForm.paymentMethod,            
-            status: 'PENDING',
-            note: customerForm.note,
-            items: state.items.map(item => ({
-                productId: item.productId,
-                quantity: item.quantity,
-                notes:item.notes
-            })),
-            };
-
-            await createOrder(orderRequest);
-
-            dispatch({ type: "CLEAR_CART" });
-            navigate('/orders')
-
-            setCustomerForm({
-            customerName: "",
-            customerPhone: "",
-            customerEmail: "",
-            paymentMethod: "CASH",
-            note: ""
-            });
-
-            setSuccess(t('orders.successMessage'));
+            await handleCreateOrder();
 
         } catch (error) {
             setError(error instanceof Error ? error.message: t('orders.errorCreate')); 
@@ -157,6 +169,17 @@ function NewOrder(){
         }
     };
 
+    const handlePaymentMethodChange = async (method: PaymentMethod) => {
+        setCustomerForm(prev => ({...prev, paymentMethod: method}));
+        
+        if (method === 'STRIPE' && state.total > 0) {
+            const response = await createPaymentIntent(Math.round(state.total * 100));
+            setClientSecret(response.clientSecret);
+        } else {
+            setClientSecret(null);
+        }
+    };
+
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen">
             <p className="text-gray-600 dark:text-gray-400">{t('products.loading')}</p>
@@ -178,7 +201,7 @@ function NewOrder(){
                 </div>
             </div>
            
-            <div className='w-full lg:w-80 bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 sticky top-4 p-6'>
+            <div className='w-full h-[calc(95vh-100px)] overflow-y-auto lg:w-80 bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 sticky top-4 p-6'>
                 <div className="flex flex-col gap-3 py-6 text-xs">
                     <h1  className="text-3xl font-bold text-gray-900 dark:text-white">{t('newOrder.title')}</h1>
                     <div>
@@ -206,7 +229,7 @@ function NewOrder(){
                             </ul>
                         ))}
                     </div>
-                    <div className='bg-gray-100 p-4 mb-3 dark:bg-gray-700 dark:text-white font-semibold'>
+                    <div className='bg-gray-100 p-6 mb-3 dark:bg-gray-700 dark:text-white font-semibold'>
                         <p className=" text-lg flex justify-between">
                             <span>{t('newOrder.orderTotal')}</span>
                             <span>$ {state.total.toFixed(2)}</span>
@@ -216,7 +239,7 @@ function NewOrder(){
                 <div className='border-b border border-dashed'></div>
                 <div>
                     <form onSubmit={handleSubmit}>
-                        <h3 className='mb-2 mt-4 font-bold text-gray-900 dark:text-white'>{t('orders.customer')}</h3>
+                        <h3 className='mb-2 mt-8 font-bold text-gray-900 dark:text-white'>{t('orders.customer')}</h3>
                         <input
                             type="text"
                             name="name"
@@ -252,15 +275,30 @@ function NewOrder(){
                        
                         <select className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mt-8 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
                             value={customerForm.paymentMethod}
-                            onChange={(e) => setCustomerForm(prev => ({...prev, paymentMethod: e.target.value as PaymentMethod}))}>
-                            <option selected>{t('newOrder.payment.choose')}</option>
+                            onChange={(e) => handlePaymentMethodChange(e.target.value as PaymentMethod)}>
+                            <option defaultValue="">{t('newOrder.payment.choose')}</option>
                             <option value='CASH'>{t('newOrder.payment.cash')}</option>
-                            <option value='STRIPE'>Stripe</option>
-                        </select>
-                        {success && <p className="text-green-600 dark:text-green-400">{success}</p>}
-                        <button type="submit"  className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 mt-8 mb-4">{t('newOrder.placeOrderButton')}</button>
+                            <option value='STRIPE'>{t('newOrder.payment.stripe')}</option>
+                        </select>                        
+
+                        {customerForm.paymentMethod !== 'STRIPE' && (
+                            <button type="submit"  className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 mt-8 mb-4">{t('newOrder.placeOrderButton')}</button>
+                        )}
+
+                        {success && <p className="text-green-600 dark:text-green-400 mt-4">{success}</p>}
+
                     </form>
-                </div>
+                    <div>
+                        {clientSecret && customerForm.paymentMethod === 'STRIPE' && (
+                            <Elements stripe={stripePromise} options={{ clientSecret }}>
+                                <StripePaymentForm 
+                                    onSuccess={handleCreateOrder}
+                                    clientSecret={clientSecret}
+                                />
+                            </Elements>
+                        )}
+                    </div>
+                </div>                
             </div>
         </div>
     )
