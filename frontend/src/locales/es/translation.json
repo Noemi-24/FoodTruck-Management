@@ -119,7 +119,8 @@
         "placeOrderButton":"Realizar pedido",
         "payment":{
             "choose": "Elija un método de pago",
-            "cash": "Efectivo"
+            "cash": "Efectivo",
+            "stripe": "Tarjeta de crédito"
         }
     }, 
     "expenses":{
@@ -244,6 +245,10 @@
     },
      "searchBar": {
         "placeholder": "Buscar productos"
+     },
+     "stripePaymentForm":{
+        "processing": "Procesando...",
+        "payPlaceOrder":"Pagar & Realizar pedido"
      }
 
 }
