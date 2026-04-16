@@ -4,10 +4,10 @@ import type { ExpenseCategory, ExpenseResponse, UpdateExpenseRequest, CreateExpe
 import { createExpense, updateExpense } from "../services/expenseService";
 
 interface ModalProps{
-    isOpen: boolean;
-    onClose: () => void;
-    expense: ExpenseResponse | null;
-    onSuccess: (updatedexpense: ExpenseResponse) => void;
+    readonly isOpen: boolean;
+    readonly onClose: () => void;
+    readonly expense: ExpenseResponse | null;
+    readonly onSuccess: (updatedexpense: ExpenseResponse) => void;
 }
 
 const initialState: UpdateExpenseRequest = { 
@@ -43,18 +43,19 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
     const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value, type } = e.target;
 
-        setForm(prev => ({
-        ...prev,
-            [name]:
-                type === "checkbox"
-                ? (e.target as HTMLInputElement).checked
-                : type === "number"
-                ? value === "" ? null : Number(value)
-                : value
-        }));
+        let parsedValue;
+        if (type === "checkbox") {
+            parsedValue = (e.target as HTMLInputElement).checked;
+        } else if (type === "number") {
+            parsedValue = value === "" ? null : Number(value);
+        } else {
+            parsedValue = value;
+        }
+        
+        setForm(prev => ({...prev, [name]: parsedValue}));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     
         if (!form.category || !form.amount || !form.description) {
@@ -66,7 +67,7 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
         setError(null);
 
         try {
-            if(!expense){
+            if(expense === null){
                 const newExpense = await createExpense(form as CreateExpenseRequest);
                 onSuccess(newExpense);
                 onClose();
@@ -88,7 +89,15 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
             setLoading(false);
         }
     };     
-        
+    
+    let buttonLabel;
+    if (loading) {
+        buttonLabel = t('expenseModal.loading');
+    } else if (expense) {
+        buttonLabel = t('expenseModal.saveButton');
+    } else {
+        buttonLabel = t('expenseModal.createButton');
+    }
         
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
@@ -153,7 +162,7 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
 
                 <div className="mt-6 flex justify-end gap-3">                  
                     <button type="submit" disabled={loading} className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
-                        {loading ? t('expenseModal.loading') : expense ? t('expenseModal.saveButton') : t('expenseModal.createButton')}
+                        {buttonLabel}
                     </button>
 
                     <button type="button" onClick={onClose} className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">

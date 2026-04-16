@@ -1,10 +1,11 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useMemo} from 'react';
 import { type ProductResponse } from '../types/product.types';
 import { getAllProducts, updateProductAvailability } from '../services/productService';
 import { Table, type Column } from '../components/Table';
 import ProductModal from '../components/ProductModal';
 import { useTranslation } from 'react-i18next';
 import{ useAuth } from '../context/AuthContext';
+import SearchBar from '../components/SearchBar';
 
 function Products(){
     const [products, setProducts] = useState<ProductResponse[]>([]);
@@ -12,6 +13,7 @@ function Products(){
     const [error, setError] = useState<string | null>("");
     const [selectedProduct, setSelectedProduct] = useState<ProductResponse | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
     const { t } = useTranslation();
     const { isAdmin } = useAuth();
 
@@ -109,6 +111,10 @@ function Products(){
         setIsModalOpen(true);
     };
 
+    const searchedProducts = useMemo(() => {
+        return products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }, [products, searchTerm]);
+
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen">
             <p className="text-gray-600 dark:text-gray-400">{t('products.loading')}</p>
@@ -121,13 +127,16 @@ function Products(){
     );
 
     return(
-        <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
+        <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">            
             <div className="my-12 flex justify-between">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('products.title')}</h1>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('products.title')}</h1>               
                 {isAdmin && <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => handleCreateProduct()}>{t('products.newProductButton')}</button>}
             </div>
+
+            <SearchBar value={searchTerm} onChange={setSearchTerm}/>
+            
             <div>
-                <Table data={products} columns={columns} rowKey={(product) => product.productId}/>
+                <Table data={searchedProducts} columns={columns} rowKey={(product) => product.productId}/>
                 <ProductModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
