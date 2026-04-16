@@ -3,8 +3,8 @@ import type { ProductResponse } from "../types/product.types";
 import { useTranslation } from 'react-i18next';
 
 interface CardProps{
-    product: ProductResponse;
-    onAddToCart: (product: ProductResponse) => void;
+    readonly product: ProductResponse;
+    readonly onAddToCart: (product: ProductResponse) => void;
 }
 
 function ProductoCard({product, onAddToCart}: CardProps){

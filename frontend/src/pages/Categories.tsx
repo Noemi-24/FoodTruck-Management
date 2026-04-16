@@ -5,6 +5,7 @@ import { Table, type Column } from '../components/Table';
 import { useTranslation } from 'react-i18next';
 import{ useAuth } from '../context/AuthContext';
 import CategoryModal from '../components/CategoryModal';
+import SkeletonTable from '../components/SkeletonTable';
 
 function Category(){
     const [categories, setCategories] = useState<CategoryResponse[]>([]);
@@ -65,8 +66,8 @@ function Category(){
     };
 
     if (loading) return (
-        <div className="flex items-center justify-center min-h-screen">
-            <p className="text-gray-600 dark:text-gray-400">{t('categories.loading')}</p>
+        <div className="w-full max-w-6xl p-8">
+            <SkeletonTable />
         </div>
     );
     if (error) return (

@@ -4,6 +4,7 @@ import { getAllUsers, deactivateUser, reactivateUser } from '../services/userSer
 import { useTranslation } from 'react-i18next';
 import { type Column , Table} from "../components/Table";
 import UserModal from '../components/UserModal';
+import SkeletonTable from '../components/SkeletonTable';
 
 function Users(){
     const [users, setUsers] = useState<UserResponse[]>([]);
@@ -17,6 +18,8 @@ function Users(){
         setLoading(true);
         setError(null);
         try {
+            //uncomment to see skeleton
+            //await new Promise(resolve => setTimeout(resolve, 3000));
             const result = await getAllUsers();
             setUsers(result);
         } catch (error) {
@@ -92,8 +95,8 @@ function Users(){
     };
 
     if (loading) return (
-        <div className="flex items-center justify-center min-h-screen">
-            <p className="text-gray-600 dark:text-gray-400">{t('usersModal.loading')}</p>
+        <div className="w-full max-w-6xl p-8">
+            <SkeletonTable />
         </div>
     );
     if (error) return (

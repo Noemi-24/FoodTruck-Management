@@ -4,6 +4,7 @@ import type { PopularItemResponse, MonthlyExpenseResponse, DailySalesResponse } 
 import{ useAuth } from '../context/AuthContext';
 import { ResponsiveContainer, BarChart, Bar, Tooltip, XAxis, YAxis, PieChart, Pie, Cell, LineChart, Line, Legend } from 'recharts';
 import { useTranslation } from 'react-i18next';
+import SkeletonChart from '../components/SkeletonChart';
 
 function Reports(){
     const [loading, setLoading] = useState<boolean>(false);
@@ -19,6 +20,7 @@ function Reports(){
         setLoading(true);
         setError(null);
         try {
+            await new Promise(resolve => setTimeout(resolve, 3000));
             const result = await getPopularItems();
             setPopularItems(result);
         } catch (error) {
@@ -32,6 +34,7 @@ function Reports(){
         setLoading(true);
         setError(null);
         try{
+            await new Promise(resolve => setTimeout(resolve, 3000));
             const result = await getMonthlyExpenses();
             setMonthlyExpenses(result);
         }catch (error) {
@@ -45,6 +48,8 @@ function Reports(){
         setLoading(true);
         setError(null);
         try{
+            //uncomment to see skeleton
+            // await new Promise(resolve => setTimeout(resolve, 3000)); 
             const result = await getDailySales();
             setDailySales(result);
         }catch (error) {
@@ -59,17 +64,6 @@ function Reports(){
         fetchMonthlyExpenses();
         fetchDailySales();
     }, []);
-
-    if (loading) return (
-        <div className="flex items-center justify-center min-h-screen">
-            <p className="text-gray-600 dark:text-gray-400">{t('reports.loading')}</p>
-        </div>
-    );
-    if (error) return (
-        <div className="flex items-center justify-center min-h-screen">
-            <p className="text-red-600 dark:text-red-400">Error: {error}</p>
-        </div>
-    );
 
     const groupedExpenses = monthlyExpenses.reduce((acc, expense) => {
         const existing = acc.find(e => e.month === expense.month);
@@ -99,6 +93,20 @@ function Reports(){
 
     const COLORS = ['#f59e0b', '#3b82f6', '#10b981', '#d946ef', '#6b7280', '#eab308','#ec4899', '#78716c', '#881337', '#020617', '#1d4ed8' ];
 
+    if (loading) return (
+        <div className="w-full max-w-7xl mx-auto p-8 flex flex-col gap-6">
+            <SkeletonChart />
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                <SkeletonChart />
+                <SkeletonChart />   
+            </div>
+        </div>
+    );
+    if (error) return (
+        <div className="flex items-center justify-center min-h-screen">
+            <p className="text-red-600 dark:text-red-400">Error: {error}</p>
+        </div>
+    );
     return(
         <div className="w-full max-w-7xl mx-auto p-8">
             <div className='mb-8'>

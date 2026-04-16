@@ -13,6 +13,7 @@ import { createPaymentIntent } from '../services/paymentService';
 import StripePaymentForm from '../components/StripePaymentForm';
 import { stripePromise } from '../lib/stripe';
 import { Elements } from '@stripe/react-stripe-js';
+import SkeletonCard from '../components/SkeletonCard';
 
 function NewOrder(){
     const [state, dispatch] = useReducer(cartReducer, { items: [], total: 0 });
@@ -36,6 +37,8 @@ function NewOrder(){
         setLoading(true);
         setError(null);
         try {
+            //uncomment to see skeleton
+            //await new Promise(resolve => setTimeout(resolve, 3000));
             const result = await getAllProducts();
             setProducts(result);
         } catch (error) {
@@ -181,8 +184,14 @@ function NewOrder(){
     };
 
     if (loading) return (
-        <div className="flex items-center justify-center min-h-screen">
-            <p className="text-gray-600 dark:text-gray-400">{t('products.loading')}</p>
+        <div className='flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto p-8 items-start'>
+            <div className='flex-1'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+                    {Array.from({ length: 6 }).map((_, i) => (
+                        <SkeletonCard key={i} />
+                    ))}
+                </div>
+            </div>
         </div>
     );
     if (error) return (
