@@ -1,9 +1,8 @@
 import { useState, useEffect} from 'react';
 import type { OrderResponse, OrderStatus } from '../types/order.types';
-import { getAllOrders } from '../services/orderService';
+import { getAllOrders, updateOrderStatus } from '../services/orderService';
 import { Table, type Column} from '../components/Table';
 import { useTranslation } from 'react-i18next';
-import { updateOrderStatus } from '../services/orderService';
 import OrderDetailModal from '../components/OrderDetailModal';
 import { useNavigate } from "react-router-dom";
 

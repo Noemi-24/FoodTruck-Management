@@ -22,6 +22,7 @@
         "addExpenseButton": "+ Expense",
         "recentOrderTitle": "Recente Orders",
         "addCategoryButton": "+ Category",
+        "addProductButton": "+ Product",
         "loading": "Loading..."
     },
     "navbar": {
@@ -54,12 +55,12 @@
         "error": "Failed to update availability"
     },
     "productModal":{
-        "title": "Edit Product",
+        "editTitle": "Edit Product",
+        "createTitle": "New Product",
         "placeholderName": "Name",
         "placeholderDescription": "Description",
         "placeholderPrice": "Price",
         "placeholderImageUrl": "Image URL",
-        "placeholderCategoryId": "Category ID",
         "specialLabel": "Special Product",
         "saveButton": "Save",
         "createButton": "Create",
@@ -67,7 +68,8 @@
         "cancelButton": "Cancel",
         "errorUpdate": "Error updating product",
         "errorCreate": "Error creating product",
-        "errorRequired": "Name and price are required"
+        "errorRequired": "Name and price are required",
+        "choose": "Choose a category"
     },
     "common": {
         "yes": "Yes",
@@ -80,7 +82,8 @@
             "status": "Status",
             "paymentMethod": "Payment Method",
             "date": "Date",
-            "actions": "Actions"
+            "actions": "Actions",
+            "customerPhone": "Phone"
         },
          "status":{
             "pending": "Pending",
@@ -203,7 +206,7 @@
     },
     "categoryModal":{
         "editTitle": "Edit Category",
-        "createTitle": "Create Category",
+        "createTitle": "New Category",
         "placeholderName": "Name",
         "saveButton": "Save",
         "createButton": "Create",
@@ -222,7 +225,7 @@
         "monthlyExpensesTitle": "Monthly Expenses",
         "expensesByCategoryTitle": "Expenses By Category",
         "salesTitle": "Saless",
-        "popularDishesTitle": "Popular Dishes",
+        "popularDishesTitle": "Popular Products",
         "categories": {
             "INGREDIENTS": "Ingredients",
             "MAINTENANCE": "Maintenance",

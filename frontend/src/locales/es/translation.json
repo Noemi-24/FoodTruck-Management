@@ -22,6 +22,7 @@
         "addExpenseButton": "+ Gasto",
         "recentOrderTitle": "Órdenes Recientes",
         "addCategoryButton": "+ Categoría",
+        "addProductButton": "+ Producto",
         "loading": "Cargando..."
     },
     "navbar": {
@@ -54,12 +55,12 @@
         "error": "No se pudo actualizar la disponibilidad"
     },
     "productModal":{
-        "title": "Editar Producto",
+        "editTitle": "Editar Producto",
+        "createTitle": "Nuevo Producto",
         "placeholderName": "Nombre",
         "placeholderDescription": "Descripción",
         "placeholderPrice": "Precio",
         "placeholderImageUrl": "URL de la imagen",
-        "placeholderCategoryId": "ID de categoría",
         "specialLabel": "Producto especial",
         "saveButton": "Guardar",
         "createButton": "Crear",
@@ -67,7 +68,8 @@
         "cancelButton": "Cancelar",
         "errorUpdate": "Error al actualizar el producto",
         "errorCreate": "Error al crear el producto",
-        "errorRequired": "El nombre y el precio son obligatorios"
+        "errorRequired": "El nombre y el precio son obligatorios",
+        "choose": "Elija una categoría"           
     },
     "common": {
         "yes": "Sí",
@@ -80,7 +82,8 @@
             "status": "Estado",
             "paymentMethod": "Método de pago",
             "date": "Fecha",
-            "actions": "Acciones"
+            "actions": "Acciones",
+            "customerPhone": "Teléfono"
         },
         "status":{
             "pending": "Pendiente",
@@ -203,7 +206,7 @@
     },
     "categoryModal":{
         "editTitle": "Editar Categoría",
-        "createTitle": "Crear Categoría",
+        "createTitle": "Nueva Categoría",
         "placeholderName": "Nombre",
         "saveButton": "Guardar",
         "createButton": "Crear",
@@ -222,7 +225,7 @@
         "monthlyExpensesTitle": "Gastos Mensuales",
         "expensesByCategoryTitle": "Gastos por Categoría",
         "salesTitle": "Ventas",
-        "popularDishesTitle": "Platillos Populares",
+        "popularDishesTitle": "Productos Populares",
         "categories": {
             "INGREDIENTS": "Ingredientes",
             "MAINTENANCE": "Mantenimiento",

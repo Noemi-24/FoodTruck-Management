@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { ProductResponse, UpdateProductRequest, CreateProductRequest } from "../types/product.types";
 import { updateProduct, createProduct } from "../services/productService";
 import { useTranslation } from 'react-i18next';
+import { getAllCategories } from "../services/categoryService";
+import { type CategoryResponse } from "../types/category.types";
 
 interface ModalProps {
     isOpen: boolean;
@@ -24,6 +26,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const { t } = useTranslation();
+    const [categories, setCategories] = useState<CategoryResponse []>([]);
 
     // Load product when open modal
     useEffect(() => {
@@ -40,6 +43,23 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
         setForm(initialState);
         }
     }, [product]);
+
+    const fetchCategories = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const result = await getAllCategories();
+            setCategories(result);
+        } catch (error) {
+            setError(error instanceof Error ? error.message: "Failed to load categories");
+        }finally{
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []); 
 
     if (!isOpen) return null;
 
@@ -95,7 +115,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
             <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('productModal.title')}</h2>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{product ? t('productModal.editTitle') : t('productModal.createTitle')}</h2>
 
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
@@ -138,14 +158,16 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                     className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
                 />
 
-                <input
-                    type="number"
-                    name="categoryId"
-                    placeholder={t('productModal.placeholderCategoryId')}
-                    value={form.categoryId ?? ""}
-                    onChange={handleChange}
-                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
-                />
+                <select  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mt-8 mb-2 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
+                    value={form.categoryId}
+                    onChange={(e) => setForm(prev => ({...prev, categoryId: Number(e.target.value)}))}>
+                    <option value="">{t('productModal.choose')}</option>
+                    {categories.map((cat) => (
+                        <option key={cat.categoryId} value={cat.categoryId}>
+                            {cat.name}
+                        </option>
+                    ))}
+                </select>
 
                 <label className="dark:text-white text-gray-700 text-sm mt-5">
                     <input
