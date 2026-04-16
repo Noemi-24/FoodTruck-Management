@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import ProductoCard from '../components/ProductCard';
 import { type CartItem } from '../types/cart.types';
+import SearchBar from '../components/SearchBar';
 
 function NewOrder(){
     const [state, dispatch] = useReducer(cartReducer, { items: [], total: 0 });
@@ -15,6 +16,7 @@ function NewOrder(){
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>("");
     const [success, setSuccess] = useState<string | null>(null);
+    const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [customerForm, setCustomerForm] = useState({
@@ -44,8 +46,10 @@ function NewOrder(){
     }, []);
 
     const availableProducts = useMemo( () => {
-        return products.filter(p => p.available);
-    }, [products]);
+        return products
+        .filter(p => p.available)
+        .filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }, [products, searchTerm]);
 
     const handleAddToCart = useCallback ((product: ProductResponse) =>{
         dispatch({
@@ -69,7 +73,7 @@ function NewOrder(){
         });
     }, [dispatch]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!customerForm.customerName || !customerForm.customerPhone || !customerForm.customerEmail) {
@@ -125,7 +129,7 @@ function NewOrder(){
 
     const formatPhone = (value: string) => {
         // 1. Remove all non-digit characters
-        const cleaned = value.replace(/\D/g, '');
+        const cleaned = value.replaceAll(/\D/g, '');
 
         // 2. Limit to 10 digits
         const limited = cleaned.slice(0, 10);
@@ -166,7 +170,8 @@ function NewOrder(){
     return(
         <div className='flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto p-8 items-start'>
             <div className='flex-1'>
-                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+                <SearchBar value={searchTerm} onChange={setSearchTerm}/>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>                    
                     {availableProducts.map((product) => (
                         <ProductoCard key={product.productId} product={product} onAddToCart={handleAddToCart}/>
                     ))}

@@ -241,7 +241,10 @@
             "Orders": "Órdenes",
             "totalOrders": "Órdenes Totales"
         }
-    }
+    },
+     "searchBar": {
+        "placeholder": "Buscar productos"
+     }
 
 }
 

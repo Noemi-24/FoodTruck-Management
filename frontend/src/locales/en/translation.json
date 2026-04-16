@@ -241,6 +241,9 @@
             "Orders": "Orders",
             "totalOrders": "Total Orders"
         }
+     },
+     "searchBar": {
+        "placeholder": "Search for products"
      }
     
 }
