@@ -1,0 +1,1223 @@
+{
+  "info": {
+    "_postman_id": "60ebda14-e907-45c4-815e-69b9eb95b59c",
+    "name": "FoodTruck-Management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53183438",
+    "_collection_link": "https://go.postman.co/collection/53183438-60ebda14-e907-45c4-815e-69b9eb95b59c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Product",
+      "item": [
+        {
+          "name": "Update Product",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{  \"category\": {\r\n        \"categoryId\": 2   \r\n    },\r\n    \"name\": \"Chicken Taco\",\r\n    \"description\": \"Seasoned protein with fresh toppings and salsa\",\r\n    \"price\": 1.99,\r\n    \"imageUrl\": \"/images/street-taco.jpg\",\r\n    \"available\": true,\r\n    \"isSpecial\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/products/18",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "products",
+                "18"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create New Product",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{  \"category\": {\r\n        \"categoryId\": 1   \r\n    },\r\n    \"name\": \"Chicken Taco\",\r\n    \"description\": \"Seasoned protein with fresh toppings and salsa\",\r\n    \"price\": 3.49,\r\n    \"imageUrl\": \"/images/street-taco.jpg\",\r\n    \"available\": true,\r\n    \"isSpecial\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/products/new-product",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "products",
+                "new-product"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product By Id",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/products/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Products",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/products",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Product Availability",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYzNTY2MjUsImV4cCI6MTc3NjQ0MzAyNX0.gZQRP_giMc0wuuktkRV0oIrZ7MxhMJ8uqxosUbfLijQWjmkhebfTtPA0WR9knjX0FJunbfeUmqUFohc1RAa6pg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/products/1/availability?available=true",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "products",
+                "1",
+                "availability"
+              ],
+              "query": [
+                {
+                  "key": "available",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/products/18",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "products",
+                "18"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/categories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category By Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYzNTY2MjUsImV4cCI6MTc3NjQ0MzAyNX0.gZQRP_giMc0wuuktkRV0oIrZ7MxhMJ8uqxosUbfLijQWjmkhebfTtPA0WR9knjX0FJunbfeUmqUFohc1RAa6pg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/categories/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYzNTY2MjUsImV4cCI6MTc3NjQ0MzAyNX0.gZQRP_giMc0wuuktkRV0oIrZ7MxhMJ8uqxosUbfLijQWjmkhebfTtPA0WR9knjX0FJunbfeUmqUFohc1RAa6pg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Specials\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/categories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYzNTY2MjUsImV4cCI6MTc3NjQ0MzAyNX0.gZQRP_giMc0wuuktkRV0oIrZ7MxhMJ8uqxosUbfLijQWjmkhebfTtPA0WR9knjX0FJunbfeUmqUFohc1RAa6pg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Special\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/categories/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "categories",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYzNTY2MjUsImV4cCI6MTc3NjQ0MzAyNX0.gZQRP_giMc0wuuktkRV0oIrZ7MxhMJ8uqxosUbfLijQWjmkhebfTtPA0WR9knjX0FJunbfeUmqUFohc1RAa6pg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Special\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/categories/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "categories",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "item": [
+        {
+          "name": "Get All Orders",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"recordedByUserId\": {\r\n        \"userId\": 1,\r\n        \"name\": \"noemi roldan\",\r\n        \"email\": \"noemi.r@foodtruck.com\",\r\n        \"phone\": \"800-5123\",\r\n        \"role\": \"employee\",\r\n        \"active\": true\r\n    },\r\n    \"date\": \"2026-03-10\",\r\n    \"amount\": 200.00,\r\n    \"category\": \"supplies\",\r\n    \"description\": \"trash bags\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order By Id",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/orders/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "orders",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"customerName\": \"Maria Garcia\",\r\n  \"customerPhone\": \"111-555-9876\",\r\n  \"customerEmail\": \"maria.g@email.com\",\r\n  \"paymentMethod\": \"cash\",\r\n  \"status\": \"pending\",\r\n  \"notes\": \"Please call when ready\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 2,\r\n      \"notes\": \"Extra salsa\"\r\n    },\r\n    {\r\n      \"productId\": 8,\r\n      \"quantity\": 1,\r\n      \"notes\": null\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Order",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"processedByUserId\": 1,\r\n    \"customerName\": \"Noemi Roldan\",\r\n    \"customerPhone\": \"888-1234\",\r\n    \"customerEmail\": \"noemi.r@email.com\",\r\n    \"total\": 50.00,\r\n    \"status\": \"ready\",\r\n    \"paymentMethod\": \"cash\",\r\n    \"notes\": \"Extra sauce on the side\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/orders/5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "orders",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"processedByUserId\": 1,\r\n    \"customerName\": \"Noemi Roldan\",\r\n    \"customerPhone\": \"888-1234\",\r\n    \"customerEmail\": \"noemi.r@email.com\",\r\n    \"total\": 50.00,\r\n    \"status\": \"ready\",\r\n    \"paymentMethod\": \"cash\",\r\n    \"notes\": \"Extra sauce on the side\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/orders/5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "orders",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Order Status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYzNTY2MjUsImV4cCI6MTc3NjQ0MzAyNX0.gZQRP_giMc0wuuktkRV0oIrZ7MxhMJ8uqxosUbfLijQWjmkhebfTtPA0WR9knjX0FJunbfeUmqUFohc1RAa6pg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/orders/1/status?status=DELIVERED",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "orders",
+                "1",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "DELIVERED"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuZXdlbXBsb3llZUB0ZXN0LmNvbSIsImlhdCI6MTc3NDYxNjA2NywiZXhwIjoxNzc0NzAyNDY3fQ.WkNj8N5ogUN3I21UCl9GLK9XjKy_m34QwppNcfZcmXOI2uqLGKqrZH1lykF-d82WJL0B1oVCUPNT0zcorq93JQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8081/api/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User By Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuZXdlbXBsb3llZUB0ZXN0LmNvbSIsImlhdCI6MTc3NDYxNjA2NywiZXhwIjoxNzc0NzAyNDY3fQ.WkNj8N5ogUN3I21UCl9GLK9XjKy_m34QwppNcfZcmXOI2uqLGKqrZH1lykF-d82WJL0B1oVCUPNT0zcorq93JQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/users/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuZXdlbXBsb3llZUB0ZXN0LmNvbSIsImlhdCI6MTc3NDU1MDE3OCwiZXhwIjoxNzc0NjM2NTc4fQ.mdN8xL_GXRNdafWlkmWp4gwHF8T8QCJOR0KUYVozKD_pU3TB0zoXMUrzoMjPSCgyY1iGrINaMFCBzrD_eVcmaA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Another User\",\r\n  \"email\": \"test@test.com\",\r\n  \"password\": \"password123\",\r\n  \"role\": \"EMPLOYEE\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Noemi Roldan\",\r\n    \"email\": \"nroldan@foodtruck.com\",\r\n    \"password\": \"$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu\",\r\n    \"phone\": \"800-0100\",\r\n    \"role\": \"employee\",\r\n    \"active\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/users/5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "users",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Noemi Roldan\",\r\n    \"email\": \"nroldan@foodtruck.com\",\r\n    \"password\": \"$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu\",\r\n    \"phone\": \"800-0100\",\r\n    \"role\": \"employee\",\r\n    \"active\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/users/5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "users",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User Login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"newemployee@test.com\",\r\n  \"password\": \"password123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deactivate User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzY0Mzk1MDUsImV4cCI6MTc3NjUyNTkwNX0.X5TLplDp71tksrNBpCFhbZ2DvIN0T-sOs-8RPvJcT6or_5fDzHKxOHXl3bPIZ_u_AE34o3bYfEiT2QTDKIgd8A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8081/api/users/4/deactivate?active=false",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "users",
+                "4",
+                "deactivate"
+              ],
+              "query": [
+                {
+                  "key": "active",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reactivate User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzY0Mzk1MDUsImV4cCI6MTc3NjUyNTkwNX0.X5TLplDp71tksrNBpCFhbZ2DvIN0T-sOs-8RPvJcT6or_5fDzHKxOHXl3bPIZ_u_AE34o3bYfEiT2QTDKIgd8A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/users/4/reactivate?active=true",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "users",
+                "4",
+                "reactivate"
+              ],
+              "query": [
+                {
+                  "key": "active",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Expense",
+      "item": [
+        {
+          "name": "Get All Expenses",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Noemi Roldan\",\r\n    \"email\": \"nroldan@foodtruck.com\",\r\n    \"password\": \"$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu\",\r\n    \"phone\": \"800-0100\",\r\n    \"role\": \"employee\",\r\n    \"active\": false\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/expenses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "expenses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Expense By Id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Noemi Roldan\",\r\n    \"email\": \"nroldan@foodtruck.com\",\r\n    \"password\": \"$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhCu\",\r\n    \"phone\": \"800-0100\",\r\n    \"role\": \"employee\",\r\n    \"active\": false\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/expenses/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "expenses",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Expense",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"recordedByUserId\": {\r\n        \"userId\": 1\r\n    },\r\n    \"date\": \"2026-03-10\",\r\n    \"amount\": 200.00,\r\n    \"category\": \"supplies\",\r\n    \"description\": \"trash bags\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/expenses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "expenses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Expense",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"recordedByUserId\": {\r\n        \"userId\": 1,\r\n        \"name\": \"noemi roldan\",\r\n        \"email\": \"noemi.r@foodtruck.com\",\r\n        \"phone\": \"800-5123\",\r\n        \"role\": \"employee\",\r\n        \"active\": true\r\n    },\r\n    \"date\": \"2026-03-10\",\r\n    \"amount\": 200.00,\r\n    \"category\": \"supplies\",\r\n    \"description\": \"trash bags\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/expenses/8",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "expenses",
+                "8"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Expense",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"recordedByUserId\": {\r\n        \"userId\": 1,\r\n        \"name\": \"noemi roldan\",\r\n        \"email\": \"noemi.r@foodtruck.com\",\r\n        \"phone\": \"800-5123\",\r\n        \"role\": \"employee\",\r\n        \"active\": true\r\n    },\r\n    \"date\": \"2026-03-10\",\r\n    \"amount\": 200.00,\r\n    \"category\": \"supplies\",\r\n    \"description\": \"trash bags\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/expenses/8",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "expenses",
+                "8"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Get All Monthly Expenses",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYxNzU0NDEsImV4cCI6MTc3NjI2MTg0MX0.sb1xxvAcjlNArnAWMmI4ikMViOsV_U72eDNCIYfNajTmtlytoZsNCvFcaBb8JFuKivMQW65XX7gSP-vWqhfmOw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/reports/monthly-expenses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "reports",
+                "monthly-expenses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Daily Sales",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYxOTYzNDYsImV4cCI6MTc3NjI4Mjc0Nn0.FPeAoFKo_FeuJSXtRkXoEaqTGapivdUuvwCmZeXgvcBTOvTRas4ZvgblT3byxMcO4bG0oiBv0pO7HLpXO2oE0A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/reports/daily-sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "reports",
+                "daily-sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Popular Items",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYxOTYzNDYsImV4cCI6MTc3NjI4Mjc0Nn0.FPeAoFKo_FeuJSXtRkXoEaqTGapivdUuvwCmZeXgvcBTOvTRas4ZvgblT3byxMcO4bG0oiBv0pO7HLpXO2oE0A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/reports/popular-items",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "reports",
+                "popular-items"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get All Stats",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYzNTY2MjUsImV4cCI6MTc3NjQ0MzAyNX0.gZQRP_giMc0wuuktkRV0oIrZ7MxhMJ8uqxosUbfLijQWjmkhebfTtPA0WR9knjX0FJunbfeUmqUFohc1RAa6pg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/dashboard/stats",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "dashboard",
+                "stats"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Create Intent Payment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGZvb2R0cnVjay5jb20iLCJpYXQiOjE3NzYzNTY2MjUsImV4cCI6MTc3NjQ0MzAyNX0.gZQRP_giMc0wuuktkRV0oIrZ7MxhMJ8uqxosUbfLijQWjmkhebfTtPA0WR9knjX0FJunbfeUmqUFohc1RAa6pg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"amount\": 1000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/payments/create-intent",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "payments",
+                "create-intent"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
