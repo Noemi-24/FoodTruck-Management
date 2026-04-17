@@ -44,9 +44,9 @@ function Navbar() {
                 
                 {/* Right: Toggles + Logout Button */}
                 <div className="flex items-center gap-4 p-4">
-                    <ThemeToggle />
+                    <ThemeToggle/>
                     <LanguageToggle />
-                    {user && <button onClick={handleLogout} className="bg-white text-blue-700 hover:bg-blue-50 hover:shadow-lg focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 focus:ring-offset-blue-700 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">{t('navbar.logout')}</button>}
+                    {user && <button onClick={handleLogout} className="bg-white text-blue-700 hover:bg-blue-50 hover:shadow-lg focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 focus:ring-offset-blue-700 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95" aria-label={t('navbar.logout')}>{t('navbar.logout')}</button>}
                 </div>
             </div>
         </nav>

@@ -1,11 +1,15 @@
 import { useLanguage } from "../context/LanguageContext";
+import { useTranslation } from 'react-i18next';
 
 function LanguageToggle() {
     const { language, changeLanguage } = useLanguage();
+    const { t } = useTranslation();
+
     return (
-        <label className="inline-flex items-center cursor-pointer">
+        <label aria-label={t('language.toggle')} className="inline-flex items-center cursor-pointer">
             <input
                 type="checkbox"
+                aria-label={t('language.toggle')}
                 checked={language === 'es'}
                 onChange={() => changeLanguage(language === 'es' ? 'en' : 'es')}
                 className="sr-only peer"

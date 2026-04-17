@@ -59,11 +59,16 @@ function Users(){
             header:  t('users.tableHeaders.actions'),  
             render: (user) => (
                 <div className="flex gap-2">
-                    <button onClick={() => handleEditUser(user)}
+                    <button 
+                        onClick={() => handleEditUser(user)}
+                        aria-label={t('users.edit')}
                         className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">
                         {t('users.edit')}
                     </button>
-                    <button onClick={() => handleToggleDeactive(user.userId, user.active)} className={`${user.active ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95`}>
+                    <button 
+                        onClick={() => handleToggleDeactive(user.userId, user.active)} 
+                        aria-label={user.active ? t('users.disableButton') :  t('users.enableButton')} 
+                        className={`${user.active ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95`}>
                         {user.active ? t('users.disableButton') :  t('users.enableButton')} 
                     </button>
                 </div>
@@ -109,10 +114,15 @@ function Users(){
         <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
             <div className="my-12 flex justify-between">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('users.title')}</h1>
-                <button onClick={() => handleCreateUser()} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95" >{t('users.newUserButton')}</button>
+                <button 
+                    onClick={() => handleCreateUser()} 
+                    aria-label={t('users.newUserButton')}
+                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95" >
+                    {t('users.newUserButton')}
+                    </button>
             </div>
             <div>
-                <Table data={users} columns={columns} rowKey={(user) => user.userId}/>
+                <Table data={users} columns={columns} rowKey={(user) => user.userId} ariaLabel={t('users.tableAriaLabel')}/>
                 <UserModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}

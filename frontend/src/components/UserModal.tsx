@@ -95,15 +95,20 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
     };  
 
     return(
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+        <div 
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+            role="dialog"
+            aria-modal="true" 
+            aria-labelledby="user-modal-title">
             <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{user ? t('userModal.editTitle') : t('userModal.createTitle')}</h2>
+                <h2 id="user-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">{user ? t('userModal.editTitle') : t('userModal.createTitle')}</h2>
 
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
+                        aria-label={t('userModal.placeholderName')}
                         name="name"
                         placeholder={t('userModal.placeholderName')}
                         value={form.name}
@@ -112,6 +117,7 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
                     />
                     <input
                         type="email"
+                        aria-label={t('userModal.placeholderEmail')}
                         name="email"
                         placeholder={t('userModal.placeholderEmail')}
                         value={form.email}
@@ -121,6 +127,7 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
                     <input
                         type="phone"
                         name="phone"
+                        aria-label={t('userModal.placeholderPhone')}
                         placeholder={t('userModal.placeholderPhone')}
                         value={form.phone}
                         onChange={handleChange}
@@ -128,6 +135,7 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
                     />
                     <select 
                         value={form.role}
+                        aria-label={t('userModal.role.choose')}
                         onChange={(e) => setForm(prev => ({...prev, role: e.target.value as UserRole}))}
                         className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-8"
                     >
@@ -139,6 +147,7 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
                         <input
                         type="password"
                         name="password"
+                        aria-label={t('userModal.placeholderPassword')}
                         placeholder={t('userModal.placeholderPassword')}
                         value={form.password}
                         onChange={handleChange}
@@ -147,11 +156,19 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
                     )}
 
                     <div className="mt-6 flex justify-end gap-3">                  
-                        <button type="submit" disabled={loading} className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
+                        <button 
+                            type="submit" 
+                            aria-label={loading ? t('userModal.loading') : user ? t('userModal.saveButton') : t('userModal.createButton')}
+                            disabled={loading} 
+                            className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
                             {loading ? t('userModal.loading') : user ? t('userModal.saveButton') : t('userModal.createButton')}
                         </button>
 
-                        <button type="button" onClick={onClose} className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
+                        <button 
+                            type="button" 
+                            aria-label={t('userModal.cancelButton')}
+                            onClick={onClose} 
+                            className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
                             {t('userModal.cancelButton')}
                         </button>
                     </div>

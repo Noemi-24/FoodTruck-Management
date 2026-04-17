@@ -79,10 +79,17 @@ function Products(){
             render: (product) => (
             <div className="flex gap-2">
                 {isAdmin &&
-                    <button onClick={() => handleEditProduct(product)}
-                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">{t('products.editButton')}</button>
+                    <button 
+                        onClick={() => handleEditProduct(product)}
+                        aria-label={t('products.editButton')}
+                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">
+                        {t('products.editButton')}
+                    </button>
                 }
-                <button onClick={() => handleToggleAvailability(product.productId, !product.available)} className={`${product.available ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95`}>
+                <button 
+                    onClick={() => handleToggleAvailability(product.productId, !product.available)} 
+                    aria-label={product.available ? t('products.disableButton') :  t('products.enableButton')} 
+                    className={`${product.available ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95`}>
                     {product.available ? t('products.disableButton') :  t('products.enableButton')} 
                 </button>
             </div>)
@@ -130,13 +137,18 @@ function Products(){
         <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">            
             <div className="my-12 flex justify-between">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('products.title')}</h1>               
-                {isAdmin && <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => handleCreateProduct()}>{t('products.newProductButton')}</button>}
+                {isAdmin && <button 
+                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  
+                    aria-label={t('products.newProductButton')}
+                    onClick={() => handleCreateProduct()}>
+                    {t('products.newProductButton')}
+                    </button>}
             </div>
 
             <SearchBar value={searchTerm} onChange={setSearchTerm}/>
             
             <div>
-                <Table data={searchedProducts} columns={columns} rowKey={(product) => product.productId}/>
+                <Table data={searchedProducts} columns={columns} rowKey={(product) => product.productId} ariaLabel={t('products.tableAriaLabel')}/>
                 <ProductModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}

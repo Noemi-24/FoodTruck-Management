@@ -125,30 +125,42 @@ function Dashboard(){
             </div>  
 
             <div className="flex gap-4 mb-8">
-                <button onClick={() => navigate('/orders/new')} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                <button 
+                    aria-label={t('dashboard.newOrderButton')}
+                    onClick={() => navigate('/orders/new')} 
+                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
                     {t('dashboard.newOrderButton')}
                 </button>
                 {isAdmin && (
-                    <button onClick={() => navigate('/expenses')} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
-                    {t('dashboard.addExpenseButton')}
+                    <button 
+                        aria-label={t('dashboard.addExpenseButton')}
+                        onClick={() => navigate('/expenses')}
+                        className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                        {t('dashboard.addExpenseButton')}
                     </button>
                      
                 )}
                 {isAdmin && (
-                    <button onClick={() => navigate('/categories')} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
-                    {t('dashboard.addCategoryButton')}
+                    <button 
+                        aria-label={t('dashboard.addCategoryButton')}
+                        onClick={() => navigate('/categories')} 
+                        className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                        {t('dashboard.addCategoryButton')}
                     </button>
                 )}
                 {isAdmin && (
-                    <button onClick={() => navigate('/products')} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
-                    {t('dashboard.addProductButton')}
+                    <button 
+                        aria-label={t('dashboard.addProductButton')}
+                        onClick={() => navigate('/products')} 
+                        className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                        {t('dashboard.addProductButton')}
                     </button>
                 )}
             </div>             
             
             <div>
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{t('dashboard.recentOrderTitle')}</h2>
-                    <Table data={pendingOrders} columns={columns} rowKey={(order) => order.orderId}/>          
+                    <Table data={pendingOrders} columns={columns} rowKey={(order) => order.orderId} ariaLabel={t('dashboard.tableAriaLabel')}/>          
             </div>
         </div>  
     )

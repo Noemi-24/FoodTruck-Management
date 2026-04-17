@@ -68,7 +68,9 @@ function Expenses(){
         { 
             header:  t('expenses.tableHeaders.actions'),  
             render: (expense) => 
-                <button onClick={() => handleEditExpense(expense)}
+                <button 
+                    aria-label={t('expenses.tableHeaders.edit')}
+                    onClick={() => handleEditExpense(expense)}
                     className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">
                     {t('expenses.tableHeaders.edit')}
                 </button>
@@ -101,10 +103,15 @@ function Expenses(){
         <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
             <div className="my-12 flex justify-between">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('expenses.title')}</h1>
-                <button onClick={() => handleCreateExpense()} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95" >{t('expenses.newExpenseButton')}</button>
+                <button 
+                    aria-label={t('expenses.newExpenseButton')}
+                    onClick={() => handleCreateExpense()} 
+                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95" >
+                    {t('expenses.newExpenseButton')}
+                </button>
             </div>
             <div>
-                <Table data={expenses} columns={columns} rowKey={(expense) => expense.expenseId}/>
+                <Table data={expenses} columns={columns} rowKey={(expense) => expense.expenseId} ariaLabel={t('expenses.tableAriaLabel')}/>
                 <ExpenseModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}

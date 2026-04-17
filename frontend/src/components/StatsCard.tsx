@@ -1,9 +1,9 @@
 import type { LucideIcon } from "lucide-react";
 
 interface CardProps{
-    title: string;
-    value: number | string;
-    icon?: LucideIcon;
+    readonly title: string;
+    readonly value: number | string;
+    readonly icon?: LucideIcon;
 }
 
 function StatCard({title, value, icon:Icon }: CardProps){

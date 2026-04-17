@@ -26,7 +26,10 @@ function ProductoCard({product, onAddToCart}: CardProps){
                         <span className="text-2xl font-bold">${Math.floor(product.price)}</span>
                         <sup className="text-sm font-semibold">{String(product.price.toFixed(2)).split('.')[1]}</sup>
                     </p>
-                    <button onClick={() => onAddToCart(product)} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                    <button 
+                        onClick={() => onAddToCart(product)} 
+                        aria-label={t('newOrder.addButton')} 
+                        className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
                         {t('newOrder.addButton')} 
                     </button>
                 </div>

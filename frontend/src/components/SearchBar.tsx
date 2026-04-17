@@ -14,7 +14,11 @@ function SearchBar({ value, onChange }: SearchBarProps) {
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <Search className="w-4 h-4 text-gray-400 dark:text-gray-300"/>
                     </div>
-                    <input type="search" id="search" className="block w-full p-3 ps-9 text-sm text-heading border border-default-medium rounded-xl focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500" 
+                    <input 
+                        type="search" 
+                        aria-label={t('searchBar.placeholder')}
+                        id="search" 
+                        className="block w-full p-3 ps-9 text-sm text-heading border border-default-medium rounded-xl focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500" 
                         placeholder={t('searchBar.placeholder')}
                         value={value}
                         onChange={(e) => onChange(e.target.value)}

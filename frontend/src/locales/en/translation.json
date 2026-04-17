@@ -23,7 +23,8 @@
         "recentOrderTitle": "Recente Orders",
         "addCategoryButton": "+ Category",
         "addProductButton": "+ Product",
-        "loading": "Loading..."
+        "loading": "Loading...",
+        "tableAriaLabel": "Recent orders list"
     },
     "navbar": {
         "dashboard": "Dashboard",
@@ -37,6 +38,7 @@
     },
     "products":{
         "title": "Products",
+        "tableAriaLabel": "Products list",
         "newProductButton": "New Product",
         "editButton": "Edit",
         "enableButton": "Enable",
@@ -77,6 +79,7 @@
     },
      "orders":{
         "title": "Orders",
+        "tableAriaLabel": "Orders list",
         "tableHeaders": {
             "name": "Name",
             "status": "Status",
@@ -86,6 +89,7 @@
             "customerPhone": "Phone"
         },
          "status":{
+            "choose":"Choose a status",
             "pending": "Pending",
             "inPreparation": "In preparation",
             "ready": "Ready",
@@ -107,12 +111,15 @@
         "closeButton": "Close",
         "newOrderButton": "New Order",
         "successMessage":"Order created successfully",
-        "errorCreate": "Failed to create order"
+        "errorCreate": "Failed to create order",
+        "orderDetails": "Order Details"
     },
     "newOrder":{
         "title": "Cart",
         "addButton": "+ Add",
         "removeButton": "Remove",
+        "decreaseButton": "Decrease",
+        "incrementButton": "Increment",
         "special": "Special",
         "orderTotal": "Order total:",
         "placeholderNote": "Write notes here...",
@@ -125,6 +132,7 @@
     }, 
     "expenses":{
         "title": "Expenses",
+        "tableAriaLabel": "Expenses list",
         "newExpenseButton": "New Expense",
         "tableHeaders":{
             "category": "Category",
@@ -140,6 +148,7 @@
         "editTitle":"Edit Product",
         "createTitle":"New Expense",
         "category": {
+            "choose":"Choose a category",
             "ingredients": "Ingredients",
             "maintenance": "Maintenance",
             "salaries": "Salaries",
@@ -164,6 +173,7 @@
     "users":{
         "title": "Users",
         "newUserButton": "New User",
+        "tableAriaLabel": "Users list",
         "tableHeaders":{
             "name": "Name",
             "email": "Email",
@@ -184,6 +194,7 @@
         "placeholderPhone": "Phone",
         "placeholderPassword": "Password",
         "role": {
+            "choose": "Choose a role",
             "admin": "Administrator",
             "employee": "Employee"
         },
@@ -197,6 +208,7 @@
     },
      "categories":{
         "title": "Categories",
+        "tableAriaLabel":"Categories list",
         "newCategoryButton": "New Category",
         "editButton": "Edit",
         "loading": "Loading..." ,  
@@ -249,6 +261,12 @@
      "stripePaymentForm":{
         "processing": "Processing...",
         "payPlaceOrder":"Pay & Place Order"
-     }
+     },
+     "language": {
+        "toggle": "Toggle Language"       
+    },
+    "theme":{
+        "toggle": "Toggle Theme"
+    }
     
 }

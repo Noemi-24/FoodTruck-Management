@@ -41,9 +41,12 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({onSuccess, clientS
   return (
     <form onSubmit={handleSubmit}>
       <CardElement options={{ hidePostalCode: true }} className='mt-8'/>
-      <button disabled={isProcessing || !stripe || !elements} className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 mt-8 mb-4">
-        {isProcessing ? t('stripePaymentForm.processing') : t('stripePaymentForm.payPlaceOrder')}
-      </button>
+        <button 
+          disabled={isProcessing || !stripe || !elements} 
+          aria-label={isProcessing ? t('stripePaymentForm.processing') : t('stripePaymentForm.payPlaceOrder')}
+          className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 mt-8 mb-4">
+          {isProcessing ? t('stripePaymentForm.processing') : t('stripePaymentForm.payPlaceOrder')}
+        </button>
       {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
     </form>
   );

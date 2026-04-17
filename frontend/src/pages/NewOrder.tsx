@@ -224,11 +224,23 @@ function NewOrder(){
                                     <li>$ {item.subtotal.toFixed(2)}</li>
                                 </div>
                                 <div className='flex justify-between'>
-                                    <li><button className='text-red-600' onClick={() => handleRemoveFromCart(item.productId)}>{t('newOrder.removeButton')}</button></li>
+                                    <li>
+                                        <button 
+                                            aria-label={t('newOrder.removeButton')}
+                                            className='text-red-600'
+                                            onClick={() => handleRemoveFromCart(item.productId)}>
+                                            {t('newOrder.removeButton')}
+                                        </button>
+                                    </li>
                                     <li className='border rounded-md py-1.5 px-3 flex gap-3'>
-                                        <button onClick={() => handleDecrease(item)}>-</button>
+                                        <button 
+                                            aria-label={t('newOrder.decreaseButton')}
+                                            onClick={() => handleDecrease(item)}>
+                                            -
+                                        </button>
                                             <span>{item.quantity}</span>                                    
                                         <button 
+                                            aria-label={t('newOrder.incrementButton')}
                                             onClick={() => 
                                             dispatch({ type: 'UPDATE_QUANTITY', payload: { productId: item.productId, quantity: item.quantity + 1 }})}
                                         >+</button>
@@ -252,6 +264,7 @@ function NewOrder(){
                         <input
                             type="text"
                             name="name"
+                            aria-label={t('orders.tableHeaders.name')}
                             placeholder={t('orders.tableHeaders.name')}
                             value={customerForm.customerName}
                             onChange={(e) => setCustomerForm(prev => ({...prev, customerName: e.target.value}))}
@@ -261,6 +274,7 @@ function NewOrder(){
                         <input
                             type="text"
                             name="phone"
+                            aria-label={t('orders.phone')}
                             placeholder={t('orders.phone')}
                             value={customerForm.customerPhone}
                             onChange={(e) => setCustomerForm(prev => ({...prev, customerPhone: formatPhone(e.target.value)}))}
@@ -270,6 +284,7 @@ function NewOrder(){
                         <input
                             type="email"
                             name="email"
+                            aria-label={t('orders.email')}
                             placeholder={t('orders.email')}
                             value={customerForm.customerEmail}
                             onChange={(e) => setCustomerForm(prev => ({...prev, customerEmail: e.target.value}))}
@@ -278,12 +293,14 @@ function NewOrder(){
                         
                         <textarea className="border text-sm focus:border-blue-700 w-full p-3.5 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 shadow-xs placeholder:text-body mt-8"
                             placeholder={t('newOrder.placeholderNote')}
+                            aria-label={t('newOrder.placeholderNote')}
                             value={customerForm.note}
                             onChange={(e) => setCustomerForm(prev => ({...prev, note: e.target.value}))}>
                         </textarea>
                        
                         <select className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mt-8 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
                             value={customerForm.paymentMethod}
+                            aria-label={t('newOrder.payment.choose')}
                             onChange={(e) => handlePaymentMethodChange(e.target.value as PaymentMethod)}>
                             <option defaultValue="">{t('newOrder.payment.choose')}</option>
                             <option value='CASH'>{t('newOrder.payment.cash')}</option>
@@ -291,7 +308,12 @@ function NewOrder(){
                         </select>                        
 
                         {customerForm.paymentMethod !== 'STRIPE' && (
-                            <button type="submit"  className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 mt-8 mb-4">{t('newOrder.placeOrderButton')}</button>
+                            <button 
+                                aria-label={t('newOrder.placeOrderButton')}
+                                type="submit"  
+                                className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 mt-8 mb-4">
+                                {t('newOrder.placeOrderButton')}
+                                </button>
                         )}
 
                         {success && <p className="text-green-600 dark:text-green-400 mt-4">{success}</p>}

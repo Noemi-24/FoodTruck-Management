@@ -82,17 +82,22 @@ function CategoryModal({ isOpen, onClose, category, onSuccess }: ModalProps) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+        <div 
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" 
+            role="dialog"
+            aria-modal="true" 
+            aria-labelledby="category-modal-title">
             <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{category ? t('categoryModal.editTitle') : t('categoryModal.createTitle')}</h2>
+                <h2 id="category-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">{category ? t('categoryModal.editTitle') : t('categoryModal.createTitle')}</h2>
 
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
                 <form onSubmit={handleSubmit}>
-            
+
                 <input
                     type="text"
                     name="name"
+                    aria-label={t('categoryModal.placeholderName')}
                     placeholder={t('categoryModal.placeholderName')}
                     value={form.name}
                     onChange={handleChange}
@@ -100,11 +105,19 @@ function CategoryModal({ isOpen, onClose, category, onSuccess }: ModalProps) {
                 />
 
                 <div className="mt-6 flex justify-end gap-3">
-                    <button type="submit" disabled={loading} className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
+                    <button 
+                        aria-label={loading ? t('productModal.loading') : category ? t('categoryModal.saveButton') : t('categoryModal.createButton')}
+                        type="submit" 
+                        disabled={loading} 
+                        className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
                         {loading ? t('productModal.loading') : category ? t('categoryModal.saveButton') : t('categoryModal.createButton')}
                     </button>
 
-                    <button type="button" onClick={onClose} className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
+                    <button 
+                        aria-label={t('categoryModal.cancelButton')}
+                        type="button" 
+                        onClick={onClose} 
+                        className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
                         {t('categoryModal.cancelButton')}
                     </button>
                 </div>

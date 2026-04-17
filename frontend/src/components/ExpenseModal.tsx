@@ -100,15 +100,20 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
     }
         
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+        <div 
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+            role="dialog"
+            aria-modal="true" 
+            aria-labelledby="expense-modal-title">
             <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{expense ? t('expenseModal.editTitle') : t('expenseModal.createTitle')}</h2>
+                <h2 id="expense-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">{expense ? t('expenseModal.editTitle') : t('expenseModal.createTitle')}</h2>
 
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
                 <form onSubmit={handleSubmit}>
                 
                 <select 
+                    aria-label={t('expenseModal.category.choose')}
                     value={form.category}
                     onChange={(e) => setForm(prev => ({...prev, category: e.target.value as ExpenseCategory}))}
                     className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-8"
@@ -124,6 +129,7 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
                 </select>
             
                 <input
+                    aria-label={t('expenseModal.placeholderDate')}
                     type="date"
                     name="date"
                     placeholder={t('expenseModal.placeholderDate')}
@@ -132,6 +138,7 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
                     className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
                 />
                 <textarea
+                    aria-label={t('expenseModal.placeholderDescription')}
                     name="description"
                     placeholder={t('expenseModal.placeholderDescription')}
                     value={form.description}
@@ -141,6 +148,7 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
                 <div className="relative">
                     <span className="absolute left-2 top-7 text-gray-500">$</span>
                     <input
+                        aria-label={t('expenseModal.placeholderAmount')}
                         type="number"
                         name="amount"
                         step="0.01"
@@ -152,6 +160,7 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
                 </div>                
 
                 <input
+                    aria-label={t('expenseModal.placeholderReceiptUrl')}
                     type="text"
                     name="receiptUrl"
                     placeholder={t('expenseModal.placeholderReceiptUrl')}
@@ -161,11 +170,19 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
                 />
 
                 <div className="mt-6 flex justify-end gap-3">                  
-                    <button type="submit" disabled={loading} className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
+                    <button 
+                        aria-label={buttonLabel}
+                        type="submit" 
+                        disabled={loading} 
+                        className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
                         {buttonLabel}
                     </button>
 
-                    <button type="button" onClick={onClose} className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
+                    <button 
+                        aria-label={t('expenseModal.cancelButton')}
+                        type="button" 
+                        onClick={onClose} 
+                        className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
                         {t('expenseModal.cancelButton')}
                     </button>
                 </div>

@@ -23,7 +23,8 @@
         "recentOrderTitle": "Órdenes Recientes",
         "addCategoryButton": "+ Categoría",
         "addProductButton": "+ Producto",
-        "loading": "Cargando..."
+        "loading": "Cargando...",
+        "tableAriaLabel": "Lista de Órdenes recientes"
     },
     "navbar": {
         "dashborad": "Tablero",
@@ -37,6 +38,7 @@
     },
     "products":{
         "title": "Productos",
+        "tableAriaLabel": "Lista de productos",
         "newProductButton": "Nuevo Producto",
         "editButton": "Editar",
         "enableButton": "Habilitar",
@@ -77,6 +79,7 @@
     },
     "orders":{
         "title": "Órdenes",
+        "tableAriaLabel": "Lista de Órdenes",
         "tableHeaders":{
             "name": "Nombre",
             "status": "Estado",
@@ -86,6 +89,7 @@
             "customerPhone": "Teléfono"
         },
         "status":{
+            "choose":"Elija un estado",
             "pending": "Pendiente",
             "inPreparation": "En preparación",
             "ready": "Lista",
@@ -107,12 +111,15 @@
         "closeButton": "Cerrar",
         "newOrderButton": "Nueva Orden",
         "successMessage":"Orden creado correctamente",
-        "errorCreate": "Error al crear orden"
+        "errorCreate": "Error al crear orden",
+        "orderDetails": "Detalles del Pedido"
     },
     "newOrder":{
         "title": "Carrito",
         "addButton": "+ Agregar",
         "removeButton": "Eliminar",
+        "decreaseButton": "Disminuir",
+        "incrementButton": "Aumentar",
         "special": "Especial",
         "orderTotal": "Total:",
         "placeholderNote": "Escribe notas aquí...",
@@ -125,6 +132,7 @@
     }, 
     "expenses":{
         "title": "Gastos",
+        "tableAriaLabel": "Lista de gastos",
         "newExpenseButton": "Nuevo Gasto",
         "tableHeaders":{
             "category": "Categoría",
@@ -140,6 +148,7 @@
         "title":"Editar producto",
         "createTitle":"Nuevo Gasto",
         "category": {
+            "choose":"Elija una categoría",
             "ingredients": "Ingredientes",
             "maintenance": "Mantenimiento",
             "salaries": "Salarios",
@@ -163,6 +172,7 @@
     },
     "users":{
         "title": "Usuarios",
+        "tableAriaLabel": "Lista de usuarios",
         "newUserButton": "Nuevo Usuario",
         "tableHeaders":{
             "name": "Nombre",
@@ -184,6 +194,7 @@
         "placeholderPhone": "Teléfono",
         "placeholderPassword": "Contraseña",
         "role": {
+            "choose": "Elija un rol",
             "admin": "Administrador",
             "employee": "Empleado"
         },
@@ -197,6 +208,7 @@
     },
     "categories":{
         "title": "Categorías",
+        "tableAriaLabel":"Lista de categorías",
         "newCategoryButton": "Nueva Categoría",
         "editButton": "Editar",
         "loading": "Cargando..." ,  
@@ -249,7 +261,13 @@
      "stripePaymentForm":{
         "processing": "Procesando...",
         "payPlaceOrder":"Pagar & Realizar pedido"
-     }
+     },
+     "language": {
+        "toggle": "Cambiar Idioma"
+    },
+     "theme":{
+        "toggle": "Cambiar Tema"
+    }
 
 }
 

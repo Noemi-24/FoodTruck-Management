@@ -58,14 +58,30 @@ function Login(){
                         </div>
                         <div>
                             <div className="relative flex items-center">
-                                <input className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500" name="email" type="email" required placeholder={t('login.emailPlaceholder')} id="email" value={email} onChange={handleEmailChange}/>
+                                <input 
+                                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
+                                    name="email" type="email" required 
+                                    aria-label={t('login.emailPlaceholder')} 
+                                    placeholder={t('login.emailPlaceholder')} 
+                                    id="email" 
+                                    value={email} 
+                                    onChange={handleEmailChange}
+                                />
                                 <Mail className="w-[18px] h-[18px] absolute right-2 text-gray-400"/>
                             </div>
                         </div>
 
                         <div className="mt-8">
                             <div className="relative flex items-center">
-                            <input className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500" name="password" type={showPassword ? "text" : "password"} required placeholder={t('login.passwordPlaceholder')} id="password" value={password} onChange={handlePasswordChange}/>
+                            <input 
+                                className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500" 
+                                name="password" 
+                                type={showPassword ? "text" : "password"} 
+                                required 
+                                aria-label={t('login.passwordPlaceholder')} 
+                                placeholder={t('login.passwordPlaceholder')} 
+                                id="password" value={password} 
+                                onChange={handlePasswordChange}/>
                                 {showPassword 
                                     ? <EyeOff className="w-[18px] h-[18px] absolute right-2 cursor-pointer text-gray-400" onClick={() => setShowPassword(!showPassword)}/>
                                     : <Eye className="w-[18px] h-[18px] absolute right-2 cursor-pointer text-gray-400" onClick={() => setShowPassword(!showPassword)}/>
@@ -74,7 +90,10 @@ function Login(){
                         </div>
 
                         <div className="mt-12">
-                            <button type="submit" className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700" disabled={loading}>
+                            <button 
+                                aria-label={loading ? t('login.loading') : t('login.loginButton')}
+                                type="submit" 
+                                className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700" disabled={loading}>
                                 {loading ? t('login.loading') : t('login.loginButton')}
                             </button>                           
                         </div>

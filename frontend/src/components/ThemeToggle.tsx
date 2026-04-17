@@ -1,12 +1,16 @@
 import {useTheme} from '../context/ThemeContext';
 import { Sun, Moon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 function ThemeToggle() {
     const { theme, toggleTheme } = useTheme();
+    const { t } = useTranslation();
+
     return(
-        <label className="inline-flex items-center cursor-pointer">
+        <label aria-label={t('theme.toggle')} className="inline-flex items-center cursor-pointer">
             <input
                 type="checkbox"
+                aria-label={t('theme.toggle')}
                 checked={theme === 'dark'}
                 onChange={toggleTheme}
                 className="sr-only peer"

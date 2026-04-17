@@ -80,6 +80,7 @@ function Orders(){
                 <div className="flex gap-2">                    
                     <select 
                         value={order.status}
+                        aria-label={t('orders.status.choose')}
                         onChange={(e) => handleUpdateStatus(order.orderId, e.target.value as OrderStatus)}
                         className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
                     >
@@ -90,7 +91,12 @@ function Orders(){
                         <option value="CANCELLED">{t('orders.status.cancelled')}</option>
                     </select>
                     <div className="flex gap-2">
-                        <button onClick={() => handleViewDetails(order)} className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-4 py-2 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95 whitespace-nowrap">{t('orders.viewDetailsButton')}</button>
+                        <button 
+                            onClick={() => handleViewDetails(order)} 
+                            aria-label={t('orders.viewDetailsButton')}
+                            className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-4 py-2 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95 whitespace-nowrap">
+                            {t('orders.viewDetailsButton')}
+                            </button>
                     </div>
                 </div>
                 
@@ -119,10 +125,15 @@ function Orders(){
         <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
             <div className="my-12 flex justify-between">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('orders.title')}</h1>
-                <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => navigate('/orders/new')}>{t('orders.newOrderButton')}</button>
+                <button 
+                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  
+                    aria-label={t('orders.newOrderButton')}
+                    onClick={() => navigate('/orders/new')}>
+                    {t('orders.newOrderButton')}
+                    </button>
             </div>
             <div>
-                <Table data={orders} columns={columns} rowKey={(order) => order.orderId}/>
+                <Table data={orders} columns={columns} rowKey={(order) => order.orderId} ariaLabel={t('orders.tableAriaLabel')}/>
                 <OrderDetailModal 
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}

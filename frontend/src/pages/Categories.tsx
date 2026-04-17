@@ -80,10 +80,14 @@ function Category(){
         <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
             <div className="my-12 flex justify-between">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('categories.title')}</h1>
-                {isAdmin && <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  onClick={() => handleCreateCategory()}>{t('categories.newCategoryButton')}</button>}
+                {isAdmin && <button 
+                    aria-label={t('categories.newCategoryButton')}
+                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  
+                    onClick={() => handleCreateCategory()}>{t('categories.newCategoryButton')}
+                </button>}
             </div>
             <div>
-                <Table data={categories} columns={columns} rowKey={(category) => category.categoryId}/>
+                <Table data={categories} columns={columns} rowKey={(category) => category.categoryId} ariaLabel={t('categories.tableAriaLabel')}/>
                 <CategoryModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}

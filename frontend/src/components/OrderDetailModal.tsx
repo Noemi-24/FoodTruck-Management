@@ -17,7 +17,12 @@ function OrderDetailModal({ isOpen, onClose, order}: ModalProps){
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
             <div className="w-full max-w-xl rounded-lg bg-white p-4 sm:p-6 shadow-2xl dark:bg-gray-800 overflow-y-auto max-h-[90vh] dark:text-gray-300">
                 <div className="flex justify-end mb-3">
-                    <button onClick={onClose} className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">{t('orders.closeButton')}</button>                    
+                    <button 
+                        onClick={onClose} 
+                        aria-label={t('orders.closeButton')}
+                        className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
+                        {t('orders.closeButton')}
+                    </button>                    
                 </div>
                 <img src="/logo1.png" alt="login-image" className="w-48 h-auto mx-auto mb-3 dark:brightness-150"/>
                 <div className="flex flex-col justify-center items-center gap-2">
@@ -72,7 +77,10 @@ function OrderDetailModal({ isOpen, onClose, order}: ModalProps){
                     </p>
                 </div>
                 <div className="flex flex-col gap-3 pb-6 pt-2 text-xs">
-                    <table className="w-full text-left mt-4">
+                    <table 
+                        role="table" 
+                        aria-label={t('orders.details')}
+                        className="w-full text-left mt-4">
                         <thead>
                             <tr>
                                 <th className="w-full py-2 text-gray-700 dark:text-gray-300">{t('orders.product')}</th>
