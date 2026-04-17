@@ -6,6 +6,11 @@ import { ResponsiveContainer, BarChart, Bar, Tooltip, XAxis, YAxis, PieChart, Pi
 import { useTranslation } from 'react-i18next';
 import SkeletonChart from '../components/SkeletonChart';
 
+interface GroupedCategory {
+    category: string;
+    totalAmount: number;
+}
+
 function Reports(){
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
@@ -76,7 +81,7 @@ function Reports(){
             });
         }
         return acc;
-    }, [] as any[]);
+    }, [] as Record<string, unknown>[]);
 
     const groupedCategories = monthlyExpenses.reduce((acc, expense) => {
         const existing = acc.find(e => e.category === expense.category);
@@ -89,7 +94,7 @@ function Reports(){
             });
         }
         return acc;
-    }, [] as any[]);
+    }, [] as GroupedCategory[]);
 
     const COLORS = ['#f59e0b', '#3b82f6', '#10b981', '#d946ef', '#6b7280', '#eab308','#ec4899', '#78716c', '#881337', '#020617', '#1d4ed8' ];
 

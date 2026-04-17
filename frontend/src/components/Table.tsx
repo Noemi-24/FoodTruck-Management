@@ -21,8 +21,8 @@ export const Table = <T,>({ data, columns, rowKey, ariaLabel }: TableProps<T>) =
             className="w-full text-sm text-left">
             <thead className="bg-sky-600 text-white">
                 <tr>
-                    {columns.map((col, index) => (
-                    <th key={index} className="px-6 py-3 font-semibold" >{col.header}</th>
+                    {columns.map((col) => (
+                    <th key={col.header} className="px-6 py-3 font-semibold" >{col.header}</th>
                     ))}
                 </tr>
             </thead>
@@ -34,8 +34,8 @@ export const Table = <T,>({ data, columns, rowKey, ariaLabel }: TableProps<T>) =
                         ? 'bg-white dark:bg-gray-800' 
                         : 'bg-gray-50 dark:bg-gray-700'
                     }`}>
-                    {columns.map((col, index) => (
-                    <td key={index} className="px-6 py-4 text-gray-700 dark:text-gray-300">
+                    {columns.map((col) => (
+                    <td key={col.header} className="px-6 py-4 text-gray-700 dark:text-gray-300">
                         {col.render(item)}
                     </td>
                     ))}

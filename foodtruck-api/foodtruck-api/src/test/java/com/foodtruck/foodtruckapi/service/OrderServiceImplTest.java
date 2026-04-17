@@ -324,4 +324,21 @@ public class OrderServiceImplTest {
             orderService.createOrder(new CreateOrderRequest());
         });
     }
+
+    @Test
+    void testUpdateOrderStatus_CancelNonPendingOrder_ThrowsException() {
+        // ARRANGE
+        Order order = new Order();
+        order.setOrderId(1);
+        order.setStatus(IN_PREPARATION);
+
+        when(orderRepository.findById(1)).thenReturn(Optional.of(order));
+
+        // ACT & ASSERT
+        assertThrows(BadRequestException.class, () -> {
+            orderService.updateOrderStatus(1, CANCELLED);
+        });
+
+        verify(orderRepository, never()).save(any(Order.class));
+    }
 }

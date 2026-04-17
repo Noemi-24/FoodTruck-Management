@@ -2,9 +2,9 @@ import type { OrderResponse } from "../types/order.types";
 import { useTranslation } from 'react-i18next';
 
 interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  order: OrderResponse | null;
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
+  readonly order: OrderResponse | null;
 }
 
 function OrderDetailModal({ isOpen, onClose, order}: ModalProps){

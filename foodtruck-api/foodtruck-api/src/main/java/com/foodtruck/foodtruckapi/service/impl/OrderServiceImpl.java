@@ -52,7 +52,9 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponse updateOrderStatus(Integer id, OrderStatus status) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order", "id", id));
-
+        if (status == OrderStatus.CANCELLED && order.getStatus() != OrderStatus.PENDING) {
+            throw new BadRequestException("Order can only be cancelled when PENDING");
+        }
         order.setStatus(status);
         Order updatedOrder = orderRepository.save(order);
         return orderMapper.toOrderResponse(updatedOrder);

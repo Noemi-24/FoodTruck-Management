@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { createUser, updateUser } from "../services/userService";
 
 interface ModalProps{
-    isOpen: boolean;
-    onClose: () => void;
-    user: UserResponse | null;
-    onSuccess: (updateuser: UserResponse) => void;
+    readonly isOpen: boolean;
+    readonly onClose: () => void;
+    readonly user: UserResponse | null;
+    readonly onSuccess: (updateuser: UserResponse) => void;
 }
 
 const initialUpdateState: UpdateUserRequest ={

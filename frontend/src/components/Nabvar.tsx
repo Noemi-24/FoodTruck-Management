@@ -1,9 +1,8 @@
 import LanguageToggle from "./LanguageToggle";
 import ThemeToggle from "./ThemeToggle";
 import { useAuth } from "../context/AuthContext";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 
 function Navbar() {

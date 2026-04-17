@@ -88,7 +88,10 @@ function Orders(){
                         <option value="IN_PREPARATION">{t('orders.status.inPreparation')}</option>
                         <option value="READY">{t('orders.status.ready')}</option>
                         <option value="DELIVERED">{t('orders.status.delivered')}</option>
-                        <option value="CANCELLED">{t('orders.status.cancelled')}</option>
+                        {order.status === 'PENDING' && (
+                            <option value="CANCELLED">{t('orders.status.cancelled')}</option>
+                        )}
+                
                     </select>
                     <div className="flex gap-2">
                         <button 
