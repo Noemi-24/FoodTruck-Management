@@ -44,6 +44,11 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", request.getCategoryId()));
 
         Product product = productMapper.toProduct(request, category);
+
+        if (request.getImageUrl() == null || request.getImageUrl().isBlank()) {
+            product.setImageUrl("/tacos.jpg");
+        }
+
         Product savedProduct = productRepository.save(product);
 
         return productMapper.toProductResponse(savedProduct);

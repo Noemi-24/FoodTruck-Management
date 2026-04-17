@@ -210,7 +210,7 @@ function NewOrder(){
                 </div>
             </div>
            
-            <div className='w-full h-[calc(95vh-100px)] overflow-y-auto lg:w-80 bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 sticky top-4 p-6'>
+            <div className='w-full h-[calc(100vh-140px)] overflow-y-auto lg:w-80 bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 sticky top-4 p-6'>
                 <div className="flex flex-col gap-3 py-6 text-xs">
                     <h1  className="text-3xl font-bold text-gray-900 dark:text-white">{t('newOrder.title')}</h1>
                     <div>
