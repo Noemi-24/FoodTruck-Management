@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import OrderDetailModal from '../components/OrderDetailModal';
 import { useNavigate } from "react-router-dom";
 import SkeletonTable from '../components/SkeletonTable';
+import { getStatusBadge } from '../utils/statusBadge';
+import KitchenOrderModal from '../components/KitchenOrderModal';
 
 function Orders(){
     const [orders, setOrders] = useState<OrderResponse[]>([]);
@@ -13,6 +15,8 @@ function Orders(){
     const [error, setError] = useState<string | null>("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState<OrderResponse | null>(null);
+    const [isKitchenModalOpen, setIsKitchenModalOpen] = useState(false);
+    const [kitchenOrder, setKitchenOrder] = useState<OrderResponse | null>(null);
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -48,7 +52,7 @@ function Orders(){
 
     const columns: Column<OrderResponse>[] =[
         {
-            header: "Id",
+            header: t('orders.tableHeaders.orderNumber'),
             render: (order) => `${order.orderId}`
         },
         {
@@ -61,11 +65,11 @@ function Orders(){
         },
         {
             header:  t('orders.tableHeaders.status'), 
-            render: (order) => `${order.status}`
-        },
-        {
-            header:  t('orders.tableHeaders.paymentMethod'), 
-            render: (order) => `${order.paymentMethod}`
+            render: (order) => (
+                <span className={getStatusBadge(order.status)}>
+                    {order.status.replaceAll("_", " ")}
+                </span>
+            )
         },
         {
             header:  t('orders.tableHeaders.date'), 
@@ -101,6 +105,15 @@ function Orders(){
                             {t('orders.viewDetailsButton')}
                             </button>
                     </div>
+                    <div>
+                        <button 
+                            onClick={() => handleViewKitchen(order)} 
+                            aria-label={t('orders.kitchenButton')}
+                            disabled={order.status === 'READY' || order.status === 'DELIVERED' || order.status === 'CANCELLED'}
+                            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                            {t('orders.kitchenButton')}
+                        </button>
+                    </div>
                 </div>
                 
             )
@@ -111,6 +124,11 @@ function Orders(){
     const handleViewDetails = (order: OrderResponse) => {
         setSelectedOrder(order);
         setIsModalOpen(true);
+    };
+
+    const handleViewKitchen = (order: OrderResponse) => {
+        setKitchenOrder(order);
+        setIsKitchenModalOpen(true);
     };
     
     if (loading) return (
@@ -140,7 +158,14 @@ function Orders(){
                 <OrderDetailModal 
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
-                    order={selectedOrder}/>
+                    order={selectedOrder}
+                />
+                <KitchenOrderModal
+                    isOpen={isKitchenModalOpen}
+                    onClose={() => setIsKitchenModalOpen(false)}
+                    order={kitchenOrder}
+                    onSuccess={fetchOrders}
+                />
             </div> 
         </div>
     )

@@ -15,7 +15,7 @@ function OrderDetailModal({ isOpen, onClose, order}: ModalProps){
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-            <div className="w-full max-w-xl rounded-lg bg-white p-4 sm:p-6 shadow-2xl dark:bg-gray-800 overflow-y-auto max-h-[90vh] dark:text-gray-300">
+            <div className="w-full max-w-xl rounded-lg bg-white p-4 sm:p-6 shadow-2xl dark:bg-gray-800 overflow-y-auto max-h-[90vh] dark:text-gray-300  modal-enter">
                 <div className="flex justify-end mb-3">
                     <button 
                         onClick={onClose} 

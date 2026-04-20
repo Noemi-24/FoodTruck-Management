@@ -6,6 +6,7 @@ import ProductModal from '../components/ProductModal';
 import { useTranslation } from 'react-i18next';
 import{ useAuth } from '../context/AuthContext';
 import SearchBar from '../components/SearchBar';
+import SkeletonTable from '../components/SkeletonTable';
 
 function Products(){
     const [products, setProducts] = useState<ProductResponse[]>([]);
@@ -60,9 +61,10 @@ function Products(){
             header:  t('products.tableHeaders.image'),  
             render: (product) => (
                 <img
+                    loading="lazy"
                     src={product.imageUrl}
                     alt={product.name}
-                    className='w-10 h-10 rounded object-cover'
+                    className='w-10 h-10 rounded object-cover bg-gray-200'
                 />
             ) 
         },
@@ -123,8 +125,8 @@ function Products(){
     }, [products, searchTerm]);
 
     if (loading) return (
-        <div className="flex items-center justify-center min-h-screen">
-            <p className="text-gray-600 dark:text-gray-400">{t('products.loading')}</p>
+        <div className="w-full max-w-6xl p-8">
+            <SkeletonTable />
         </div>
     );
     if (error) return (

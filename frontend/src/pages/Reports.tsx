@@ -21,53 +21,25 @@ function Reports(){
     const { t } = useTranslation();
     const { i18n } = useTranslation();
     
-    const fetchPopularItems = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            await new Promise(resolve => setTimeout(resolve, 3000));
-            const result = await getPopularItems();
-            setPopularItems(result);
-        } catch (error) {
-            setError(error instanceof Error ? error.message : "An unknown error occurred");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const fetchMonthlyExpenses = async () => {
-        setLoading(true);
-        setError(null);
-        try{
-            await new Promise(resolve => setTimeout(resolve, 3000));
-            const result = await getMonthlyExpenses();
-            setMonthlyExpenses(result);
-        }catch (error) {
-            setError(error instanceof Error ? error.message : "An unknown error occurred");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const fetchDailySales = async () => {
-        setLoading(true);
-        setError(null);
-        try{
-            //uncomment to see skeleton
-            // await new Promise(resolve => setTimeout(resolve, 3000)); 
-            const result = await getDailySales();
-            setDailySales(result);
-        }catch (error) {
-            setError(error instanceof Error ? error.message : "An unknown error occurred");
-        } finally {
-            setLoading(false);
-        }   
-    };
-
     useEffect(() => {
-        fetchPopularItems();
-        fetchMonthlyExpenses();
-        fetchDailySales();
+        const fetchAll = async () => {
+            setLoading(true);
+            try {
+                const [monthly, popular, daily] = await Promise.all([
+                    getMonthlyExpenses(),
+                    getPopularItems(),
+                    getDailySales()
+                ]);
+                setMonthlyExpenses(monthly);
+                setPopularItems(popular);
+                setDailySales(daily);
+            } catch (error) {
+                setError(error instanceof Error ? error.message : "An unknown error occurred");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchAll();
     }, []);
 
     const groupedExpenses = monthlyExpenses.reduce((acc, expense) => {

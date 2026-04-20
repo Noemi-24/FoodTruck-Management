@@ -294,7 +294,7 @@ POST   /api/payments/create-intent     - Create Stripe PaymentIntent (ADMIN, EMP
 ## 🧪 Testing
 
 ### Test Coverage
-- **100% line coverage** across all service implementations
+- **97% line coverage** across all service implementations
 - JUnit 5 + Mockito
 - Both success and failure scenarios covered
 
@@ -399,6 +399,23 @@ stripe.secret.key=${STRIPE_SECRET_KEY}
 ```
 VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your_key
 ```
+
+---
+
+## 🚀 Version 2.0 Roadmap
+
+- **Product Customization** — modifiers per product (add/remove ingredients, extras) similar to Chipotle
+- **Kitchen Display System (KDS)** — dedicated real-time screen for kitchen staff with WebSocket live updates, swipe navigation between orders
+- **Order Status Board** — public display screen showing customers their order status
+- **Self-Service Kiosk** — customer-facing ordering screen for in-person self checkout
+- **Receipt Printing** — print order receipt directly from the order detail modal
+- **Image Upload** — Cloudinary integration for uploading product photos instead of manual URL entry
+- **Stripe Terminal** — physical card reader integration for tap/swipe payments
+- **Customer Portal** — customer accounts, order history, and online ordering
+- **Real-time Updates** — WebSocket integration for live order notifications to kitchen and customers
+- **Inventory Management** — stock tracking with low-stock alerts
+- **AWS Deployment** — cloud deployment with EC2, RDS, S3, and CodePipeline CI/CD
+- **Multi-location Support** — manage multiple food truck locations from one system
 
 ---
 

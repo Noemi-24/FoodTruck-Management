@@ -39,13 +39,13 @@ function Login(){
     }
 
     return (
-        <div className="w-full max-w-6xl px-4 "> 
-            <div className="[box-shadow:rgba(149,157,165,0.3)_0px_4px_18px] max-w-6xl max-md:max-w-lg rounded-md p-6">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10"> 
+            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm p-6 sm:p-8">
                 
-                <div className="grid md:grid-cols-2 items-center gap-8">
+                <div className="grid md:grid-cols-2 items-center gap-8 lg:gap-12">
                     {/*Logo*/}
-                    <div className="max-md:order-1">
-                        <div className="aspect-[12/11] pl-8 md:pl-12">
+                    <div className="max-md:order-1 flex justify-center">
+                        <div className="aspect-[12/11] flex items-center justify-center">
                              <img src="/logo1.png"  className="w-full h-full object-contain dark:brightness-150" alt="login-image" />
                         </div>
                     </div>
@@ -54,12 +54,15 @@ function Login(){
                     <form className="md:max-w-md w-full mx-auto" onSubmit={handleSubmit}>
                         {/*title*/}
                         <div className="mb-12">
-                            <h1 className="text-4xl font-bold text-blue-700 dark:text-white">{t('login.title')}</h1>
+                            <p className="text-xs font-medium uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-2">
+                                Food Truck Management System
+                            </p>
+                            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-blue-700 dark:text-white">{t('login.title')}</h1>
                         </div>
                         <div>
                             <div className="relative flex items-center">
                                 <input 
-                                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
+                                    className="w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 px-3 py-3 pr-10 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                                     name="email" type="email" required 
                                     aria-label={t('login.emailPlaceholder')} 
                                     placeholder={t('login.emailPlaceholder')} 
@@ -74,7 +77,7 @@ function Login(){
                         <div className="mt-8">
                             <div className="relative flex items-center">
                             <input 
-                                className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500" 
+                                className="w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 px-3 py-3 pr-10 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
                                 name="password" 
                                 type={showPassword ? "text" : "password"} 
                                 required 
@@ -93,7 +96,9 @@ function Login(){
                             <button 
                                 aria-label={loading ? t('login.loading') : t('login.loginButton')}
                                 type="submit" 
-                                className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700" disabled={loading}>
+                                className="w-full py-3 px-4 text-sm font-semibold rounded-xl text-white bg-blue-700 hover:bg-blue-800 transition-all duration-200 shadow-sm disabled:opacity-50"
+                                disabled={loading}
+                            >
                                 {loading ? t('login.loading') : t('login.loginButton')}
                             </button>                           
                         </div>
@@ -102,9 +107,9 @@ function Login(){
                 </div> 
 
                 {/* Demo Credentials */}
-                <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 text-center mb-2 font-semibold">
-                        DEMO CREDENTIALS
+                <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400 text-center mb-3">
+                        Demo Credentials
                     </p>
                     <div className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
                         <p>

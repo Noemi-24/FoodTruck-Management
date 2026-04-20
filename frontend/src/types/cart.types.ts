@@ -18,3 +18,4 @@ export type CartAction =
     | { type: 'REMOVE_ITEM'; payload: number }
     | { type: 'UPDATE_QUANTITY'; payload: { productId: number; quantity: number } }
     | { type: 'CLEAR_CART' }
+    | { type: 'UPDATE_NOTES'; payload: { productId: number; notes: string } }

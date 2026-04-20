@@ -10,6 +10,7 @@
         "loading": "Iniciando sesión..."        
     },
     "dashboard": {
+        "title":"Resumen de hoy",
         "welcome": "Bienvenido de nuevo",
         "role": "{{role}}",
         "admin": "Administrador",
@@ -75,12 +76,14 @@
     },
     "common": {
         "yes": "Sí",
-        "no": "No"
+        "no": "No",
+        "opcional": "opcional"
     },
     "orders":{
         "title": "Órdenes",
         "tableAriaLabel": "Lista de Órdenes",
         "tableHeaders":{
+            "orderNumber":"Orden #",
             "name": "Nombre",
             "status": "Estado",
             "paymentMethod": "Método de pago",
@@ -107,7 +110,8 @@
         "error": "No se pudo actualizar el estado",
         "orderId":"N.º de Orden",
         "customer": "Cliente",
-        "viewDetailsButton": "Ver Detalles",
+        "viewDetailsButton": "Recibo",
+        "kitchenButton": "Cocina",
         "closeButton": "Cerrar",
         "newOrderButton": "Nueva Orden",
         "successMessage":"Orden creado correctamente",
@@ -115,13 +119,17 @@
         "orderDetails": "Detalles del Pedido"
     },
     "newOrder":{
-        "title": "Carrito",
+        "heading":"Menú",
+        "title": "Nueva Orden",
+        "subtitle": "Carrito",
         "addButton": "+ Agregar",
         "removeButton": "Eliminar",
         "decreaseButton": "Disminuir",
         "incrementButton": "Aumentar",
+        "addNotesButton": "+ Agregar notas",
         "special": "Especial",
         "orderTotal": "Total:",
+        "placeholderItemNote": "Notas para este artículo...",
         "placeholderNote": "Escribe notas aquí...",
         "placeOrderButton":"Realizar pedido",
         "payment":{
@@ -134,6 +142,8 @@
         "title": "Gastos",
         "tableAriaLabel": "Lista de gastos",
         "newExpenseButton": "Nuevo Gasto",
+        "receipt":"Recibo",
+        "closeButton":"Cerrar",
         "tableHeaders":{
             "category": "Categoría",
             "description": "Descripción",
@@ -141,7 +151,9 @@
             "date": "Fecha",
             "receiptUrl": "Recibo",
             "actions": "Acciones",
-            "edit": "Editar"            
+            "edit": "Editar",
+            "view": "Ver" ,
+            "noReceipt": "No hay recibo"           
         }
     },
     "expenseModal":{

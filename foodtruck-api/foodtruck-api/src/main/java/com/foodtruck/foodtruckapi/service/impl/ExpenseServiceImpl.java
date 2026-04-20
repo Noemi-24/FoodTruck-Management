@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -50,6 +51,9 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
 
         Expense expense = expenseMapper.toExpense(request, user);
+
+        expense.setAmount(request.getAmount().setScale(2, RoundingMode.HALF_UP));
+
         Expense savedExpense = expenseRepository.save(expense);
         return expenseMapper.toExpenseResponse(savedExpense);
     }
@@ -64,7 +68,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         }
 
         if (request.getAmount() != null) {
-            expense.setAmount(request.getAmount());
+            expense.setAmount(request.getAmount().setScale(2, RoundingMode.HALF_UP));
         }
 
         if (request.getCategory() != null) {

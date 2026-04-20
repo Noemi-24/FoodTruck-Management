@@ -94,4 +94,11 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(TransactionSystemException.class)
+    public ResponseEntity<Object> handleTransactionException(TransactionSystemException ex) {
+        Throwable cause = ex.getRootCause();
+        String message = cause != null ? cause.getMessage() : ex.getMessage();
+        return ResponseEntity.status(500).body(message);
+    }
 }

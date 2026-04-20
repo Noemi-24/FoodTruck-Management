@@ -39,16 +39,22 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({onSuccess, clientS
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement options={{ hidePostalCode: true }} className='mt-8'/>
-        <button 
-          disabled={isProcessing || !stripe || !elements} 
-          aria-label={isProcessing ? t('stripePaymentForm.processing') : t('stripePaymentForm.payPlaceOrder')}
-          className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 mt-8 mb-4">
-          {isProcessing ? t('stripePaymentForm.processing') : t('stripePaymentForm.payPlaceOrder')}
-        </button>
-      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-    </form>
+      <form onSubmit={handleSubmit}>
+          <div className="mt-6 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 p-4">
+              <CardElement options={{ hidePostalCode: true }} />
+          </div>
+          <button 
+              disabled={isProcessing || !stripe || !elements} 
+              aria-label={isProcessing ? t('stripePaymentForm.processing') : t('stripePaymentForm.payPlaceOrder')}
+              className="w-full py-3 px-4 text-sm font-semibold rounded-lg text-white bg-blue-700 hover:bg-blue-800 transition-all duration-200 shadow-sm mt-6 mb-4 disabled:opacity-50 disabled:cursor-not-allowed">
+              {isProcessing ? t('stripePaymentForm.processing') : t('stripePaymentForm.payPlaceOrder')}
+          </button>
+        {errorMessage && (
+          <p className="text-sm text-red-600 dark:text-red-400 mt-2">
+            {errorMessage}
+          </p>
+        )}
+      </form>
   );
 };
 

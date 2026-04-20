@@ -100,7 +100,7 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
             role="dialog"
             aria-modal="true" 
             aria-labelledby="user-modal-title">
-            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800">
+            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800  modal-enter">
                 <h2 id="user-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">{user ? t('userModal.editTitle') : t('userModal.createTitle')}</h2>
 
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}

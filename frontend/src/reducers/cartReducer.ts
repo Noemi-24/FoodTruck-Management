@@ -57,6 +57,15 @@ export const cartReducer = (state: CartState, action: CartAction): CartState => 
             return { items: [], total: 0 };
         }
 
+        case 'UPDATE_NOTES': {
+            const newItems = state.items.map(item =>
+                item.productId === action.payload.productId
+                    ? { ...item, notes: action.payload.notes }
+                    : item
+            );
+            return { ...state, items: newItems };
+        }
+        
         default:
             return state;
     }

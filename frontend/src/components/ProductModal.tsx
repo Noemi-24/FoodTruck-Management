@@ -114,11 +114,11 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
 
     return (
         <div 
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 "
             role="dialog"
             aria-modal="true" 
             aria-labelledby="product-modal-title">
-            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800">
+            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800 modal-enter">
                 <h2 id="product-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">{product ? t('productModal.editTitle') : t('productModal.createTitle')}</h2>
 
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}

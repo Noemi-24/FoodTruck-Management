@@ -42,7 +42,6 @@ public class Order {
     @Column(name = "CustomerPhone", nullable = false, length = 20)
     String customerPhone;
 
-    @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     @Column(name = "CustomerEmail", length = 100)
     String customerEmail;

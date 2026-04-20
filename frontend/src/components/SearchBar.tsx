@@ -9,16 +9,15 @@ function SearchBar({ value, onChange }: SearchBarProps) {
     const { t } = useTranslation();
     return (
         <div>            
-            <form className="min-w-2xs mb-8">   
+            <form className="mb-6" onSubmit={(e) => e.preventDefault()}>   
                 <div className="relative">
-                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <Search className="w-4 h-4 text-gray-400 dark:text-gray-300"/>
-                    </div>
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-300"/>
+                    
                     <input 
                         type="search" 
                         aria-label={t('searchBar.placeholder')}
                         id="search" 
-                        className="block w-full p-3 ps-9 text-sm text-heading border border-default-medium rounded-xl focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500" 
+                        className="w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 pl-10 pr-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
                         placeholder={t('searchBar.placeholder')}
                         value={value}
                         onChange={(e) => onChange(e.target.value)}

@@ -23,6 +23,7 @@ function NewOrder(){
     const [success, setSuccess] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState("");    
     const [clientSecret, setClientSecret] = useState<string | null>(null);
+    const [activeNotes, setActiveNotes] = useState<number | null>(null);
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [customerForm, setCustomerForm] = useState({
@@ -118,7 +119,7 @@ function NewOrder(){
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!customerForm.customerName || !customerForm.customerPhone || !customerForm.customerEmail) {
+        if (!customerForm.customerName || !customerForm.customerPhone) {
             setError("Please fill in all required fields");
             return;
         }
@@ -200,39 +201,73 @@ function NewOrder(){
         </div>
     );
     return(
-        <div className='flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto p-8 items-start'>
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 items-start">
+            {/* Search + Menu */}
             <div className='flex-1'>
+                <div className="mb-4">
+                    <p className="text-xs font-medium uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">
+                        {t('newOrder.heading')}
+                    </p>
+                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {t('newOrder.title')}
+                    </h1>
+                </div>
                 <SearchBar value={searchTerm} onChange={setSearchTerm}/>
-                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>                    
+
+                {/* Grid products */}
+                <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4'>                    
                     {availableProducts.map((product) => (
                         <ProductoCard key={product.productId} product={product} onAddToCart={handleAddToCart}/>
                     ))}
                 </div>
             </div>
-           
-            <div className='w-full h-[calc(100vh-140px)] overflow-y-auto lg:w-80 bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 sticky top-4 p-6'>
+            
+             {/* Cart */}
+            <div className="w-full lg:w-96 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 sticky top-4 p-4 sm:p-6">
                 <div className="flex flex-col gap-3 py-6 text-xs">
-                    <h1  className="text-3xl font-bold text-gray-900 dark:text-white">{t('newOrder.title')}</h1>
+                    <h1  className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{t('newOrder.subtitle')}</h1>
                     <div>
                         {state.items.map((item) =>(
                             <ul className="border-b py-4 dark:text-white" key={item.productId}>
-                                <div className='flex justify-between pt-3 pb-4'>
-                                    <li>
-                                        <img className='h-16 w-16 flex-shrink-0 rounded-md border border-gray-300 object-cover object-center' src={item.imageUrl} onError={(e) => (e.currentTarget.src = '/tacos.jpg')} alt={item.productName} />
-                                    </li>
-                                    <li >{item.productName}</li>
-                                    <li>$ {item.subtotal.toFixed(2)}</li>
+                                <div className='flex gap-3 py-3'>
+                                    <img loading="lazy" className='h-16 w-16 flex-shrink-0 rounded-lg border border-gray-200 object-cover' src={item.imageUrl} onError={(e) => (e.currentTarget.src = '/tacos.jpg')} alt={item.productName} />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="font-medium text-sm text-gray-900 dark:text-white truncate">{item.productName}</p>
+                                        {activeNotes === item.productId ? (
+                                            <input
+                                                type="text"
+                                                placeholder={t('newOrder.placeholderItemNote')}
+                                                value={item.notes}
+                                                onChange={(e) => dispatch({
+                                                    type: 'UPDATE_NOTES',
+                                                    payload: { productId: item.productId, notes: e.target.value }
+                                                })
+                                                }
+                                                onBlur={() => setActiveNotes(null)}
+                                                autoFocus
+                                                className="w-full text-xs rounded-md border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-2 py-1.5 mt-2 outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                            ) : (
+                                            <button
+                                                onClick={() => setActiveNotes(item.productId)}
+                                                className="text-xs text-blue-600 dark:text-blue-400 mt-2 hover:underline"
+                                            >
+                                                {item.notes ? item.notes : t('newOrder.addNotesButton')}
+                                            </button>
+                                        )}
+                                        <p className="text-sm font-semibold text-gray-900 dark:text-white mt-2">$ {item.subtotal.toFixed(2)}</p>
+                                    </div>
                                 </div>
                                 <div className='flex justify-between'>
                                     <li>
                                         <button 
                                             aria-label={t('newOrder.removeButton')}
-                                            className='text-red-600'
+                                            className="text-red-600 hover:text-red-700 text-sm font-medium"
                                             onClick={() => handleRemoveFromCart(item.productId)}>
                                             {t('newOrder.removeButton')}
                                         </button>
                                     </li>
-                                    <li className='border rounded-md py-1.5 px-3 flex gap-3'>
+                                    <li className="border border-gray-200 dark:border-gray-600 rounded-lg py-1.5 px-3 flex items-center gap-3">
                                         <button 
                                             aria-label={t('newOrder.decreaseButton')}
                                             onClick={() => handleDecrease(item)}>
@@ -250,7 +285,9 @@ function NewOrder(){
                             </ul>
                         ))}
                     </div>
-                    <div className='bg-gray-100 p-6 mb-3 dark:bg-gray-700 dark:text-white font-semibold'>
+
+                    {/* Total */}
+                    <div className="bg-gray-50 dark:bg-gray-700/60 rounded-xl p-4 sm:p-5 mb-4 dark:text-white border border-gray-200 dark:border-gray-600">
                         <p className=" text-lg flex justify-between">
                             <span>{t('newOrder.orderTotal')}</span>
                             <span>$ {state.total.toFixed(2)}</span>
@@ -258,6 +295,8 @@ function NewOrder(){
                     </div>                      
                 </div>
                 <div className='border-b border border-dashed'></div>
+
+                {/* Customer form */}
                 <div>
                     <form onSubmit={handleSubmit}>
                         <h3 className='mb-2 mt-8 font-bold text-gray-900 dark:text-white'>{t('orders.customer')}</h3>
@@ -268,7 +307,7 @@ function NewOrder(){
                             placeholder={t('orders.tableHeaders.name')}
                             value={customerForm.customerName}
                             onChange={(e) => setCustomerForm(prev => ({...prev, customerName: e.target.value}))}
-                            className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-2"
+                            className="w-full text-sm rounded-lg border border-gray-300 bg-white dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                         />
 
                         <input
@@ -278,20 +317,21 @@ function NewOrder(){
                             placeholder={t('orders.phone')}
                             value={customerForm.customerPhone}
                             onChange={(e) => setCustomerForm(prev => ({...prev, customerPhone: formatPhone(e.target.value)}))}
-                            className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-8"
+                            className="w-full text-sm rounded-lg border border-gray-300 bg-white dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                         />
 
                         <input
                             type="email"
                             name="email"
                             aria-label={t('orders.email')}
-                            placeholder={t('orders.email')}
+                            placeholder={`${t('orders.email')} (${t('common.optional')})`}
                             value={customerForm.customerEmail}
                             onChange={(e) => setCustomerForm(prev => ({...prev, customerEmail: e.target.value}))}
-                            className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-8"
+                            className="w-full text-sm rounded-lg border border-gray-300 bg-white dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                         />
                         
-                        <textarea className="border text-sm focus:border-blue-700 w-full p-3.5 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 shadow-xs placeholder:text-body mt-8"
+                        <textarea 
+                            className="w-full text-sm rounded-lg border border-gray-300 bg-white dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                             placeholder={t('newOrder.placeholderNote')}
                             aria-label={t('newOrder.placeholderNote')}
                             value={customerForm.note}
@@ -311,7 +351,7 @@ function NewOrder(){
                             <button 
                                 aria-label={t('newOrder.placeOrderButton')}
                                 type="submit"  
-                                className="w-full shadow-xl py-2 px-4 text-[15px] font-medium tracking-wide rounded-md cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 mt-8 mb-4">
+                                className="w-full py-3 px-4 text-sm font-semibold rounded-lg text-white bg-blue-700 hover:bg-blue-800 transition-all duration-200 shadow-sm mt-8 mb-4">
                                 {t('newOrder.placeOrderButton')}
                                 </button>
                         )}
@@ -319,6 +359,8 @@ function NewOrder(){
                         {success && <p className="text-green-600 dark:text-green-400 mt-4">{success}</p>}
 
                     </form>
+
+                    {/* Stripe Card Payment */}
                     <div>
                         {clientSecret && customerForm.paymentMethod === 'STRIPE' && (
                             <Elements stripe={stripePromise} options={{ clientSecret }}>

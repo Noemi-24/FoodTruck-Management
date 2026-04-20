@@ -14,15 +14,16 @@ interface TableProps<T>{
 
 export const Table = <T,>({ data, columns, rowKey, ariaLabel }: TableProps<T>) => {
     return (
-        <div className="overflow-x-auto rounded-lg shadow">
+        <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
         <table 
             role="table" 
             aria-label={ariaLabel}
-            className="w-full text-sm text-left">
-            <thead className="bg-sky-600 text-white">
+            className="min-w-full text-sm text-left">
+            <thead className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
                 <tr>
                     {columns.map((col) => (
-                    <th key={col.header} className="px-6 py-3 font-semibold" >{col.header}</th>
+                    <th key={col.header} 
+                    className="px-4 sm:px-6 py-3 font-semibold whitespace-nowrap" >{col.header}</th>
                     ))}
                 </tr>
             </thead>
@@ -33,9 +34,11 @@ export const Table = <T,>({ data, columns, rowKey, ariaLabel }: TableProps<T>) =
                         rowIndex % 2 === 0 
                         ? 'bg-white dark:bg-gray-800' 
                         : 'bg-gray-50 dark:bg-gray-700'
-                    }`}>
+                    }
+                    transition-colors duration-150 hover:bg-blue-50 dark:hover:bg-blue-900/20`}>
                     {columns.map((col) => (
-                    <td key={col.header} className="px-6 py-4 text-gray-700 dark:text-gray-300">
+                    <td key={col.header} 
+                        className="px-4 sm:px-6 py-4 text-gray-700 dark:text-gray-300 whitespace-nowrap">
                         {col.render(item)}
                     </td>
                     ))}

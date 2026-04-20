@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import type { OrderResponse } from '../types/order.types';
 import { getAllOrders } from '../services/orderService';
 import { Table, type Column } from '../components/Table';
+import SkeletonTable from '../components/SkeletonTable';
+import { getStatusBadge } from '../utils/statusBadge';
 
 function Dashboard(){
     const [stats, setStats] = useState<DashboardStatsResponse | null>(null);
@@ -57,20 +59,16 @@ function Dashboard(){
 
     const columns: Column<OrderResponse>[] = [
         { 
-            header: "Id", 
-            render: (order) => `${order.orderId}` 
-        },
-        { 
             header: t('orders.tableHeaders.name'), 
             render: (order) => `${order.customerName}` 
         },
         { 
-            header: t('orders.tableHeaders.customerPhone'), 
-            render: (order) => `${order.customerPhone}` 
-        },
-        { 
             header: t('orders.tableHeaders.status'), 
-            render: (order) => `${order.status}` 
+            render: (order) => (
+                <span className={getStatusBadge(order.status)}>
+                    {order.status}
+                </span>  
+            ) 
         },
         { 
             header: "Total", 
@@ -79,7 +77,7 @@ function Dashboard(){
         { 
             header: t('orders.tableHeaders.date'), 
             render: (order) => new Date(order.orderDate).toLocaleString('en-US', {
-                month: 'long',
+                month: 'short',
                 day: 'numeric',
                 hour: 'numeric',
                 minute: '2-digit',
@@ -89,8 +87,8 @@ function Dashboard(){
     ];
 
     if (loading) return (
-        <div className="flex items-center justify-center min-h-screen">
-            <p className="text-gray-600 dark:text-gray-400">{t('dashboard.loading')}</p>
+        <div className="w-full max-w-6xl p-8">
+            <SkeletonTable />
         </div>
     );
     if (error) return (
@@ -101,13 +99,16 @@ function Dashboard(){
 
     return (
         
-        <div className="w-full max-w-7xl mx-auto p-8">            
+        <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8"> 
+            {/* Greeting */}
             <div className='mb-8'>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('dashboard.welcome')}, {user?.name}</h1>
+                 <p className="text-xs font-medium uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">{t('dashboard.title')}</p>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">{t('dashboard.welcome')}, {user?.name}</h1>
                 {isAdmin && <p className="text-gray-600 dark:text-gray-400">{t('dashboard.admin')}</p>}
                 {!isAdmin && <p className="text-gray-600 dark:text-gray-400">{t('dashboard.employee')}</p>}
             </div>
 
+            {/* Stats Cards */}
             <div className={`grid gap-4 mb-8 ${
                 isAdmin 
                     ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' 
@@ -123,8 +124,9 @@ function Dashboard(){
                 )}
                 <StatCard title={t('dashboard.pending')} value={stats?.pendingOrders ?? 0} icon={Clock}/>
             </div>  
-
-            <div className="flex gap-4 mb-8">
+            
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-8">
                 <button 
                     aria-label={t('dashboard.newOrderButton')}
                     onClick={() => navigate('/orders/new')} 
@@ -135,7 +137,7 @@ function Dashboard(){
                     <button 
                         aria-label={t('dashboard.addExpenseButton')}
                         onClick={() => navigate('/expenses')}
-                        className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                        className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
                         {t('dashboard.addExpenseButton')}
                     </button>
                      
@@ -144,7 +146,7 @@ function Dashboard(){
                     <button 
                         aria-label={t('dashboard.addCategoryButton')}
                         onClick={() => navigate('/categories')} 
-                        className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                        className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
                         {t('dashboard.addCategoryButton')}
                     </button>
                 )}
@@ -152,14 +154,14 @@ function Dashboard(){
                     <button 
                         aria-label={t('dashboard.addProductButton')}
                         onClick={() => navigate('/products')} 
-                        className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
+                        className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95">
                         {t('dashboard.addProductButton')}
                     </button>
                 )}
             </div>             
             
-            <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{t('dashboard.recentOrderTitle')}</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4">
+                <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-gray-900 dark:text-white mb-6">{t('dashboard.recentOrderTitle')}</h2>
                     <Table data={pendingOrders} columns={columns} rowKey={(order) => order.orderId} ariaLabel={t('dashboard.tableAriaLabel')}/>          
             </div>
         </div>  
@@ -168,4 +170,3 @@ function Dashboard(){
 
 export default Dashboard
 
-//className ="bg-white dark:bg-gray-800 rounded-lg px-6 py-8 shadow-xl ring-gray-900/5

@@ -10,6 +10,7 @@
         "loading": "Signing in..."
     },
     "dashboard": {
+        "title": "Today Overview",
         "welcome": "Welcome back",
         "role": "{{role}}",
         "admin": "Administrator",
@@ -75,12 +76,14 @@
     },
     "common": {
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "optional": "optional"
     },
      "orders":{
         "title": "Orders",
         "tableAriaLabel": "Orders list",
         "tableHeaders": {
+            "orderNumber":"Order #",
             "name": "Name",
             "status": "Status",
             "paymentMethod": "Payment Method",
@@ -107,7 +110,8 @@
         "error": "Failed to update status",
         "orderId":"Order No.",
         "customer": "Customer",
-        "viewDetailsButton": "View Details",
+        "viewDetailsButton": "Receipt",
+        "kitchenButton": "Kitchen",
         "closeButton": "Close",
         "newOrderButton": "New Order",
         "successMessage":"Order created successfully",
@@ -115,13 +119,17 @@
         "orderDetails": "Order Details"
     },
     "newOrder":{
-        "title": "Cart",
+        "heading":"Menu",
+        "title": "New Order",
+        "subtitle": "Cart",
         "addButton": "+ Add",
         "removeButton": "Remove",
         "decreaseButton": "Decrease",
         "incrementButton": "Increment",
+        "addNotesButton": "+ Add notes",
         "special": "Special",
         "orderTotal": "Order total:",
+        "placeholderItemNote": "Notes for this item...",
         "placeholderNote": "Write notes here...",
         "placeOrderButton":"Place Order",
         "payment":{
@@ -134,6 +142,8 @@
         "title": "Expenses",
         "tableAriaLabel": "Expenses list",
         "newExpenseButton": "New Expense",
+        "receipt":"Receipt",
+        "closeButton":"Close",
         "tableHeaders":{
             "category": "Category",
             "description": "Description",
@@ -141,7 +151,9 @@
             "date": "Date",
             "receiptUrl": "Receipt",
             "actions": "Actions",
-            "edit": "Edit"
+            "edit": "Edit",
+            "view": "View",
+            "noReceipt": "No receipt"
         }
     },
     "expenseModal":{
