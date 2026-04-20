@@ -43,6 +43,7 @@ function Orders(){
         try{
             await updateOrderStatus(id, status);
             fetchOrders();
+            setKitchenOrder(prev => prev ? {...prev, status} : null);
         }catch (error){
             setError(error instanceof Error ? error.message: t('orders.error')); 
         }finally {
@@ -74,8 +75,10 @@ function Orders(){
         {
             header:  t('orders.tableHeaders.date'), 
             render: (order) => (new Date(order.orderDate).toLocaleString('en-US', { 
-                    month: '2-digit', day: '2-digit', year: 'numeric',
-                    hour: '2-digit', minute: '2-digit'
+                    month: 'short',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit'
                 }))
         },
         {
@@ -86,7 +89,7 @@ function Orders(){
                         value={order.status}
                         aria-label={t('orders.status.choose')}
                         onChange={(e) => handleUpdateStatus(order.orderId, e.target.value as OrderStatus)}
-                        className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
+                        className="min-w-[140px] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
                     >
                         <option value="PENDING">{t('orders.status.pending')}</option>
                         <option value="IN_PREPARATION">{t('orders.status.inPreparation')}</option>
@@ -101,16 +104,18 @@ function Orders(){
                         <button 
                             onClick={() => handleViewDetails(order)} 
                             aria-label={t('orders.viewDetailsButton')}
-                            className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-4 py-2 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95 whitespace-nowrap">
+                            className="bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition"
+                        >
                             {t('orders.viewDetailsButton')}
-                            </button>
+                        </button>
                     </div>
                     <div>
                         <button 
                             onClick={() => handleViewKitchen(order)} 
                             aria-label={t('orders.kitchenButton')}
                             disabled={order.status === 'READY' || order.status === 'DELIVERED' || order.status === 'CANCELLED'}
-                            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                            className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                        >
                             {t('orders.kitchenButton')}
                         </button>
                     </div>
@@ -143,18 +148,20 @@ function Orders(){
     );
 
     return(
-        <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
-            <div className="my-12 flex justify-between">
+        <div className="w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('orders.title')}</h1>
                 <button 
-                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  
+                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg font-medium transition shadow-sm" 
                     aria-label={t('orders.newOrderButton')}
                     onClick={() => navigate('/orders/new')}>
                     {t('orders.newOrderButton')}
                     </button>
             </div>
             <div>
-                <Table data={orders} columns={columns} rowKey={(order) => order.orderId} ariaLabel={t('orders.tableAriaLabel')}/>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 sm:p-6">
+                    <Table data={orders} columns={columns} rowKey={(order) => order.orderId} ariaLabel={t('orders.tableAriaLabel')}/>
+                </div>
                 <OrderDetailModal 
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
@@ -164,7 +171,6 @@ function Orders(){
                     isOpen={isKitchenModalOpen}
                     onClose={() => setIsKitchenModalOpen(false)}
                     order={kitchenOrder}
-                    onSuccess={fetchOrders}
                 />
             </div> 
         </div>

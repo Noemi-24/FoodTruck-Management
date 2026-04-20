@@ -102,7 +102,7 @@ function Dashboard(){
         <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8"> 
             {/* Greeting */}
             <div className='mb-8'>
-                 <p className="text-xs font-medium uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">{t('dashboard.title')}</p>
+                <p className="text-xs font-medium uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">{t('dashboard.title')}</p>
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">{t('dashboard.welcome')}, {user?.name}</h1>
                 {isAdmin && <p className="text-gray-600 dark:text-gray-400">{t('dashboard.admin')}</p>}
                 {!isAdmin && <p className="text-gray-600 dark:text-gray-400">{t('dashboard.employee')}</p>}

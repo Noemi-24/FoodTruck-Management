@@ -105,7 +105,7 @@ function ExpenseModal({ isOpen, onClose, expense, onSuccess }: ModalProps) {
             role="dialog"
             aria-modal="true" 
             aria-labelledby="expense-modal-title">
-            <div className="w-full max-w-md rounded-2xl bg-white dark:bg-gray-800 p-6 sm:p-7 shadow-xl border border-gray-200 dark:border-gray-700">
+            <div className="w-full max-w-md rounded-2xl bg-white dark:bg-gray-800 p-6 sm:p-7 shadow-xl border border-gray-200 dark:border-gray-700 modal-enter">
                 <h2 id="expense-modal-title" className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{expense ? t('expenseModal.editTitle') : t('expenseModal.createTitle')}</h2>
 
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}

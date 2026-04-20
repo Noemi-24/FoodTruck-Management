@@ -35,10 +35,6 @@ function Category(){
 
     const columns: Column<CategoryResponse>[] = [
         { 
-            header: "Id", 
-            render: (category) => `${category.categoryId}` 
-        },
-        { 
             header: t('categories.tableHeaders.name'), 
             render: (category) => `${category.name}` 
         },
@@ -48,7 +44,9 @@ function Category(){
             <div className="flex gap-2">
                 {isAdmin &&
                     <button onClick={() => handleEditCategory(category)}
-                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">{t('categories.editButton')}</button>
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition"
+                    >{t('categories.editButton')}
+                </button>
                 }                
             </div>
             )
@@ -77,17 +75,20 @@ function Category(){
     );
 
     return (
-        <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
-            <div className="my-12 flex justify-between">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('categories.title')}</h1>
+        <div className="w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+            {/* Header */}
+            <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">{t('categories.title')}</h1>
                 {isAdmin && <button 
                     aria-label={t('categories.newCategoryButton')}
-                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  
+                    className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg font-medium transition shadow-sm"  
                     onClick={() => handleCreateCategory()}>{t('categories.newCategoryButton')}
                 </button>}
             </div>
             <div>
-                <Table data={categories} columns={columns} rowKey={(category) => category.categoryId} ariaLabel={t('categories.tableAriaLabel')}/>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 sm:p-6">
+                    <Table data={categories} columns={columns} rowKey={(category) => category.categoryId} ariaLabel={t('categories.tableAriaLabel')}/>
+                </div>
                 <CategoryModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}

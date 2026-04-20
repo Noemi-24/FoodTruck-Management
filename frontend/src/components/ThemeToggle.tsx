@@ -7,7 +7,7 @@ function ThemeToggle() {
     const { t } = useTranslation();
 
     return(
-        <label aria-label={t('theme.toggle')} className="inline-flex items-center cursor-pointer">
+        <label className="inline-flex items-center cursor-pointer">
             <input
                 type="checkbox"
                 aria-label={t('theme.toggle')}
@@ -15,8 +15,8 @@ function ThemeToggle() {
                 onChange={toggleTheme}
                 className="sr-only peer"
                 />
-            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-900 dark:peer-checked:bg-blue-500"></div>
-            <span className="ms-3 text-white dark:text-gray-300">
+            <div className="relative w-11 h-6 bg-gray-200 dark:bg-gray-700 rounded-full peer-checked:bg-blue-600 dark:peer-checked:bg-blue-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:w-5 after:h-5 after:bg-white after:border after:border-gray-300 after:rounded-full after:transition-all peer-checked:after:translate-x-full"></div>
+            <span className="ms-2 text-xs font-medium text-white dark:text-gray-300">
                 {theme === 'light' ? <Sun size={18} /> : <Moon size={18} />}
             </span>
         </label>

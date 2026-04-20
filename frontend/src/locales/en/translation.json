@@ -242,15 +242,15 @@
         "errorRequired": "Name is required"
     },
      "reports":{
-        "title": "Reports",
+        "title": "Business Insights",
         "greeting": "Hello",
         "role": "{{role}}",
         "admin": "Administrator",
         "loading": "Loading...",
         "monthlyExpensesTitle": "Monthly Expenses",
         "expensesByCategoryTitle": "Expenses By Category",
-        "salesTitle": "Saless",
-        "popularDishesTitle": "Popular Products",
+        "salesTitle": "Sales Performance",
+        "popularDishesTitle": "Top Selling Items",
         "categories": {
             "INGREDIENTS": "Ingredients",
             "MAINTENANCE": "Maintenance",

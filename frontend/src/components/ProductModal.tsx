@@ -118,8 +118,8 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
             role="dialog"
             aria-modal="true" 
             aria-labelledby="product-modal-title">
-            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800 modal-enter">
-                <h2 id="product-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">{product ? t('productModal.editTitle') : t('productModal.createTitle')}</h2>
+            <div className="w-full max-w-md rounded-2xl bg-white dark:bg-gray-800 p-6 sm:p-7 shadow-xl border border-gray-200 dark:border-gray-700 modal-enter">
+                <h2 id="product-modal-title" className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{product ? t('productModal.editTitle') : t('productModal.createTitle')}</h2>
 
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
@@ -132,7 +132,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                     placeholder={t('productModal.placeholderName')}
                     value={form.name}
                     onChange={handleChange}
-                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-8"
+                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                 />
 
                 <textarea
@@ -141,10 +141,10 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                     placeholder={t('productModal.placeholderDescription')}
                     value={form.description}
                     onChange={handleChange}
-                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
+                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                 />
-                <div className="relative">
-                    <span className="absolute left-2 top-7 text-gray-500">$</span>
+                <div className="relative mt-4">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                     <input
                         type="number"
                         name="price"
@@ -153,7 +153,7 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                         placeholder={t('productModal.placeholderPrice')}
                         value={form.price ?? ""}
                         onChange={handleChange}
-                        className="pl-5 w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
+                        className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 pl-8 pr-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
                 <input
@@ -163,10 +163,11 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                     placeholder={t('productModal.placeholderImageUrl')}
                     value={form.imageUrl}
                     onChange={handleChange}
-                    className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
+                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                 />
 
-                <select  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mt-8 mb-2 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500"
+                <select  
+                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                     value={form.categoryId}
                     aria-label={t('productModal.choose')}
                     onChange={(e) => setForm(prev => ({...prev, categoryId: Number(e.target.value)}))}>
@@ -178,32 +179,32 @@ function ProductModal({ isOpen, onClose, product, onSuccess }: ModalProps) {
                     ))}
                 </select>
 
-                <label className="dark:text-white text-gray-700 text-sm mt-5">
+                <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 mt-4">
                     <input
                         type="checkbox"
                         name="isSpecial"
                         aria-label={t('productModal.specialLabel')}
                         checked={form.isSpecial}
                         onChange={handleChange}
-                        className="dark:text-white text-gray-700 text-sm mt-5 mr-2"
+                        className="w-4 h-4 accent-blue-600"
                     />
                     {t('productModal.specialLabel')}
                 </label>
 
                 <div className="mt-6 flex justify-end gap-3">
                     <button 
-                        aria-label={loading ? t('productModal.loading') : product ? t('productModal.saveButton') : t('productModal.createButton')}
-                        type="submit" disabled={loading} 
-                        className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
-                        {loading ? t('productModal.loading') : product ? t('productModal.saveButton') : t('productModal.createButton')}
+                        aria-label={t('productModal.cancelButton')}
+                        type="button" onClick={onClose} 
+                        className="rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium transition">
+                        {t('productModal.cancelButton')}
                     </button>
 
                     <button 
-                        aria-label={t('productModal.cancelButton')}
-                        type="button" onClick={onClose} 
-                        className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
-                        {t('productModal.cancelButton')}
-                    </button>
+                        aria-label={loading ? t('productModal.loading') : product ? t('productModal.saveButton') : t('productModal.createButton')}
+                        type="submit" disabled={loading} 
+                        className="rounded-lg bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 font-medium transition disabled:opacity-50">
+                        {loading ? t('productModal.loading') : product ? t('productModal.saveButton') : t('productModal.createButton')}
+                    </button>                    
                 </div>
 
                 </form>

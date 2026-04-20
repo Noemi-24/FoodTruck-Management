@@ -100,8 +100,8 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
             role="dialog"
             aria-modal="true" 
             aria-labelledby="user-modal-title">
-            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-800  modal-enter">
-                <h2 id="user-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">{user ? t('userModal.editTitle') : t('userModal.createTitle')}</h2>
+            <div className="w-full max-w-md rounded-2xl bg-white dark:bg-gray-800 p-6 sm:p-7 shadow-xl border border-gray-200 dark:border-gray-700 modal-enter">
+                <h2 id="user-modal-title" className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{user ? t('userModal.editTitle') : t('userModal.createTitle')}</h2>
 
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
@@ -113,7 +113,7 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
                         placeholder={t('userModal.placeholderName')}
                         value={form.name}
                         onChange={handleChange}
-                        className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
+                        className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                     />
                     <input
                         type="email"
@@ -122,7 +122,7 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
                         placeholder={t('userModal.placeholderEmail')}
                         value={form.email}
                         onChange={handleChange}
-                        className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
+                        className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                     />
                     <input
                         type="phone"
@@ -131,13 +131,13 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
                         placeholder={t('userModal.placeholderPhone')}
                         value={form.phone}
                         onChange={handleChange}
-                        className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
+                        className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                     />
                     <select 
                         value={form.role}
                         aria-label={t('userModal.role.choose')}
                         onChange={(e) => setForm(prev => ({...prev, role: e.target.value as UserRole}))}
-                        className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-8"
+                        className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                     >
                         <option value="ADMIN">{t('userModal.role.admin')}</option>
                         <option value="EMPLOYEE">{t('userModal.role.employee')}</option>
@@ -151,26 +151,26 @@ function UserModal({ isOpen, onClose, user, onSuccess }: ModalProps ){
                         placeholder={t('userModal.placeholderPassword')}
                         value={form.password}
                         onChange={handleChange}
-                        className="w-full text-sm border-b border-gray-300 focus:border-blue-700 pr-8 px-2 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 mt-5"
+                        className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 px-3 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
                         />
                     )}
 
-                    <div className="mt-6 flex justify-end gap-3">                  
-                        <button 
-                            type="submit" 
-                            aria-label={loading ? t('userModal.loading') : user ? t('userModal.saveButton') : t('userModal.createButton')}
-                            disabled={loading} 
-                            className="rounded-md bg-blue-700 px-4 py-2 text-white font-medium cursor-pointer hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
-                            {loading ? t('userModal.loading') : user ? t('userModal.saveButton') : t('userModal.createButton')}
-                        </button>
-
+                    <div className="mt-6 flex justify-end gap-3"> 
                         <button 
                             type="button" 
                             aria-label={t('userModal.cancelButton')}
                             onClick={onClose} 
-                            className="rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium cursor-pointer">
+                            className="rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 px-4 py-2 font-medium transition">
                             {t('userModal.cancelButton')}
                         </button>
+
+                        <button 
+                            type="submit" 
+                            aria-label={loading ? t('userModal.loading') : user ? t('userModal.saveButton') : t('userModal.createButton')}
+                            disabled={loading} 
+                            className="rounded-lg bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 font-medium transition disabled:opacity-50">
+                            {loading ? t('userModal.loading') : user ? t('userModal.saveButton') : t('userModal.createButton')}
+                        </button>                        
                     </div>
 
                 </form>

@@ -36,18 +36,15 @@ function Products(){
         fetchProducts();
     }, []);
 
+    const getBooleanBadge = (value: boolean) =>
+        value
+            ? "px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700"
+            : "px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700";
+
     const columns: Column<ProductResponse>[] = [
-        { 
-            header: "Id", 
-            render: (product) => `${product.productId}` 
-        },
         { 
             header: t('products.tableHeaders.name'), 
             render: (product) => `${product.name}` 
-        },
-        { 
-            header: t('products.tableHeaders.description'), 
-            render: (product) => `${product.description}` 
         },
         { 
             header: t('products.tableHeaders.category'), 
@@ -64,17 +61,25 @@ function Products(){
                     loading="lazy"
                     src={product.imageUrl}
                     alt={product.name}
-                    className='w-10 h-10 rounded object-cover bg-gray-200'
+                    className="w-12 h-12 rounded-lg object-cover bg-gray-100 border border-gray-200"
                 />
             ) 
         },
         { 
             header:  t('products.tableHeaders.available'),  
-            render: (product) => product.available ? t('common.yes') : t('common.no')
+            render: (product) => (
+                <span className={getBooleanBadge(product.available)}>
+                    {product.available ? t('common.yes') : t('common.no')}
+                </span>
+                )
         },
         { 
             header:  t('products.tableHeaders.special'), 
-            render: (product) => product.isSpecial ? t('common.yes') : t('common.no')
+            render: (product) => (
+                <span className={getBooleanBadge(product.isSpecial)}>
+                    {product.isSpecial ? t('common.yes') : t('common.no')}
+                </span>
+                )
         },
         { 
             header:  t('products.tableHeaders.actions'),  
@@ -84,14 +89,14 @@ function Products(){
                     <button 
                         onClick={() => handleEditProduct(product)}
                         aria-label={t('products.editButton')}
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">
+                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition">
                         {t('products.editButton')}
                     </button>
                 }
                 <button 
                     onClick={() => handleToggleAvailability(product.productId, !product.available)} 
                     aria-label={product.available ? t('products.disableButton') :  t('products.enableButton')} 
-                    className={`${product.available ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95`}>
+                    className={`${product.available ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1.5 rounded-lg text-sm font-medium transition`}>
                     {product.available ? t('products.disableButton') :  t('products.enableButton')} 
                 </button>
             </div>)
@@ -136,9 +141,9 @@ function Products(){
     );
 
     return(
-        <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">            
-            <div className="my-12 flex justify-between">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('products.title')}</h1>               
+        <div className="w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">           
+            <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">{t('products.title')}</h1>               
                 {isAdmin && <button 
                     className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 rounded font-medium transition-all duration-200 hover:scale-105 active:scale-95"  
                     aria-label={t('products.newProductButton')}
@@ -150,7 +155,9 @@ function Products(){
             <SearchBar value={searchTerm} onChange={setSearchTerm}/>
             
             <div>
-                <Table data={searchedProducts} columns={columns} rowKey={(product) => product.productId} ariaLabel={t('products.tableAriaLabel')}/>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 sm:p-6">
+                    <Table data={searchedProducts} columns={columns} rowKey={(product) => product.productId} ariaLabel={t('products.tableAriaLabel')}/>
+                </div>
                 <ProductModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}

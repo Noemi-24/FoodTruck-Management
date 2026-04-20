@@ -34,11 +34,17 @@ function Users(){
         fetchUsers();
     }, []);
 
+    const getBooleanBadge = (value: boolean) =>
+        value
+            ? "px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700"
+            : "px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700";
+
+    const getRoleBadge = (role: string) =>
+        role === "ADMIN"
+            ? "px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700"
+            : "px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700";
+
     const columns: Column<UserResponse>[] = [
-        { 
-            header: "Id", 
-            render: (user) => `${user.userId}` 
-        },
         { 
             header: t('users.tableHeaders.name'), 
             render: (user) => `${user.name}` 
@@ -49,11 +55,19 @@ function Users(){
         },
         { 
             header: t('users.tableHeaders.role'), 
-            render: (user) => `${user.role}`
+            render: (user) => (
+                <span className={getRoleBadge(user.role)}>
+                    {user.role}
+                </span>
+            )
         },
         { 
             header: t('users.tableHeaders.active'), 
-            render: (user) => user.active ? t('common.yes') : t('common.no')
+            render: (user) => (
+                <span className={getBooleanBadge(user.active)}>
+                    {user.active ? t('common.yes') : t('common.no')}
+                </span>
+            )
         },
         { 
             header:  t('users.tableHeaders.actions'),  
@@ -62,13 +76,13 @@ function Users(){
                     <button 
                         onClick={() => handleEditUser(user)}
                         aria-label={t('users.edit')}
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95">
+                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition">
                         {t('users.edit')}
                     </button>
                     <button 
                         onClick={() => handleToggleDeactive(user.userId, user.active)} 
                         aria-label={user.active ? t('users.disableButton') :  t('users.enableButton')} 
-                        className={`${user.active ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1 rounded text-sm transition-all duration-200 hover:scale-105 active:scale-95`}>
+                        className={`${user.active ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-3 py-1.5 rounded-lg text-sm font-medium transition`}>
                         {user.active ? t('users.disableButton') :  t('users.enableButton')} 
                     </button>
                 </div>
@@ -111,8 +125,9 @@ function Users(){
     );
 
     return(
-        <div className="w-full max-w-6xl bg-gray-50 dark:bg-gray-900 p-6">
-            <div className="my-12 flex justify-between">
+        <div className="w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                {/* Header */}
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('users.title')}</h1>
                 <button 
                     onClick={() => handleCreateUser()} 
@@ -122,7 +137,9 @@ function Users(){
                     </button>
             </div>
             <div>
-                <Table data={users} columns={columns} rowKey={(user) => user.userId} ariaLabel={t('users.tableAriaLabel')}/>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 sm:p-6">
+                    <Table data={users} columns={columns} rowKey={(user) => user.userId} ariaLabel={t('users.tableAriaLabel')}/>
+                </div>
                 <UserModal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}

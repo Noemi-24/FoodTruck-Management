@@ -75,7 +75,7 @@ function Expenses(){
                 <button 
                     aria-label={t('expenses.tableHeaders.edit')}
                     onClick={() => handleEditExpense(expense)}
-                    className="bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition">
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition">
                     {t('expenses.tableHeaders.edit')}
                 </button>
         }
@@ -136,7 +136,7 @@ function Expenses(){
                             />
                         <button
                             onClick={() => setReceiptUrl(null)}
-                            className="mt-4 w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg"
+                            className="mt-4 w-full bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white px-3 py-1.5 rounded-lg text-sm font-medium transition"
                             aria-label={t('expenses.closeButton')}
                         >
                             {t('expenses.closeButton')}

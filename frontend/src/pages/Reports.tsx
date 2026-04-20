@@ -73,7 +73,7 @@ function Reports(){
     if (loading) return (
         <div className="w-full max-w-7xl mx-auto p-8 flex flex-col gap-6">
             <SkeletonChart />
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+            <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
                 <SkeletonChart />
                 <SkeletonChart />   
             </div>
@@ -85,15 +85,18 @@ function Reports(){
         </div>
     );
     return(
-        <div className="w-full max-w-7xl mx-auto p-8">
-            <div className='mb-8'>
-                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('reports.greeting')}, {user?.name}</h1>
-                <p className="text-gray-600 dark:text-gray-400">{t('reports.admin')}</p>
+        <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="mb-6 sm:mb-8">
+                <p  className="text-xs font-medium uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">{t('reports.title')}</p>              
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">{t('reports.greeting')}, {user?.name}</h1>
+                <p className="text-gray-600 dark:text-gray-400">
+                    {t('reports.admin')}
+                </p>
             </div>
-            <div className=' grid grid-cols-1 mb-8'>
-                <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow'>
-                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>{t('reports.monthlyExpensesTitle')}</h2>
-                    <ResponsiveContainer width='100%' height={300} minWidth={400}>
+            <div className='grid grid-cols-1 mb-6 sm:mb-8'>
+                <div className='bg-white dark:bg-gray-800 p-5 sm:p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700'>
+                    <h2 className='text-lg font-semibold text-gray-900 dark:text-white mb-4'>{t('reports.monthlyExpensesTitle')}</h2>
+                    <ResponsiveContainer width='100%' height={280}>
                         <BarChart data={groupedExpenses} barSize={40} barGap={8} barCategoryGap='20%'>
                             <XAxis dataKey='month' tickFormatter={(value)=>{
                                 const [year, month] = value.split('-');
@@ -120,10 +123,10 @@ function Reports(){
                 </div>
                 
             </div>
-            <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6 mb-8'>
-                <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow'>
-                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>{t('reports.expensesByCategoryTitle')}</h2>
-                    <ResponsiveContainer width='100%' height={400} minWidth={400}>
+            <div className='grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6 sm:mb-8'>
+                <div className='bg-white dark:bg-gray-800 p-5 sm:p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700'>
+                    <h2 className='text-lg font-semibold text-gray-900 dark:text-white mb-4'>{t('reports.expensesByCategoryTitle')}</h2>
+                    <ResponsiveContainer width='100%' height={280}>
                         <PieChart>
                             <Pie
                                 data={groupedCategories}
@@ -135,7 +138,7 @@ function Reports(){
                                 innerRadius="60%"
                                 outerRadius="75%"
                                 // Corner radius is the rounded edge of each pie slice
-                                cornerRadius="50%"
+                                cornerRadius={6}
                                 fill="#8884d8"
                                 // padding angle is the gap between each pie slice
                                 paddingAngle={5}                                 
@@ -149,15 +152,15 @@ function Reports(){
                     </ResponsiveContainer>
                 </div>          
 
-                <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow'>
-                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>{t('reports.salesTitle')}</h2>
-                    <ResponsiveContainer width='100%' height={400} minWidth={400}>
+                <div className='bg-white dark:bg-gray-800 p-5 sm:p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700'>
+                    <h2 className='text-lg font-semibold text-gray-900 dark:text-white mb-4'>{t('reports.salesTitle')}</h2>
+                    <ResponsiveContainer width='100%' height={280}>
                         <LineChart data={dailySales} >
                             <XAxis dataKey="saleDate" tickFormatter={(value)=>
                                 new Date(value + 'T00:00:00').toLocaleDateString('en-US', { month:'short', day:'numeric'})
                             }/>
-                            <YAxis yAxisId='right'/>
-                            <YAxis yAxisId='left' orientation='right'/>
+                            <YAxis yAxisId="left" />
+                            <YAxis yAxisId="right" orientation="right" />
                             <Tooltip formatter={(value, name) => name === 'Revenue' ? [`$${Number(value).toLocaleString()}`, name] : [value, name]}
                                 labelFormatter={(label)=> {
                                     if(!label || typeof label !== 'string') return label;
@@ -173,13 +176,13 @@ function Reports(){
                 </div>      
             </div>
 
-            <div className=' grid grid-cols-1 mb-8'>
-                <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow'>
-                    <h2 className='text-xl font-bold text-gray-900 text-center dark:text-white mb-4'>{t('reports.popularDishesTitle')}</h2>
-                    <ResponsiveContainer width='100%' height={400} minWidth={400}>
+            <div className=' grid grid-cols-1 mb-6 sm:mb-8'>
+                <div className='bg-white dark:bg-gray-800 p-5 sm:p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700'>
+                    <h2 className='text-lg font-semibold text-gray-900 dark:text-white mb-4'>{t('reports.popularDishesTitle')}</h2>
+                    <ResponsiveContainer width='100%' height={280}>
                         <BarChart data={popularItems} layout='vertical'>
                             <XAxis type='number' allowDecimals={false}/>
-                            <YAxis type='category' dataKey='name' width={160}/>
+                            <YAxis type='category' dataKey='name' width={110}/>
                             <Tooltip/>
                             <Bar dataKey='timesOrdered' name={t('reports.sales.totalOrders')}>
                                 {popularItems.map((_, index) => (
