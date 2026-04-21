@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import Nabvar from "./components/Nabvar";
+import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
 import NewOrder from "./pages/NewOrder";
 import Products from "./pages/Products";
@@ -14,17 +14,19 @@ import Users from "./pages/Users";
 import Expenses from "./pages/Expenses";
 import Reports from "./pages/Reports";
 import Categories from "./pages/Categories";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { t } = useTranslation();
   return (
     <LanguageProvider>
       <ThemeProvider>
         <AuthProvider>          
           <BrowserRouter> 
           <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">  
-            <Nabvar/>
+            <Navbar/>
             {/* Main Content */}
-            <main className="flex-1 flex items-center justify-center">
+            <main className="flex-1 w-full">
               <Routes>
                 <Route path="/" element={<Navigate to = "/dashboard" replace/>}/>
                 <Route path="/login" element={<Login />} />
@@ -37,7 +39,21 @@ function App() {
                 <Route path="/users" element={<AdminRoute><Users /></AdminRoute>} />
                 <Route path="/reports" element={<AdminRoute><Reports /></AdminRoute>} />
               </Routes>  
+              
             </main>
+            <footer className="border-t border-gray-200 dark:border-gray-700 py-4 text-center text-xs text-gray-500 dark:text-gray-400">
+              <p>
+                {t('common.createdBy')}{" "}
+                <a
+                  href="https://noemi-delgadillo-roldan-portfolio.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  Noemi Delgadillo Roldan
+                </a>
+              </p>
+            </footer>
           </div>
           </BrowserRouter>          
         </AuthProvider>

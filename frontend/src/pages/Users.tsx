@@ -114,8 +114,10 @@ function Users(){
     };
 
     if (loading) return (
-        <div className="w-full max-w-6xl p-8">
-            <SkeletonTable />
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-center">
+            <div className="w-full">
+                <SkeletonTable />
+            </div>
         </div>
     );
     if (error) return (

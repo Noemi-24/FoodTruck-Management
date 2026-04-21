@@ -77,7 +77,8 @@
     "common": {
         "yes": "Yes",
         "no": "No",
-        "optional": "optional"
+        "optional": "optional",
+        "createdBy": "Created by"
     },
      "orders":{
         "title": "Orders",

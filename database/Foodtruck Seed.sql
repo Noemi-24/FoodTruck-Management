@@ -6,13 +6,12 @@
 USE FoodTruckDB;
 
 -- ============================================
--- USERS (Admin and Employees)
+-- USERS (Admin and Employee)
 -- ============================================
 -- Password for all accounts: "password123" 
 -- (In production, these would be properly hashed with BCrypt)
 INSERT INTO Users (Name, Email, Password, Phone, Role) VALUES
 ('John Smith', 'john.smith@foodtruck.com', '$2a$10$iGKnWve1ETbBVYWHjebIoeM9o6W/O7V9YVJixLCBBF1NWdZLGzBpq', '614-555-0100', 'ADMIN'),
-('John Doe', 'john.doe@foodtruck.com', '$2a$10$iGKnWve1ETbBVYWHjebIoeM9o6W/O7V9YVJixLCBBF1NWdZLGzBpq', '614-555-0101', 'EMPLOYEE'),
 ('Jane Doe', 'jane.doe@foodtruck.com', '$2a$10$iGKnWve1ETbBVYWHjebIoeM9o6W/O7V9YVJixLCBBF1NWdZLGzBpq', '614-555-0102', 'EMPLOYEE');
 
 -- ============================================
@@ -43,8 +42,8 @@ INSERT INTO Products (CategoryID, Name, Description, Price, ImageUrl, Available,
 -- Beverages
 (3, 'Fresh Juice', 'House-made fresh juice', 3.50, '/fresh-juice.jpg', TRUE, FALSE),
 (3, 'Specialty Drink', 'Traditional specialty beverage', 3.50, '/specialty-drink.jpg', TRUE, FALSE),
-(3, 'Bottled Soda', 'Assorted sodas (Coke, Sprite, Fanta)', 2.00, '/bottled-soda.png', TRUE, FALSE),
-(3, 'Bottled Water', 'Premium bottled water', 1.50, '/bottled-water.jpg', TRUE, FALSE),
+(3, 'Bottled Soda', 'Assorted sodas (Coke, Sprite, Fanta)', 2.00, '/bottled-soda.jpg', TRUE, FALSE),
+(3, 'Bottled Water', 'Premium bottled water', 1.50, '/bottled-water.png', TRUE, FALSE),
 
 -- Desserts
 (4, 'Sweet Treat', 'Classic sweet treat with cinnamon sugar', 4.50, '/sweet-treat.jpg', TRUE, FALSE),
@@ -52,7 +51,7 @@ INSERT INTO Products (CategoryID, Name, Description, Price, ImageUrl, Available,
 
 -- Sides
 (5, 'Premium Side', 'Extra portion of premium topping', 2.50, '/premium-side.jpg', TRUE, FALSE),
-(5, 'Chips & Dip', 'House-made chips with signature dip', 3.99, '/chips-dip.jpg', TRUE, FALSE),
+(5, 'Chips & Dip', 'House-made chips with signature dip', 3.99, '/chip-dip.jpg', TRUE, FALSE),
 (5, 'Extra Sauce', 'Additional sauce portion', 1.50, '/extra-sauce.jpg', TRUE, FALSE);
 
 -- ============================================
@@ -61,7 +60,7 @@ INSERT INTO Products (CategoryID, Name, Description, Price, ImageUrl, Available,
 INSERT INTO Orders (ProcessedByUserID, CustomerName, CustomerPhone, CustomerEmail, Total, Status, PaymentMethod, Notes) VALUES
 (1, 'Alice Johnson', '614-555-1234', 'alice.j@email.com', 42.46, 'DELIVERED', 'STRIPE', 'Extra sauce on the side'),
 (2, 'Bob Martinez', '614-555-5678', 'bob.m@email.com', 21.98, 'READY', 'CASH', NULL),
-(3, 'Carol White', '614-555-9012', 'carol.w@email.com', 13.99, 'IN_PREPARATION', 'STRIPE', 'No onions please'),
+(2, 'Carol White', '614-555-9012', 'carol.w@email.com', 13.99, 'IN_PREPARATION', 'STRIPE', 'No onions please'),
 (1, 'David Chen', '614-555-3456', NULL, 8.99, 'PENDING', 'CASH', NULL);
 
 -- ============================================

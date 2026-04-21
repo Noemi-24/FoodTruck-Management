@@ -77,7 +77,8 @@
     "common": {
         "yes": "Sí",
         "no": "No",
-        "opcional": "opcional"
+        "opcional": "opcional",
+        "createdBy": "Creado por"
     },
     "orders":{
         "title": "Órdenes",

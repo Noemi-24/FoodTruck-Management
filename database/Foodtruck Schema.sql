@@ -122,6 +122,9 @@ CREATE INDEX idx_expenses_category ON Expenses(Category);
 -- ============================================
 -- VIEWS for common queries
 -- ============================================
+DROP VIEW IF EXISTS daily_sales;
+DROP VIEW IF EXISTS popular_items;
+DROP VIEW IF EXISTS monthly_expenses;
 
 -- Daily sales summary
 CREATE VIEW daily_sales AS
